@@ -11,7 +11,9 @@ const Login: React.FC<LoginProps> = () => {
     <div className="bg-green-100 w-full h-screen">
       Logo goes here
       <Card className="shadow-md rounded-lg p-7 mt-5 mx-auto w-1/3">
-        <H1 className="!text-center">Login</H1>
+        <span className="text-center">
+          <H1>Login</H1>
+        </span>
         <Formik
           initialValues={{ username: "", password: "" }}
           onSubmit={() => {}}
