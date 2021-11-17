@@ -3,9 +3,6 @@ import ExclamationCircleIcon from "src/assets/icons/ExclamationCircleIcon";
 interface InputProps {
   htmlFor: string;
   label: string;
-  //   id: string;
-  //   name: string;
-  //   placeholder: string;
   className?: string;
   inputType: any;
   error?: string;
@@ -13,9 +10,6 @@ interface InputProps {
 }
 
 const InputField: React.FC<InputProps> = ({
-  //   id,
-  //   name,
-  //   placeholder,
   htmlFor,
   label,
   className,
@@ -36,9 +30,6 @@ const InputField: React.FC<InputProps> = ({
         }`}
         type={inputType}
         {...field}
-        // id={id}
-        // name={name}
-        // placeholder={placeholder}
       />
       {error ? (
         <span className="flex items-center text-xs text-red-500 font-medium mt-1">
