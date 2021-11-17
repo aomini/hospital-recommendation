@@ -1,4 +1,4 @@
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 
 import H1 from "../Heading/H1";
@@ -12,6 +12,7 @@ interface FormValues {
   username: string;
   password: string;
 }
+const initialValues: FormValues = { username: "", password: "" };
 
 const Login: React.FC<LoginProps> = () => {
   const LoginSchema = Yup.object().shape({
@@ -20,7 +21,6 @@ const Login: React.FC<LoginProps> = () => {
       .required("Please Enter your password")
       .min(8, "Password must be at least 8 characters long")
       .max(32)
-      .required()
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         "Must have one Uppercase, one Lowercase, one Number and one special Character"
@@ -34,7 +34,7 @@ const Login: React.FC<LoginProps> = () => {
           <H1>Login</H1>
         </span>
         <Formik
-          initialValues={{ username: "", password: "" }}
+          initialValues={initialValues}
           validationSchema={LoginSchema}
           onSubmit={(values) => {
             console.log(`Submitted, ${values} !`);
@@ -52,7 +52,6 @@ const Login: React.FC<LoginProps> = () => {
                 inputType="text"
                 error={touched.username && errors.username}
               />
-              {/* <ErrorMessage name="username" /> */}
               <br />
               <br />
               <Field
@@ -65,7 +64,6 @@ const Login: React.FC<LoginProps> = () => {
                 inputType="password"
                 error={errors.password}
               />
-              {/* <ErrorMessage name="password" /> */}
 
               <SuccessButton
                 type="submit"
