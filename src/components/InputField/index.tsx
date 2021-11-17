@@ -9,6 +9,7 @@ interface InputProps {
   className?: string;
   inputType: any;
   error?: string;
+  field: any;
 }
 
 const InputField: React.FC<InputProps> = ({
@@ -20,7 +21,9 @@ const InputField: React.FC<InputProps> = ({
   className,
   inputType,
   error,
+  field,
 }) => {
+  console.log("Field", field);
   return (
     <>
       <label htmlFor={htmlFor} className="font-medium">
@@ -32,6 +35,7 @@ const InputField: React.FC<InputProps> = ({
           error ? "border-2 border-red-500" : ""
         }`}
         type={inputType}
+        {...field}
         // id={id}
         // name={name}
         // placeholder={placeholder}

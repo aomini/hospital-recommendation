@@ -1,4 +1,4 @@
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import H1 from "../Heading/H1";
@@ -8,25 +8,24 @@ import { SuccessButton } from "../Button";
 
 interface LoginProps {}
 
-const LoginSchema = Yup.object().shape({
-  // firstName: Yup.string()
-  //   .min(2, "Too Short!")
-  //   .max(50, "Too Long!")
-  //   .required("Required"),
-  // lastName: Yup.string()
-  //   .min(2, "Too Short!")
-  //   .max(50, "Too Long!")
-  //   .required("Required"),
-  username: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string()
-    .required("Please Enter your password")
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-    ),
-});
+interface FormValues {
+  username: string;
+  password: string;
+}
 
 const Login: React.FC<LoginProps> = () => {
+  const LoginSchema = Yup.object().shape({
+    username: Yup.string().email("Invalid email").required("Required"),
+    password: Yup.string()
+      .required("Please Enter your password")
+      .min(8, "Password must be at least 8 characters long")
+      .max(32)
+      .required()
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        "Must have one Uppercase, one Lowercase, one Number and one special Character"
+      ),
+  });
   return (
     <div className="bg-green-100 w-full h-screen">
       Logo goes here
@@ -44,18 +43,20 @@ const Login: React.FC<LoginProps> = () => {
           {({ errors, touched }) => (
             <Form className="mt-7">
               <Field
-                as={InputField}
+                component={InputField}
                 htmlFor="username"
                 label="Username"
                 id="username"
                 name="username"
                 placeholder="Enter username"
                 inputType="text"
-                error={errors.username}
+                error={touched.username && errors.username}
               />
+              {/* <ErrorMessage name="username" /> */}
+              <br />
               <br />
               <Field
-                as={InputField}
+                component={InputField}
                 htmlFor="password"
                 label="Password"
                 id="password"
@@ -64,10 +65,12 @@ const Login: React.FC<LoginProps> = () => {
                 inputType="password"
                 error={errors.password}
               />
+              {/* <ErrorMessage name="password" /> */}
+
               <SuccessButton
                 type="submit"
-                onClick={() => console.log("Button clicked!")}
-                className="uppercase tracking-wider font-medium mt-4 w-full rounded-sm py-4"
+                // onClick={() => console.log("Button clicked!")}
+                className="uppercase tracking-wider font-medium mt-4 py-4 w-full rounded-md"
               >
                 Submit
               </SuccessButton>
