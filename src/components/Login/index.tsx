@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import H1 from "../Heading/H1";
 import Card from "../Card";
 import InputField from "../InputField";
-import { SuccessButton } from "../Button";
+import { PrimaryButton } from "../Button";
 
 interface LoginProps {}
 
@@ -27,7 +27,7 @@ const Login: React.FC<LoginProps> = () => {
       ),
   });
   return (
-    <div className="bg-green-50 py-6 w-full h-screen">
+    <div className="bg-red-50 py-6 w-full h-screen">
       <Card className="shadow-md rounded-lg p-7 mt-10 mx-auto w-1/3">
         <span className="text-center">
           <H1>Login</H1>
@@ -64,13 +64,13 @@ const Login: React.FC<LoginProps> = () => {
                 error={errors.password}
               />
 
-              <SuccessButton
+              <PrimaryButton
                 type="submit"
                 // onClick={() => console.log("Button clicked!")}
-                className="uppercase tracking-wider font-medium mt-4 py-4 w-full rounded-md"
+                className="uppercase tracking-wider font-medium border border-red-400 hover:bg-red-100 mt-4 py-4 w-full rounded-md"
               >
                 Submit
-              </SuccessButton>
+              </PrimaryButton>
             </Form>
           )}
         </Formik>
