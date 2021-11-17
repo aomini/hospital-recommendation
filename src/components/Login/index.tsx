@@ -27,9 +27,8 @@ const Login: React.FC<LoginProps> = () => {
       ),
   });
   return (
-    <div className="bg-green-100 w-full h-screen">
-      Logo goes here
-      <Card className="shadow-md rounded-lg p-7 mt-5 mx-auto w-1/3">
+    <div className="bg-green-50 py-6 w-full h-screen">
+      <Card className="shadow-md rounded-lg p-7 mt-10 mx-auto w-1/3">
         <span className="text-center">
           <H1>Login</H1>
         </span>

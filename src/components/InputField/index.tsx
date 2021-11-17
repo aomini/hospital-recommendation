@@ -17,7 +17,6 @@ const InputField: React.FC<InputProps> = ({
   error,
   field,
 }) => {
-  console.log("Field", field);
   return (
     <>
       <label htmlFor={htmlFor} className="font-medium">
