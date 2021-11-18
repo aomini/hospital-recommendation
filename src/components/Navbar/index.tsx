@@ -1,15 +1,32 @@
+import HomeIcon from "src/assets/icons/HomeIcon";
 import UserAddIcon from "src/assets/icons/UserAddIcon";
-import { PrimaryButton } from "../Button";
+import UsersIcon from "src/assets/icons/UsersIcon";
+import { PrimaryButton, IconButton } from "../Button";
+import { BodyText, Subtitle } from "../Typography";
 
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = () => {
   return (
-    <div className="flex items-center justify-between bg-red-600 shadow-sm h-20 w-full text-white p-3">
-      <PrimaryButton className="flex items-center">
+    <div className="flex items-center justify-between shadow-sm h-20 w-full p-3">
+      <section className="grid grid-cols-2 gap-6">
+        <IconButton className="text-purple">
+          <UsersIcon />
+          Users
+        </IconButton>
+
+        <IconButton className="text-gray-900">
+          <HomeIcon /> Hospitals
+        </IconButton>
+      </section>
+      <section className="flex-col justify-center">
+        <BodyText className="text-gold">User</BodyText>
+        <Subtitle className="text-gray-600">user@gmail.com</Subtitle>
+      </section>
+      {/* <PrimaryButton className="flex items-center">
         Create User <UserAddIcon className="ml-1" />
       </PrimaryButton>
-      <PrimaryButton>Log Out</PrimaryButton>
+      <PrimaryButton>Log Out</PrimaryButton> */}
     </div>
   );
 };

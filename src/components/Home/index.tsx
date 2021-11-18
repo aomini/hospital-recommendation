@@ -1,15 +1,15 @@
 import React from "react";
 import AuthLayout from "src/layout/AuthLayout";
 
-import H1 from "../Heading/H1";
+import { H1 } from "../Typography";
 
 const Home = () => {
   return (
-    <div>
-      <AuthLayout>
+    <AuthLayout>
+      {/* <div className="dark:bg-lighter bg-gray-50">
         <H1>Welcome, User!</H1>
-      </AuthLayout>
-    </div>
+      </div> */}
+    </AuthLayout>
   );
 };
 

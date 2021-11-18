@@ -1,7 +1,7 @@
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 
-import H1 from "../Heading/H1";
+import {H1} from "../Typography";
 import Card from "../Card";
 import InputField from "../InputField";
 import { PrimaryButton } from "../Button";

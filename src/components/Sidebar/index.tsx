@@ -1,17 +1,17 @@
 interface SidebarProps {}
 
-const menuList = [
-  {
-    name: "Staff Details",
-    href: "/staff-details",
-    subMenu: [
-      { name: "Doctors", href: "/doctors" },
-      { name: "Nurses", href: "/nurses" },
-      { name: "Assistants", href: "/assistants" },
-    ],
-  },
+// const menuList = [
+//   {
+//     name: "Staff Details",
+//     href: "/staff-details",
+//     subMenu: [
+//       { name: "Doctors", href: "/doctors" },
+//       { name: "Nurses", href: "/nurses" },
+//       { name: "Assistants", href: "/assistants" },
+//     ],
+//   },
 
-];
+// ];
 
 const Sidebar: React.FC<SidebarProps> = () => {
   return (
