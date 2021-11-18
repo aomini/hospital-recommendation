@@ -16,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = () => {
     <div className="sticky top-0 bg-white shadow-sm h-20 w-full p-3">
       <div className="flex items-center justify-between container mx-auto">
         <section className="grid grid-cols-3 gap-6 items-center">
-          <Link to="/" className="font-medium">
+          <Link to="/" className="font-medium hover:text-purple">
             Home
           </Link>
           <IconButton className="text-purple hover:bg-purple hover:text-gray-50">
