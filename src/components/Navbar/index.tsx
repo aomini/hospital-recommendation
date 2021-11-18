@@ -1,11 +1,17 @@
+import { useState } from "react";
+
 import HomeIcon from "src/assets/icons/HomeIcon";
 import UsersIcon from "src/assets/icons/UsersIcon";
-import { IconButton } from "../Button";
+import { IconButton, PrimaryButton } from "../Button";
 import { BodyText, Subtitle } from "../Typography";
 
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const handleOpen = () => {
+    setMenuOpen(!menuOpen);
+  };
   return (
     <div className="shadow-sm h-20 w-full p-3">
       <div className="flex items-center justify-between container mx-auto">
@@ -19,11 +25,20 @@ const Navbar: React.FC<NavbarProps> = () => {
             <HomeIcon className="mx-auto" /> Hospitals
           </IconButton>
         </section>
-        <section></section>
-        <section className="flex-col justify-center">
-          <BodyText className="text-gold">User</BodyText>
-          <Subtitle className="text-gray-600">user@gmail.com</Subtitle>
-        </section>
+        <button onClick={handleOpen} className="relative flex items-center">
+          <div className="rounded-full bg-gold h-7 w-7 mr-2"></div>
+          <span className="flex-col justify-start">
+            <BodyText className="text-gold text-left">User</BodyText>
+            <Subtitle className="text-gray-600">user@gmail.com</Subtitle>
+          </span>
+          {menuOpen ? (
+            <section className="absolute top-12 bg-gray-50 shadow-md h-32 w-32">
+              <button>Log Out</button>
+            </section>
+          ) : (
+            ""
+          )}
+        </button>
       </div>
     </div>
   );
