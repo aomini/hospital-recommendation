@@ -1,7 +1,6 @@
 import HomeIcon from "src/assets/icons/HomeIcon";
-import UserAddIcon from "src/assets/icons/UserAddIcon";
 import UsersIcon from "src/assets/icons/UsersIcon";
-import { PrimaryButton, IconButton } from "../Button";
+import { IconButton } from "../Button";
 import { BodyText, Subtitle } from "../Typography";
 
 interface NavbarProps {}
@@ -24,10 +23,6 @@ const Navbar: React.FC<NavbarProps> = () => {
         <BodyText className="text-gold">User</BodyText>
         <Subtitle className="text-gray-600">user@gmail.com</Subtitle>
       </section>
-      {/* <PrimaryButton className="flex items-center">
-        Create User <UserAddIcon className="ml-1" />
-      </PrimaryButton>
-      <PrimaryButton>Log Out</PrimaryButton> */}
     </div>
   );
 };

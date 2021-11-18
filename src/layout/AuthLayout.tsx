@@ -1,5 +1,4 @@
 import Navbar from "src/components/Navbar";
-import Sidebar from "src/components/Sidebar";
 
 interface LayoutProps {
   children: any;
