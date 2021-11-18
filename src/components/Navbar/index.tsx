@@ -11,12 +11,12 @@ const Navbar: React.FC<NavbarProps> = () => {
     <div className="flex items-center justify-between shadow-sm h-20 w-full p-3">
       <section className="grid grid-cols-2 gap-6">
         <IconButton className="text-purple hover:bg-purple hover:text-gray-50">
-          <UsersIcon />
+          <UsersIcon className="mx-auto" />
           Users
         </IconButton>
 
         <IconButton className="text-gray-800 hover:bg-gray-800 hover:text-gray-50">
-          <HomeIcon /> Hospitals
+          <HomeIcon className="mx-auto" /> Hospitals
         </IconButton>
       </section>
       <section></section>
