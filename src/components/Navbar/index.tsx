@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
+
 import HomeIcon from "src/assets/icons/HomeIcon";
 import UsersIcon from "src/assets/icons/UsersIcon";
 import { IconButton } from "../Button";
@@ -7,26 +8,42 @@ import { BodyText, Subtitle } from "../Typography";
 
 interface NavbarProps {}
 
+const navItems = [
+  { name: "Hospitals", href: "/" },
+  { name: "Users", href: "/create-user" },
+];
+
 const Navbar: React.FC<NavbarProps> = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const handleOpen = () => {
     setMenuOpen(!menuOpen);
   };
+
+  const location = useLocation();
+  console.log(location);
+  const history = useHistory();
   return (
-    <div className="sticky top-0 bg-white shadow-sm h-20 w-full p-3">
+    <div className="sticky top-0 bg-white shadow-sm min-h-20 w-full px-3 z-50">
       <div className="flex items-center justify-between container mx-auto">
         <section className="grid grid-cols-3 gap-6 items-center">
-          <Link to="/" className="font-medium hover:text-purple">
-            Home
-          </Link>
-          <IconButton className="text-purple hover:bg-purple hover:text-gray-50">
-            <UsersIcon className="mx-auto" />
-            Users
-          </IconButton>
-
-          <IconButton className="text-gray-800 hover:bg-gray-800 hover:text-gray-50">
-            <HomeIcon className="mx-auto" /> Hospitals
-          </IconButton>
+          {navItems.map(({ name, href }) => (
+            <IconButton
+              onClick={() => history.push(href)}
+              className={`hover:bg-purple hover:text-gray-50 font-medium ${
+                location.pathname === href
+                  ? "text-purple border-b-4 border-purple"
+                  : "text-gray-900"
+              }`}
+              key={href}
+            >
+              {name === "Users" ? (
+                <UsersIcon className="mx-auto" />
+              ) : (
+                <HomeIcon className="mx-auto" />
+              )}
+              {name}
+            </IconButton>
+          ))}
         </section>
 
         <button onClick={handleOpen} className="relative flex items-center">
