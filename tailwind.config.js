@@ -9,6 +9,9 @@ module.exports = {
         dark: "#2A0944",
         lighter: "#3B185F",
       },
+      backgroundImage: {
+        map: "url('./images/ktm-map.png')",
+      },
     },
   },
   variants: {

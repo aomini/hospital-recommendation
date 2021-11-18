@@ -8,7 +8,7 @@ const AuthLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div>
       <Navbar />
-      <section className="p-2">{children}</section>
+      <section className="container mx-auto p-2">{children}</section>
     </div>
   );
 };

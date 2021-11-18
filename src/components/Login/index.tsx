@@ -1,7 +1,7 @@
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 
-import {H1} from "../Typography";
+import { H1 } from "../Typography";
 import Card from "../Card";
 import InputField from "../InputField";
 import { PrimaryButton } from "../Button";
@@ -27,9 +27,9 @@ const Login: React.FC<LoginProps> = () => {
       ),
   });
   return (
-    <div className="bg-red-50 py-6 w-full h-screen">
-      <Card className="shadow-md rounded-lg p-7 mt-10 mx-auto w-1/3">
-        <span className="text-center">
+    <div className="bg-map bg-center py-6 w-full h-screen">
+      <Card className="shadow-md rounded-lg p-8 mt-16 mx-auto w-1/3">
+        <span className="text-center text-purple">
           <H1>Login</H1>
         </span>
         <Formik
@@ -63,14 +63,15 @@ const Login: React.FC<LoginProps> = () => {
                 inputType="password"
                 error={errors.password}
               />
-
-              <PrimaryButton
-                type="submit"
-                // onClick={() => console.log("Button clicked!")}
-                className="uppercase tracking-wider font-medium border border-red-400 hover:bg-red-100 mt-4 py-4 w-full rounded-md"
-              >
-                Submit
-              </PrimaryButton>
+              <section className="text-center">
+                <PrimaryButton
+                  type="submit"
+                  // onClick={() => console.log("Button clicked!")}
+                  className="uppercase tracking-wider font-medium border bg-gold hover:bg-yellow-500 mt-4 mx-auto py-4 w-1/2 rounded-md"
+                >
+                  Login
+                </PrimaryButton>
+              </section>
             </Form>
           )}
         </Formik>
