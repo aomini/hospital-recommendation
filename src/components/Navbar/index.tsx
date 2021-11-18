@@ -32,7 +32,7 @@ const Navbar: React.FC<NavbarProps> = () => {
               className={`hover:bg-purple hover:text-gray-50 font-medium ${
                 location.pathname === href
                   ? "text-purple border-b-4 border-purple"
-                  : "text-gray-900"
+                  : "text-gray-700"
               }`}
               key={href}
             >

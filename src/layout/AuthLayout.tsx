@@ -6,7 +6,7 @@ interface LayoutProps {
 
 const AuthLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-200 h-screen">
       <Navbar />
       <section className="container mx-auto p-2">{children}</section>
     </div>

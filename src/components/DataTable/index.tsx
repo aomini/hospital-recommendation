@@ -9,7 +9,7 @@ const datatableStyles = {
   headRow: {
     style: {
       border: "none",
-      backgroundColor: "white",
+      backgroundColor: "#FDF2F8",
       minHeight: "45px",
       fontSize: "14px",
     },
@@ -19,7 +19,7 @@ const datatableStyles = {
       fontSize: "16px",
       fontWeight: 500,
       textTransform: "uppercase",
-      color: "#8397A0",
+      color: "#1F2937",
     },
   },
   rows: {

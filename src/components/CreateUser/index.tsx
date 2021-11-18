@@ -35,10 +35,8 @@ const CreateUser = () => {
   });
   return (
     <AuthLayout>
-      <div className="bg-gray-50 text-purple p-5 rounded-sm h-screen">
-        <span className="text-center">
-          <H1>Enter User Details</H1>
-        </span>
+      <div className="bg-gray-50 text-purple p-7 mx-auto mt-5 w-1/2 rounded-md shadow-sm">
+        <H1>Enter User Details</H1>
         <Formik
           initialValues={initialValues}
           validationSchema={createUserSchema}
@@ -47,7 +45,7 @@ const CreateUser = () => {
           }}
         >
           {({ errors, touched }) => (
-            <Form className="mt-7 px-10">
+            <Form className="mt-7">
               <section className="grid grid-cols-2 gap-5">
                 <Field
                   component={InputField}
@@ -71,17 +69,6 @@ const CreateUser = () => {
                   error={touched.lastName && errors.lastName}
                   className="w-full"
                 />
-                {/* <Field
-                  component={InputField}
-                  htmlFor="lastName"
-                  label="Last Name"
-                  id="lastName"
-                  name="lastName"
-                  placeholder="Enter Last Name"
-                  inputType="text"
-                  error={touched.lastName && errors.lastName}
-                  className="w-full"
-                /> */}
               </section>
               <br />
               <section className="grid grid-cols-2 gap-5">
@@ -108,11 +95,11 @@ const CreateUser = () => {
                   className="w-full"
                 />
               </section>
-              <section className="text-center mt-5">
+              <section className="text-right mt-5">
                 <PrimaryButton
                   type="submit"
                   // onClick={() => console.log("Button clicked!")}
-                  className="uppercase tracking-wider font-medium border border-purple bg-pink-100 hover:bg-pink-200 mt-4 mx-auto py-4 w-1/6 rounded-md"
+                  className="uppercase tracking-wider font-medium border border-purple bg-pink-100 hover:bg-pink-200 mt-4 mx-auto py-4 w-1/4 rounded-md"
                 >
                   Submit
                 </PrimaryButton>
