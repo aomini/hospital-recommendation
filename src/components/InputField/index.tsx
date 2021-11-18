@@ -3,6 +3,7 @@ import ExclamationCircleIcon from "src/assets/icons/ExclamationCircleIcon";
 interface InputProps {
   htmlFor: string;
   label: string;
+  placeholder: string;
   className?: string;
   inputType: any;
   error?: string;
@@ -14,20 +15,22 @@ const InputField: React.FC<InputProps> = ({
   label,
   className,
   inputType,
+  placeholder,
   error,
   field,
 }) => {
   return (
-    <>
+    <section>
       <label htmlFor={htmlFor} className="font-medium">
         {label}
       </label>
       <br />
       <input
-        className={`${className} p-3 border border-gray-400 w-full rounded-md ${
+        className={`${className} p-3 border border-gray-400 rounded-md ${
           error ? "border-2 border-red-500" : ""
         }`}
         type={inputType}
+        placeholder={placeholder}
         {...field}
       />
       {error ? (
@@ -38,7 +41,7 @@ const InputField: React.FC<InputProps> = ({
       ) : (
         ""
       )}
-    </>
+    </section>
   );
 };
 

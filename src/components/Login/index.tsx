@@ -50,8 +50,8 @@ const Login: React.FC<LoginProps> = () => {
                 placeholder="Enter username"
                 inputType="text"
                 error={touched.username && errors.username}
+                className="w-full"
               />
-              <br />
               <br />
               <Field
                 component={InputField}
@@ -62,6 +62,7 @@ const Login: React.FC<LoginProps> = () => {
                 placeholder="Enter password"
                 inputType="password"
                 error={errors.password}
+                className="w-full"
               />
               <section className="text-center">
                 <PrimaryButton
