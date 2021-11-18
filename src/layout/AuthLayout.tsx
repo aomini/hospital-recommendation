@@ -9,10 +9,7 @@ const AuthLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div>
       <Navbar />
-      {/* <section className="grid grid-cols-6">
-        <Sidebar />
-        <section className="col-span-5 p-2">{children}</section>
-      </section> */}
+      <section className="p-2">{children}</section>
     </div>
   );
 };
