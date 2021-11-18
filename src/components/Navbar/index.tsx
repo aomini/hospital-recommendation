@@ -1,8 +1,8 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 import HomeIcon from "src/assets/icons/HomeIcon";
 import UsersIcon from "src/assets/icons/UsersIcon";
-import { IconButton, PrimaryButton } from "../Button";
+import { IconButton } from "../Button";
 import { BodyText, Subtitle } from "../Typography";
 
 interface NavbarProps {}
@@ -13,9 +13,12 @@ const Navbar: React.FC<NavbarProps> = () => {
     setMenuOpen(!menuOpen);
   };
   return (
-    <div className="shadow-sm h-20 w-full p-3">
+    <div className="sticky top-0 bg-white shadow-sm h-20 w-full p-3">
       <div className="flex items-center justify-between container mx-auto">
-        <section className="grid grid-cols-2 gap-6">
+        <section className="grid grid-cols-3 gap-6 items-center">
+          <Link to="/" className="font-medium">
+            Home
+          </Link>
           <IconButton className="text-purple hover:bg-purple hover:text-gray-50">
             <UsersIcon className="mx-auto" />
             Users
@@ -25,6 +28,7 @@ const Navbar: React.FC<NavbarProps> = () => {
             <HomeIcon className="mx-auto" /> Hospitals
           </IconButton>
         </section>
+
         <button onClick={handleOpen} className="relative flex items-center">
           <div className="rounded-full bg-gold h-7 w-7 mr-2"></div>
           <span className="flex-col justify-start">

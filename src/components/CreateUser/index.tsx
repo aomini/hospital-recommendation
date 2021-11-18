@@ -35,7 +35,7 @@ const CreateUser = () => {
   });
   return (
     <AuthLayout>
-      <div className="bg-gray-50 text-purple p-5 rounded-sm">
+      <div className="bg-gray-50 text-purple p-5 rounded-sm h-screen">
         <span className="text-center">
           <H1>Enter User Details</H1>
         </span>

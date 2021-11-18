@@ -70,7 +70,7 @@ const Login: React.FC<LoginProps> = () => {
                   // onClick={() => console.log("Button clicked!")}
                   className="uppercase tracking-wider font-medium border bg-gold hover:bg-yellow-500 mt-4 mx-auto py-4 w-1/2 rounded-md"
                 >
-                  Login
+                  SUBMIT
                 </PrimaryButton>
               </section>
             </Form>
