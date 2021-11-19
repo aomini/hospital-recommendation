@@ -6,7 +6,7 @@ import AuthLayout from "src/layout/AuthLayout";
 import { PrimaryButton } from "../Button";
 import DataTable from "../DataTable";
 
-import { BodyText, H1 } from "../Typography";
+import { H1 } from "../Typography";
 const columns = [
   {
     name: "ID",

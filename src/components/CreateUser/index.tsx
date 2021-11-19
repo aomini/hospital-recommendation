@@ -41,7 +41,7 @@ const CreateUser = () => {
           initialValues={initialValues}
           validationSchema={createUserSchema}
           onSubmit={(values) => {
-            console.log(`Submitted, ${values} !`);
+            console.log(`Submitted, ${values}!`);
           }}
         >
           {({ errors, touched }) => (

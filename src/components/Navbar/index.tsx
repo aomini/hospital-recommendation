@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 import HomeIcon from "src/assets/icons/HomeIcon";
 import SettingsIcon from "src/assets/icons/SettingsIcon";

@@ -1,6 +1,8 @@
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
+import {useHistory} from "react-router-dom"
 
+import axios from "src/utils/axios"
 import { H1 } from "../Typography";
 import Card from "../Card";
 import InputField from "../InputField";
@@ -16,7 +18,7 @@ const initialValues: FormValues = { username: "", password: "" };
 
 const Login: React.FC<LoginProps> = () => {
   const LoginSchema = Yup.object().shape({
-    username: Yup.string().email("Invalid email").required("Required"),
+    username: Yup.string().required("Required"),
     password: Yup.string()
       .required("Please Enter your password")
       .min(8, "Password must be at least 8 characters long")
@@ -26,6 +28,24 @@ const Login: React.FC<LoginProps> = () => {
         "Must have one Uppercase, one Lowercase, one Number and one special Character"
       ),
   });
+
+const history = useHistory()
+
+  const handleSubmit = async (values) => {
+    try{
+      const resp = await axios.post('/user/login', values)
+      console.log(resp.data)
+      localStorage.setItem("tok", resp.data)
+    }catch(err: any){
+      const {status, data} = err.response
+      if(status === 400){
+        console.log(status, data)
+      }else{
+        // taostr something went wrong
+      }
+    }
+  }
+
   return (
     <div className="bg-map bg-center py-6 w-full h-screen">
       <Card className="shadow-md rounded-lg p-8 mt-16 mx-auto w-1/3">
@@ -36,7 +56,7 @@ const Login: React.FC<LoginProps> = () => {
           initialValues={initialValues}
           validationSchema={LoginSchema}
           onSubmit={(values) => {
-            console.log(`Submitted, ${values} !`);
+            handleSubmit(values)
           }}
         >
           {({ errors, touched }) => (
@@ -67,7 +87,7 @@ const Login: React.FC<LoginProps> = () => {
               <section className="text-center">
                 <PrimaryButton
                   type="submit"
-                  // onClick={() => console.log("Button clicked!")}
+                  // onClick={}
                   className="uppercase tracking-wider font-medium border bg-gold hover:bg-yellow-500 mt-4 mx-auto py-4 w-1/2 rounded-md"
                 >
                   SUBMIT
@@ -81,4 +101,4 @@ const Login: React.FC<LoginProps> = () => {
   );
 };
 
-export default Login;
+export default Login
