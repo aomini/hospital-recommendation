@@ -1,6 +1,10 @@
+import React from "react"
+
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import {useHistory} from "react-router-dom"
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 import axios from "src/utils/axios"
 import { H1 } from "../Typography";
@@ -30,18 +34,25 @@ const Login: React.FC<LoginProps> = () => {
   });
 
 const history = useHistory()
+const notify = (message) => toast.warning(message);
+
+React.useEffect(
+() => {
+axios.get("/user")
+}, [] )
 
   const handleSubmit = async (values) => {
     try{
       const resp = await axios.post('/user/login', values)
       console.log(resp.data)
       localStorage.setItem("tok", resp.data)
+      history.push("/")
     }catch(err: any){
       const {status, data} = err.response
       if(status === 400){
-        console.log(status, data)
+        notify(data)
       }else{
-        // taostr something went wrong
+        notify("Couldn't login! Something went wrong")
       }
     }
   }
@@ -61,6 +72,7 @@ const history = useHistory()
         >
           {({ errors, touched }) => (
             <Form className="mt-7">
+              <ToastContainer />
               <Field
                 component={InputField}
                 htmlFor="username"
@@ -87,7 +99,7 @@ const history = useHistory()
               <section className="text-center">
                 <PrimaryButton
                   type="submit"
-                  // onClick={}
+                  // onClick={notify}
                   className="uppercase tracking-wider font-medium border bg-gold hover:bg-yellow-500 mt-4 mx-auto py-4 w-1/2 rounded-md"
                 >
                   SUBMIT
