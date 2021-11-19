@@ -10,20 +10,20 @@ interface FormValues {
   firstName: string;
   lastName: string;
   password: string;
-  email: string;
+  // email: string;
 }
 const initialValues: FormValues = {
   firstName: "",
   lastName: "",
   password: "",
-  email: "",
+  // email: "",
 };
 
 const CreateUser = () => {
   const createUserSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
-    email: Yup.string().email("Invalid email").required("Required"),
+    // email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
       .required("Please Enter your password")
       .min(8, "Password must be at least 8 characters long")
