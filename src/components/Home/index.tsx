@@ -6,7 +6,7 @@ import AuthLayout from "src/layout/AuthLayout";
 import { PrimaryButton } from "../Button";
 import DataTable from "../DataTable";
 
-import { BodyText } from "../Typography";
+import { BodyText, H1 } from "../Typography";
 const columns = [
   {
     name: "ID",
@@ -32,18 +32,20 @@ const Home = () => {
   const history = useHistory();
   return (
     <AuthLayout>
-      <div className="bg-gray-200 flex items-center justify-between p-5">
-        <BodyText className="font-medium">Add User</BodyText>
-        <PrimaryButton
-          onClick={() => history.push("/create-user")}
-          className="flex items-center bg-purple hover:bg-pink-600 text-white rounded-sm"
-        >
-          Create a New User
-          <UserAddIcon className="ml-1" />
-        </PrimaryButton>
+      <div className="bg-gray-200 p-5">
+        <H1 className="font-medium">Hospitals</H1>
       </div>
-      <div className="p-5 bg-gray-200 h-screen">
-        <DataTable columns={columns} data={data} title="Hospitals" />
+      <div className="p-5 bg-gray-50 border border-gray-200 rounded-md shadow-sm h-full">
+        <section className="text-right mb-5">
+          <PrimaryButton
+            onClick={() => history.push("/create-user")}
+            className="inline-flex items-center bg-purple hover:bg-pink-600 text-white rounded-sm"
+          >
+            Create a New User
+            <UserAddIcon className="ml-1" />
+          </PrimaryButton>
+        </section>
+        <DataTable columns={columns} data={data} />
       </div>
     </AuthLayout>
   );

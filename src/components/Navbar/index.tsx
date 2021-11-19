@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 
 import HomeIcon from "src/assets/icons/HomeIcon";
+import SettingsIcon from "src/assets/icons/SettingsIcon";
 import UsersIcon from "src/assets/icons/UsersIcon";
 import { IconButton } from "../Button";
 import { BodyText, Subtitle } from "../Typography";
@@ -11,6 +12,7 @@ interface NavbarProps {}
 const navItems = [
   { name: "Hospitals", href: "/" },
   { name: "Users", href: "/create-user" },
+  { name: "Settings", href: "/settings" },
 ];
 
 const Navbar: React.FC<NavbarProps> = () => {
@@ -32,14 +34,16 @@ const Navbar: React.FC<NavbarProps> = () => {
               className={`hover:bg-purple hover:text-gray-50 font-medium ${
                 location.pathname === href
                   ? "text-purple border-b-4 border-purple"
-                  : "text-gray-700"
+                  : "text-gray-600"
               }`}
               key={href}
             >
               {name === "Users" ? (
                 <UsersIcon className="mx-auto" />
-              ) : (
+              ) : name === "Hospitals" ? (
                 <HomeIcon className="mx-auto" />
+              ) : (
+                <SettingsIcon className="mx-auto" />
               )}
               {name}
             </IconButton>

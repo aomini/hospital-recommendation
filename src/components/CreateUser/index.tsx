@@ -72,6 +72,18 @@ const CreateUser = () => {
               </section>
               <br />
               <section className="grid grid-cols-2 gap-5">
+                {/* <Field
+                  component={InputField}
+                  htmlFor="email"
+                  label="Email"
+                  id="email"
+                  name="email"
+                  placeholder="Enter Email"
+                  inputType="email"
+                  error={errors.email}
+                  className="w-full"
+                /> */}
+
                 <Field
                   component={InputField}
                   htmlFor="password"
@@ -83,23 +95,12 @@ const CreateUser = () => {
                   error={errors.password}
                   className="w-full"
                 />
-                <Field
-                  component={InputField}
-                  htmlFor="email"
-                  label="Email"
-                  id="email"
-                  name="email"
-                  placeholder="Enter Email"
-                  inputType="email"
-                  error={errors.email}
-                  className="w-full"
-                />
               </section>
               <section className="text-right mt-5">
                 <PrimaryButton
                   type="submit"
                   // onClick={() => console.log("Button clicked!")}
-                  className="uppercase tracking-wider font-medium border border-purple bg-pink-100 hover:bg-pink-200 mt-4 mx-auto py-4 w-1/4 rounded-md"
+                  className="uppercase tracking-wider font-medium border border-purple bg-pink-100 hover:bg-pink-200 mt-4 mx-auto w-1/4 rounded-md"
                 >
                   Submit
                 </PrimaryButton>
