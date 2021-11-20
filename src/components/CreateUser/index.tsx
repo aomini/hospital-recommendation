@@ -8,13 +8,13 @@ import { H1 } from "../Typography";
 
 interface FormValues {
   firstName: string;
-  lastName: string;
+  userName: string;
   password: string;
   // email: string;
 }
 const initialValues: FormValues = {
   firstName: "",
-  lastName: "",
+  userName: "",
   password: "",
   // email: "",
 };
@@ -22,7 +22,7 @@ const initialValues: FormValues = {
 const CreateUser = () => {
   const createUserSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
-    lastName: Yup.string().required("Required"),
+    userName: Yup.string().required("Required"),
     // email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
       .required("Please Enter your password")
@@ -35,7 +35,7 @@ const CreateUser = () => {
   });
   return (
     <AuthLayout>
-      <div className="bg-gray-50 text-purple p-7 mx-auto mt-5 w-1/2 rounded-md shadow-sm">
+      <div className="bg-gray-50 text-purple p-7 mx-auto mt-5 w-1/3 rounded-md shadow-sm">
         <H1>Enter User Details</H1>
         <Formik
           initialValues={initialValues}
@@ -46,7 +46,7 @@ const CreateUser = () => {
         >
           {({ errors, touched }) => (
             <Form className="mt-7">
-              <section className="grid grid-cols-2 gap-5">
+              {/* <section className="grid grid-cols-2 gap-5"> */}
                 <Field
                   component={InputField}
                   htmlFor="firstName"
@@ -58,20 +58,21 @@ const CreateUser = () => {
                   error={touched.firstName && errors.firstName}
                   className="w-full"
                 />
+                <br />
                 <Field
                   component={InputField}
-                  htmlFor="lastName"
-                  label="Last Name"
-                  id="lastName"
-                  name="lastName"
+                  htmlFor="userName"
+                  label="Username"
+                  id="userName"
+                  name="userName"
                   placeholder="Enter Last Name"
                   inputType="text"
-                  error={touched.lastName && errors.lastName}
+                  error={touched.userName && errors.userName}
                   className="w-full"
                 />
-              </section>
+              {/* </section> */}
               <br />
-              <section className="grid grid-cols-2 gap-5">
+              {/* <section cla> */}
                 {/* <Field
                   component={InputField}
                   htmlFor="email"
@@ -95,7 +96,7 @@ const CreateUser = () => {
                   error={errors.password}
                   className="w-full"
                 />
-              </section>
+              {/* </section> */}
               <section className="text-right mt-5">
                 <PrimaryButton
                   type="submit"
