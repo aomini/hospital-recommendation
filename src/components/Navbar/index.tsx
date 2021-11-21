@@ -11,7 +11,7 @@ interface NavbarProps {}
 
 const navItems = [
   { name: "Hospitals", href: "/" },
-  { name: "Users", href: "/create-user" },
+  { name: "Users", href: "/users" },
   { name: "Settings", href: "/settings" },
 ];
 
@@ -22,7 +22,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   };
 
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
   const history = useHistory();
   return (
     <div className="sticky top-0 bg-white shadow-sm min-h-20 w-full px-3 z-50">
