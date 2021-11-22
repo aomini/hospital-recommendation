@@ -38,6 +38,12 @@ const routes = [
     component: React.lazy(() => import("src/pages/CreateUser")),
     edit: true,
   },
+  {
+    exact: true,
+    path: "/fields",
+    component: React.lazy(() => import("src/pages/Fields")),
+    edit: true,
+  },
 ];
 
 const App = () => {
