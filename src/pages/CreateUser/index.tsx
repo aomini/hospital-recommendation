@@ -24,18 +24,30 @@ const initialValues: FormValues = {
 };
 
 const CreateUser = ({ edit = false }) => {
-  const [user, setUser] = React.useState<FormValues>();
+  // const [user, setUser] = React.useState<FormValues>();
   const params = useParams();
   const notify = (message) => toast.warning(message);
   const successNotify = (message) => toast.success(message);
 
-  React.useEffect(() => {
-    if (edit) {
-      // get user by id
-      axios.get(`/user/find/${params.id}`).then((resp) => setUser(resp.data));
-    }
-  }, []);
+  // console.log("User", user);
+  // console.log(edit);
 
+  // React.useEffect(() => {
+  //   if (edit) {
+  //     // get user by id
+  //     const fetchData = async () => {
+  //       try {
+  //         const resp = await axios.get(`/user/${params.id}`);
+  //         setUser(resp.data);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     };
+  //     fetchData();
+  //   }
+  // }, []);
+
+  // console.log(user);
   const createUserSchema = Yup.object().shape({
     first_name: Yup.string().required("Required"),
     username: Yup.string().required("Required"),
@@ -54,7 +66,8 @@ const CreateUser = ({ edit = false }) => {
     try {
       if (edit) {
         const resp = await axios.post(`/user/${params.id}`, values);
-        successNotify(resp);
+        console.log(resp);
+        // successNotify(resp);
       } else {
         const resp = await axios.post("/user", values);
         successNotify(resp);
@@ -68,19 +81,37 @@ const CreateUser = ({ edit = false }) => {
       }
     }
   };
+
   return (
     <AuthLayout>
       <div className="bg-gray-50 text-purple p-7 mx-auto mt-5 w-1/3 rounded-md shadow-sm">
         <H1>{edit ? "Update" : "Enter"} User Details</H1>
         <Formik
-          initialValues={!edit ? initialValues : user ? user : initialValues}
+          initialValues={initialValues}
           validationSchema={createUserSchema}
           onSubmit={(values) => {
             handleSubmit(values);
           }}
         >
-          {({ errors, touched }) => (
-            <Form className="mt-7">
+          {function Test({ errors, touched, setFieldValue }) {
+            React.useEffect(() => {
+              if (edit) {
+                // get user and set form fields
+                axios.get("/user/"+ params.id).then((resp) => {
+                  const user = resp.data
+                  console.log(user)
+                  const fields = [
+                    "first_name",
+                    "username",
+                    "password",
+                  ];
+                  fields.forEach((field) =>
+                    setFieldValue(field, user[field], false)
+                  );
+                });
+              }
+            }, [setFieldValue]);
+            return <Form className="mt-7">
               <ToastContainer />
               {/* <section className="grid grid-cols-2 gap-5"> */}
               <Field
@@ -142,8 +173,8 @@ const CreateUser = ({ edit = false }) => {
                   Submit
                 </PrimaryButton>
               </section>
-            </Form>
-          )}
+            </Form>;
+          }}
         </Formik>
       </div>
     </AuthLayout>
