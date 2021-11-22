@@ -29,25 +29,6 @@ const CreateUser = ({ edit = false }) => {
   const notify = (message) => toast.warning(message);
   const successNotify = (message) => toast.success(message);
 
-  // console.log("User", user);
-  // console.log(edit);
-
-  // React.useEffect(() => {
-  //   if (edit) {
-  //     // get user by id
-  //     const fetchData = async () => {
-  //       try {
-  //         const resp = await axios.get(`/user/${params.id}`);
-  //         setUser(resp.data);
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     };
-  //     fetchData();
-  //   }
-  // }, []);
-
-  // console.log(user);
   const createUserSchema = Yup.object().shape({
     first_name: Yup.string().required("Required"),
     username: Yup.string().required("Required"),
