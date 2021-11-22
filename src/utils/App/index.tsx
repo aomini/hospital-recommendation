@@ -48,6 +48,7 @@ const App = () => {
           <Route
             exact={route.exact}
             path={route.path}
+            key={route.path}
           >
             <React.Suspense fallback={() => "loading"}>
             

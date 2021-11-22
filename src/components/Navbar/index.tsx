@@ -29,6 +29,7 @@ const Navbar: React.FC<NavbarProps> = () => {
     localStorage.clear();
     history.push("/login");
   };
+
   return (
     <div className="sticky top-0 bg-white shadow-sm min-h-20 w-full px-3 z-50">
       <div className="flex items-center justify-between container mx-auto">
@@ -54,7 +55,6 @@ const Navbar: React.FC<NavbarProps> = () => {
             </IconButton>
           ))}
         </section>
-
         <button onClick={handleOpen} className="relative flex items-center">
           <div className="rounded-full bg-gold h-7 w-7 mr-2"></div>
           <span className="flex-col justify-start">
