@@ -6,10 +6,10 @@ import * as Yup from "yup";
 import 'react-toastify/dist/ReactToastify.css';
 
 import axios from "src/utils/axios"
-import { H1 } from "../Typography";
-import Card from "../Card";
-import InputField from "../InputField";
-import { PrimaryButton } from "../Button";
+import { H1 } from "../../components/Typography";
+import Card from "../../components/Card";
+import InputField from "../../components/InputField";
+import { PrimaryButton } from "../../components/Button";
 
 interface LoginProps {}
 

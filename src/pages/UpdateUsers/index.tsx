@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom"
 import AuthLayout from "src/layout/AuthLayout";
-import { H1 } from "../Typography";
+import { H1 } from "../../components/Typography";
 
 interface UpdateUsersProps{}
 

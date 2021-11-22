@@ -8,9 +8,9 @@ import TrashIcon from "src/assets/icons/TrashIcon";
 import UserAddIcon from "src/assets/icons/UserAddIcon";
 import AuthLayout from "src/layout/AuthLayout";
 import axios from "src/utils/axios";
-import { H1 } from "../Typography";
-import DataTable from "../DataTable";
-import { PrimaryButton } from "../Button";
+import { H1 } from "../../components/Typography";
+import DataTable from "../../components/DataTable";
+import { PrimaryButton } from "../../components/Button";
 
 const Users = () => {
   const history = useHistory();

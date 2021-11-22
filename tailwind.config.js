@@ -10,7 +10,7 @@ module.exports = {
         lighter: "#3B185F",
       },
       backgroundImage: {
-        map: "url('./images/ktm-map.png')",
+        map: "url('./assets/images/ktm-map.png')",
       },
     },
   },

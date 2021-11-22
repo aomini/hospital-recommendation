@@ -1,7 +1,7 @@
 import AuthLayout from "src/layout/AuthLayout";
-import DataTable from "../DataTable";
+import DataTable from "../../components/DataTable";
 
-import { H1 } from "../Typography";
+import { H1 } from "../../components/Typography";
 const columns = [
   {
     name: "ID",
