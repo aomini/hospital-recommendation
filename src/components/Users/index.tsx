@@ -61,7 +61,7 @@ const Users = () => {
             <button
               className="text-green-600 mr-5"
               title="Edit User"
-              // onClick={() => handleEdit(row.id)}
+              onClick={() => {history.push(`/users/edit/${row.id}`)}}
             >
               <EditIcon />
             </button>
@@ -87,7 +87,7 @@ const Users = () => {
       <div className="p-5 bg-gray-50 border border-gray-200 rounded-md shadow-sm h-full">
         <section className="text-right mb-5">
           <PrimaryButton
-            onClick={() => history.push("/create-user")}
+            onClick={() => history.push("/users/create-user")}
             className="inline-flex items-center bg-purple hover:bg-pink-600 text-white rounded-sm"
           >
             Create a New User

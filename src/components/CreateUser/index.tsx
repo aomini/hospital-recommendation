@@ -1,3 +1,5 @@
+import React from "react";
+import {useParams} from "react-router-dom"
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import {ToastContainer, toast} from 'react-toastify'
@@ -21,9 +23,20 @@ const initialValues: FormValues = {
   // email: "",
 };
 
-const CreateUser = () => {
+const CreateUser = ({edit = false}) => {
+  const [user, setUser] = React.useState<FormValues>()
+  const params = useParams()
   const notify = (message) => toast.warning(message);
   const successNotify = (message) => toast.success(message)
+
+  React.useEffect(() => {
+    if(edit){
+      // get user by id
+      axios.get(`/user/find/${params.id}`).then(resp => setUser(resp.data))
+    }else {
+      axios.get("/user")
+    }
+  }, [])
 
   const createUserSchema = Yup.object().shape({
     first_name: Yup.string().required("Required"),
@@ -40,24 +53,29 @@ const CreateUser = () => {
   });
 
   const handleSubmit = async(values) => {
-try{
-  const resp = await axios.post("/user", values)
-  successNotify(resp)
-}catch(err: any){
-  const {status, data} = err.response
-  if(status === 400){
-    notify(data)
-  }else{
-    notify("Couldn't create user! Something went wrong")
-  }
-}
+    try{
+      if(edit){
+        const resp = await axios.post(`/user/${params.id}`, values)
+        successNotify(resp)
+      }else{
+        const resp = await axios.post("/user", values)
+        successNotify(resp)
+      }
+    }catch(err: any){
+      const {status, data} = err.response
+      if(status === 400){
+        notify(data)
+      }else{
+        notify("Couldn't create user! Something went wrong")
+      }
+    }
   }
   return (
     <AuthLayout>
       <div className="bg-gray-50 text-purple p-7 mx-auto mt-5 w-1/3 rounded-md shadow-sm">
-        <H1>Enter User Details</H1>
+        <H1>{edit ? 'Update': 'Enter'} User Details</H1>
         <Formik
-          initialValues={initialValues}
+          initialValues={!edit ? initialValues : user}
           validationSchema={createUserSchema}
           onSubmit={(values) => {
             handleSubmit(values)

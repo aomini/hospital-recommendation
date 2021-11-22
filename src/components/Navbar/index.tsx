@@ -22,7 +22,6 @@ const Navbar: React.FC<NavbarProps> = () => {
   };
 
   const location = useLocation();
-  // console.log(location);
   const history = useHistory();
   return (
     <div className="sticky top-0 bg-white shadow-sm min-h-20 w-full px-3 z-50">
