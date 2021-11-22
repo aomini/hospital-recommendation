@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import EditIcon from "src/assets/icons/EditIcon";
 import TrashIcon from "src/assets/icons/TrashIcon";
@@ -13,18 +15,34 @@ import { PrimaryButton } from "../Button";
 const Users = () => {
   const history = useHistory();
   const [users, setUsers] = useState([]);
+  const notify = (message) => toast.success(message);
+  const notifyError = (message) => toast.error(message);
+
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get("/user");
       setUsers(data);
-      // console.log(data)
     };
     fetchData();
   }, []);
 
-  const handleEdit = (id) => {console.log(id)};
+  // const handleEdit = async(id) =>
+  // {console.log(id)
+  // const resp = await axios.put("/user/:id", {
 
-  const handleDelete = (id) => {};
+  // })
+  // };
+
+  const handleDelete = async (id) => {
+    console.log(id);
+    try {
+      const resp: any = await axios.delete(`/user/${id}`);
+      notify(resp.message);
+    } catch (error) {
+      console.log(error);
+      notifyError(error);
+    }
+  };
 
   const columns = [
     {
@@ -43,7 +61,7 @@ const Users = () => {
             <button
               className="text-green-600 mr-5"
               title="Edit User"
-              onClick={() => handleEdit(row.id)}
+              // onClick={() => handleEdit(row.id)}
             >
               <EditIcon />
             </button>
@@ -62,6 +80,7 @@ const Users = () => {
 
   return (
     <AuthLayout>
+      <ToastContainer />
       <div className="bg-gray-200 p-5">
         <H1 className="font-medium">Users</H1>
       </div>
