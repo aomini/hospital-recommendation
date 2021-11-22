@@ -43,7 +43,6 @@ axios.get("/user")
   const handleSubmit = async (values) => {
     try{
       const resp = await axios.post('/user/login', values)
-      console.log(resp.data)
       localStorage.setItem("tok", resp.data)
       history.push("/")
     }catch(err: any){
