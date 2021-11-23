@@ -45,10 +45,8 @@ const routes = [
     edit: true,
   },
   {
-    exact: true,
     path: "/look-up",
     component: React.lazy(() => import("src/pages/Lookup")),
-    edit: true,
   },
 ];
 
