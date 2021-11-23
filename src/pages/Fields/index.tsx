@@ -4,7 +4,7 @@ import AuthLayout from "src/layout/AuthLayout";
 import axios from "src/utils/axios";
 import { H2 } from "src/components/Typography";
 // import { ViewMoreButton } from "src/components/Button";
-import WarningCard from "src/components/WarningCard.tsx";
+// import WarningCard from "src/components/WarningCard.tsx";
 
 const Fields = () => {
   // const [warningModal, setWarningModal] = React.useState(false);
@@ -30,11 +30,10 @@ const Fields = () => {
   return (
     <>
     {/* {updateModal ? <WarningCard /> : ""} */}
-      <AuthLayout>
         <main className="flex justify-between w-full rounded-md min-h-screen mt-2">
-          <section className=" bg-gray-50 w-2/3 p-3 mr-2 border border-gray-400 shadow-sm">
+          <section className=" bg-gray-50 w-2/3 p-3 mr-2 border border-gray-400 shadow-sm rounded-md">
             <section className="text-center text-purple mb-2">
-              <H2>Active Fields</H2>
+              <H2>Available Fields</H2>
             </section>
             <ul className="mt-2">
               {fields?.map((field) => (
@@ -63,13 +62,12 @@ const Fields = () => {
               ))}
             </ul>
           </section>
-          <section className=" bg-gray-50 w-2/3 p-3 border border-gray-400 shadow-sm">
+          <section className=" bg-gray-50 w-2/3 p-3 border border-gray-400 shadow-sm rounded-md">
             <section className="text-center text-purple mb-2">
-              <H2>Inactive Fields</H2>
+              <H2>Priorities</H2>
             </section>
           </section>
         </main>
-      </AuthLayout>
     </>
   );
 };

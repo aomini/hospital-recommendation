@@ -29,7 +29,6 @@ const CreateUser = ({ edit = false }) => {
   const params = useParams();
   const notify = (message) => toast.warning(message);
   const successNotify = (message) => toast.success(message);
-  console.log(edit);
 
   const createUserSchema = Yup.object().shape({
     first_name: Yup.string().required("Required"),
@@ -38,12 +37,12 @@ const CreateUser = ({ edit = false }) => {
     password: !edit
       ? Yup.string()
           .required("Please Enter your password")
-          .min(8, "Password must be at least 8 characters long")
+          .min(6, "Password must be at least 6 characters long")
           .max(32)
-          .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            "Must have one Uppercase, one Lowercase, one Number and one special Character"
-          )
+          // .matches(
+          //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+          //   "Must have one Uppercase, one Lowercase, one Number and one special Character"
+          // )
       : Yup.string().nullable(),
   });
   const handleSubmit = async (values) => {
