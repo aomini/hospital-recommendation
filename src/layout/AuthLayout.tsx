@@ -12,7 +12,6 @@ const AuthLayout: React.FC<LayoutProps> = ({
 }) => {
   const history = useHistory()
   const tok = localStorage.getItem("tok")
-  console.log(tok)
   if (!tok) {
     history.replace("/login");
     return null;

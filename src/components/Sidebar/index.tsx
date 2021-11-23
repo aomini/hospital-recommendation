@@ -25,14 +25,13 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const history = useHistory()
   const location = useLocation()
-  console.log(location)
   return (
     <div
-      className={`flex-col bg-gray-200 text-white py-3 shadow-md h-screen absolute left-0 top-20 w-1/6 ${className}`}
+      className={`flex-col bg-gray-100 text-white py-3 shadow-md h-screen absolute left-0 top-20 w-1/6 ${className}`}
     >
       <ul>
         {menuList.map((item) => (
-          <li className={`border-l-8 ${location.pathname === item.path ? "border-green-500 bg-gray-50" : ""} mb-2`}>
+          <li className={`border-l-8 ${location.pathname === item.path ? "border-green-500 bg-pink-50" : ""} mb-2`}>
           <button
             className={`font-medium p-3  ${location.pathname === item.path ? "text-green-600" : "text-gray-800"} w-full text-lg text-left`}
             onClick={() => history.push(item.path)}
