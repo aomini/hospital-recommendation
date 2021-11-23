@@ -117,17 +117,17 @@ const Fields = () => {
   return (
     <AuthLayout childrenClass="grid grid-cols-6 gap-2">
       {/* {updateModal ? <WarningCard /> : ""} */}
-       <section className="col-span-1">
+      <section className="col-span-1">
         <Sidebar
           // setShowFields={setShowFields}
           // showFields={showFields}
           className=""
         />
       </section>
-      <div className="fields">
+      <div className="fields col-span-5">
         <DragDropContext onDragEnd={handleDragEnd}>
           <main className="flex h-full justify-between w-full overflow-hidden rounded-md mt-2">
-            <section className=" h-full overflow-auto bg-gray-50 w-2/3 p-3 mr-2  border border-gray-400 shadow-sm rounded-md">
+            <section className=" h-full overflow-auto bg-gray-50 w-2/3 p-3 mr-2 border border-gray-400 shadow-sm rounded-md">
               <section className="text-center text-purple mb-2">
                 <H2>Available Fields</H2>
               </section>
