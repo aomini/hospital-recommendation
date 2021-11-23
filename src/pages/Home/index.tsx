@@ -2,6 +2,9 @@ import AuthLayout from "src/layout/AuthLayout";
 import DataTable from "../../components/DataTable";
 
 import { H1 } from "../../components/Typography";
+
+
+
 const columns = [
   {
     name: "ID",
@@ -30,7 +33,7 @@ const Home = () => {
         <H1 className="font-medium">Hospitals</H1>
       </div>
       <div className="p-5 bg-gray-50 border border-gray-200 rounded-md shadow-sm h-full">
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={data}/>
       </div>
     </AuthLayout>
   );

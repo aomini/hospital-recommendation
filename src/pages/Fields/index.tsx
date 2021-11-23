@@ -8,6 +8,8 @@ import DragFields from "./components/DragFields";
 import { reorder } from "src/utils/drag-drop";
 import { PrimaryButton } from "src/components/Button";
 import instance from "src/utils/axios";
+import Sidebar from "src/components/Sidebar";
+
 // import { ViewMoreButton } from "src/components/Button";
 // import WarningCard from "src/components/WarningCard.tsx";
 
@@ -113,9 +115,15 @@ const Fields = () => {
       .catch((err) => {});
   };
   return (
-    <AuthLayout>
+    <AuthLayout childrenClass="grid grid-cols-6 gap-2">
       {/* {updateModal ? <WarningCard /> : ""} */}
-
+       <section className="col-span-1">
+        <Sidebar
+          // setShowFields={setShowFields}
+          // showFields={showFields}
+          className=""
+        />
+      </section>
       <div className="fields">
         <DragDropContext onDragEnd={handleDragEnd}>
           <main className="flex h-full justify-between w-full overflow-hidden rounded-md mt-2">

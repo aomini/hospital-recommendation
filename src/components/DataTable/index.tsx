@@ -1,5 +1,14 @@
 import ReactDataTable from "react-data-table-component";
 
+const customStyles = {
+  headCells: {
+    style: {
+      background: "#fcc260",
+      fontWeight: 500
+    }
+  }
+}
+
 interface DataTableProps {
   columns: any;
   data: any;
@@ -20,6 +29,7 @@ const datatableStyles = {
       fontWeight: 500,
       textTransform: "uppercase",
       color: "#1F2937",
+      background: "#fcc260",
     },
   },
   rows: {
