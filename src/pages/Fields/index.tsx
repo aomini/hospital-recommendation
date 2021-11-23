@@ -50,6 +50,7 @@ const Fields = () => {
       const dragItem = dragField.field_items[source.index];
       if (!priorities.find((x) => x.id === dragItem.id)) {
         setPriorities((priorities) => [...priorities, dragItem]);
+        //
       }
     }
   };
