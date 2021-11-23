@@ -1,4 +1,6 @@
 import React from "react";
+import { act } from "react-dom/test-utils";
+
 import AuthLayout from "src/layout/AuthLayout";
 import instance from "src/utils/axios";
 import { Link, Switch, Route, useHistory } from "react-router-dom";
@@ -8,7 +10,7 @@ const initialState = {
   labels: [],
 };
 
-const Lookup = () => {
+const Lookups = () => {
   const [data, setData] = React.useState<any>(initialState);
   const [activeId, setActiveId] = React.useState(null);
   const history = useHistory();
@@ -19,11 +21,11 @@ const Lookup = () => {
 
   React.useEffect(() => {
     if (
-      history.location.pathname === "/look-up" &&
+      history.location.pathname === "/look-ups" &&
       !activeId &&
       data.labels.length
     ) {
-      history.push(`/look-up/${data.labels[0].id}`);
+      history.push(`/look-ups/${data.labels[0].id}`);
     }
   }, [activeId, data, history]);
 
@@ -41,7 +43,7 @@ const Lookup = () => {
         <div className="col-span-3">
           <aside className="bg-gray-100 p-4 capitalize grid">
             {data.labels.map(({ name, id }) => (
-              <Link key={id} to={`/look-up/${id}`}>
+              <Link key={id} to={`/look-ups/${id}`}>
                 <div
                   className={`p-2 ${
                     activeId == id ? "bg-pink-700 text-white" : null
@@ -55,7 +57,7 @@ const Lookup = () => {
         </div>
         <section className="col-span-9">
           <Switch>
-            <Route path="/look-up/:id">
+            <Route path="/look-ups/:id">
               <LookupForm setActiveId={setActiveId} />
             </Route>
           </Switch>
@@ -65,4 +67,4 @@ const Lookup = () => {
   );
 };
 
-export default Lookup;
+export default Lookups;

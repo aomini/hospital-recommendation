@@ -29,7 +29,6 @@ const CreateUser = ({ edit = false }) => {
   const params = useParams();
   const notify = (message) => toast.warning(message);
   const successNotify = (message) => toast.success(message);
-  console.log(edit);
 
   const createUserSchema = Yup.object().shape({
     first_name: Yup.string().required("Required"),
@@ -50,7 +49,6 @@ const CreateUser = ({ edit = false }) => {
     try {
       if (edit) {
         const { first_name, username } = values;
-        console.log("Here!", first_name, username);
         await axios
           .put(`/user/${params.id}`, {
             first_name,
@@ -90,7 +88,6 @@ const CreateUser = ({ edit = false }) => {
                 // get user and set form fields
                 axios.get("/user/" + params.id).then((resp) => {
                   const user = resp.data;
-                  console.log(user);
                   const fields = ["first_name", "username"];
                   fields.forEach((field) =>
                     setFieldValue(field, user[field], false)

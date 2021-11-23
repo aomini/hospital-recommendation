@@ -2,6 +2,7 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import { useParams } from "react-router-dom";
 import { PrimaryButton } from "src/components/Button";
+import { H1 } from "src/components/Typography";
 import instance from "src/utils/axios";
 
 const Input = (props) => <input autocomplete="off" {...props} />;
@@ -223,26 +224,32 @@ const LookupForm = ({ setActiveId }) => {
   return (
     <div>
       <div className="grid gap-4">
-        <DataTable columns={columns} data={data.LookupValues || []} />
-        <section>
-          <h3>Add new </h3>
-          <div className="">
+        <section className="bg-white p-3">
+          <H1>Add New</H1>
+          <div className="mt-2">
             <Input
               name="label"
               placeholder="label"
               value={newData.data.label}
               onChange={handleCreateChange}
+              className="p-2 border border-gray-400 rounded-md"
             />
             <Input
-              className="mx-2"
+              className="p-2 border border-gray-400 rounded-md mx-2"
               name="value"
               placeholder="value"
               value={newData.data.value}
               onChange={handleCreateChange}
             />
-            <PrimaryButton onClick={handleCreate}>Add</PrimaryButton>
+            <PrimaryButton
+              className="px-3 py-2 text-gray-50 bg-green-600 hover:bg-green-700 rounded-md w-32"
+              onClick={handleCreate}
+            >
+              Add
+            </PrimaryButton>
           </div>
         </section>
+        <DataTable columns={columns} data={data.LookupValues || []} />
       </div>
     </div>
   );

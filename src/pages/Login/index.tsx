@@ -56,8 +56,8 @@ axios.get("/user")
   }
 
   return (
-    <div className="bg-map bg-center py-6 w-full h-screen">
-      <Card className="shadow-md rounded-lg p-8 mt-16 mx-auto w-1/3">
+    <div className="flex items-center bg-map bg-center py-6 w-full h-screen">
+      <Card className="shadow-md rounded-lg p-8 mt-16 mx-auto w-1/4">
         <span className="text-center text-purple">
           <H1>Login</H1>
         </span>
