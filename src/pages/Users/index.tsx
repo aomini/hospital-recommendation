@@ -50,8 +50,15 @@ const Users = () => {
       selector: (row) => row.id,
     },
     {
-      name: "Users",
-      selector: (row) => row.first_name,
+      name: "Name",
+      selector: (row) => [row.first_name, row.last_name].join(" "),
+      style:{
+        textTransform: "capitalize"
+      }
+    },
+    {
+      name: "Username",
+      selector: (row) => row.username,
     },
     {
       name: "Actions",
