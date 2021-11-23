@@ -32,7 +32,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   };
 
   return (
-    <div className="sticky top-0 bg-white shadow-sm min-h-20 w-full px-3 z-50">
+    <div className="sticky top-0 bg-white shadow-sm min-h-20 w-full px-3 z-10">
       <div className="flex items-center justify-between container mx-auto">
         <section className="grid grid-cols-12 gap-6 items-center">
           {navItems.map(({ name, href, Icon }) => (
