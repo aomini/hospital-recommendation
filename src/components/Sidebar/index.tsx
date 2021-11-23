@@ -31,9 +31,9 @@ const Sidebar: React.FC<SidebarProps> = ({
       className={`flex-col bg-pink-700 text-white py-3 shadow-md h-screen absolute left-0 top-20 w-1/6 ${className}`}
     >
       <ul>
-        <li className="border-l-8 border-green-500 hover:bg-gray-50">
+        <li className="border-l-8 border-green-500 bg-gray-50">
           <button
-            className="font-medium p-3 hover:text-green-600 w-full text-lg text-left"
+            className="font-medium p-3 text-green-600 w-full text-lg text-left"
             onClick={() => history.push("/settings/fields")}
           >
             Fields
