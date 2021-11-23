@@ -39,6 +39,14 @@ const Sidebar: React.FC<SidebarProps> = ({
             Fields
           </button>
         </li>
+        <li className="border-l-8 border-green-500 bg-gray-50">
+          <button
+            className="font-medium p-3 text-green-600 w-full text-lg text-left"
+            onClick={() => history.push("/settings/priorities")}
+          >
+            Priorities
+          </button>
+        </li>
       </ul>
     </div>
   );
