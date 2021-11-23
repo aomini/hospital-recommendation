@@ -4,42 +4,6 @@ import AuthLayout from "src/layout/AuthLayout";
 import { H2 } from "src/components/Typography";
 import axios from "src/utils/axios";
 
-// const data = [
-//   {
-//     name: "General",
-//     order: 1,
-//     field_items: [
-//       {
-//         title: "General",
-//         subtitle: "JPT",
-//         order: 1,
-//       },
-//     ],
-//   },
-//   {
-//     name: "Second One",
-//     order: 2,
-//     field_items: [
-//       {
-//         title: "General",
-//         subtitle: "JPT",
-//         order: 1,
-//       },
-//     ],
-//   },
-//   {
-//     name: "Third One",
-//     order: 3,
-//     field_items: [
-//       {
-//         title: "General",
-//         subtitle: "JPT",
-//         order: 1,
-//       },
-//     ],
-//   },
-// ];
-
 const Fields = () => {
 
   const [fields, setFields] = React.useState<any[]>([])
@@ -47,15 +11,12 @@ const Fields = () => {
   React.useEffect(() => {
     const fetchFields = async () => {
       const {data} = await axios.get("/fields")
-      console.log(data)
       setFields(data)
     }
     fetchFields()
   }, [])
-  console.log("Fields", fields)
   return (
     <AuthLayout>
-      {/* <H1>Fields</H1> */}
       <main className="flex justify-between w-fullrounded-md min-h-screen mt-2">
         <section className=" bg-gray-50 w-2/3 p-3 mr-2 border border-gray-400 shadow-sm">
           <section className="text-center text-purple mb-2">
