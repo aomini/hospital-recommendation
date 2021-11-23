@@ -34,8 +34,7 @@ const CreateUser = ({ edit = false }) => {
     first_name: Yup.string().required("Required"),
     username: Yup.string().required("Required"),
     // email: Yup.string().email("Invalid email").required("Required"),
-    password: !edit
-      ? Yup.string()
+    password: Yup.string()
           .required("Please Enter your password")
           .min(6, "Password must be at least 6 characters long")
           .max(32)
@@ -43,17 +42,16 @@ const CreateUser = ({ edit = false }) => {
           //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
           //   "Must have one Uppercase, one Lowercase, one Number and one special Character"
           // )
-      : Yup.string().nullable(),
   });
   const handleSubmit = async (values) => {
     try {
       if (edit) {
-        const { first_name, username } = values;
-        console.log("Here!", first_name, username);
+        const { first_name, username, password } = values;
         await axios
           .put(`/user/${params.id}`, {
             first_name,
             username,
+            password
           })
           .then((resp) => console.log(resp));
         successNotify("User Updated!");
@@ -118,7 +116,7 @@ const CreateUser = ({ edit = false }) => {
                   label="Username"
                   id="username"
                   name="username"
-                  placeholder="Enter Last Name"
+                  placeholder="Enter User Name"
                   inputType="text"
                   error={touched.username && errors.username}
                   className="w-full"
@@ -138,7 +136,6 @@ const CreateUser = ({ edit = false }) => {
                   className="w-full"
                 /> */}
 
-                {!edit ? (
                   <Field
                     component={InputField}
                     htmlFor="password"
@@ -150,9 +147,6 @@ const CreateUser = ({ edit = false }) => {
                     error={errors.password}
                     className="w-full"
                   />
-                ) : (
-                  ""
-                )}
                 {/* </section> */}
                 <section className="text-right mt-5">
                   <PrimaryButton
