@@ -40,7 +40,7 @@ const routes = [
   },
   {
     exact: true,
-    path: "/fields",
+    path: "/settings/fields",
     component: React.lazy(() => import("src/pages/Fields")),
     edit: true,
   },
