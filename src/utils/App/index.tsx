@@ -44,6 +44,12 @@ const routes = [
     component: React.lazy(() => import("src/pages/Fields")),
     edit: true,
   },
+  {
+    exact: true,
+    path: "/look-up",
+    component: React.lazy(() => import("src/pages/Lookup")),
+    edit: true,
+  },
 ];
 
 const App = () => {
@@ -51,14 +57,9 @@ const App = () => {
     <Router>
       <Switch>
         {routes.map((route) => (
-          <Route
-            exact={route.exact}
-            path={route.path}
-            key={route.path}
-          >
+          <Route exact={route.exact} path={route.path} key={route.path}>
             <React.Suspense fallback={() => "loading"}>
-            
-            <route.component edit={route.edit}/>
+              <route.component edit={route.edit} />
             </React.Suspense>
           </Route>
         ))}
