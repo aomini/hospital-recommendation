@@ -43,6 +43,10 @@ const routes = [
     path: "/look-ups",
     component: React.lazy(() => import("src/pages/Lookups"))
   },
+  {
+    path: "/settings/priorities",
+    component: React.lazy(() => import("src/pages/Priorities"))
+  },
 ];
 
 const App = () => {

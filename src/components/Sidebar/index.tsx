@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     >
       <ul>
         {menuList.map((item) => (
-          <li className={`border-l-8 ${location.pathname === item.path ? "border-green-500 bg-pink-50" : ""} mb-2`}>
+          <li className={`border-l-8 ${location.pathname === item.path ? "border-green-500 bg-pink-50" : ""} mb-2`} key={item.path}>
           <button
             className={`font-medium p-3  ${location.pathname === item.path ? "text-green-600" : "text-gray-800"} w-full text-lg text-left`}
             onClick={() => history.push(item.path)}

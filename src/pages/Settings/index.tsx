@@ -1,4 +1,3 @@
-import React from "react";
 import Sidebar from "src/components/Sidebar";
 import AuthLayout from "src/layout/AuthLayout";
 import Fields from "../Fields";
@@ -14,7 +13,7 @@ const Settings = () => {
           className=""
         />
       </section>
-      <section className="col-span-5"><Fields /></section>
+      {/* <section className="col-span-5"><Fields /></section> */}
     </AuthLayout>
   );
 };
