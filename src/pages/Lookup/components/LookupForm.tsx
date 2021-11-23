@@ -30,6 +30,12 @@ const LookupForm = ({ setActiveId }) => {
   });
   const { id } = useParams();
 
+  React.useEffect(() => {
+    return () => {
+      setActiveId(null);
+    };
+  }, [setActiveId]);
+
   const getValues = React.useCallback(() => {
     instance
       .get(`/lookup-values/${id}`)

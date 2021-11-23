@@ -1,8 +1,9 @@
 import React from "react";
 import AuthLayout from "src/layout/AuthLayout";
 import instance from "src/utils/axios";
-import { Link, Switch, Route } from "react-router-dom";
+import { Link, Switch, Route, useHistory } from "react-router-dom";
 import LookupForm from "./components/LookupForm";
+import { act } from "react-dom/test-utils";
 
 const initialState = {
   labels: [],
@@ -11,10 +12,21 @@ const initialState = {
 const Lookup = () => {
   const [data, setData] = React.useState<any>(initialState);
   const [activeId, setActiveId] = React.useState(null);
+  const history = useHistory();
 
   React.useEffect(() => {
     getData();
   }, []);
+
+  React.useEffect(() => {
+    if (
+      history.location.pathname === "/look-up" &&
+      !activeId &&
+      data.labels.length
+    ) {
+      history.push(`/look-up/${data.labels[0].id}`);
+    }
+  }, [activeId, data, history]);
 
   const getData = () => {
     instance
