@@ -28,7 +28,7 @@ const Fields = () => {
     fetchFields();
   }, []);
   return (
-    <AuthLayout>
+    <>
     {/* {updateModal ? <WarningCard /> : ""} */}
         <main className="flex justify-between w-full rounded-md min-h-screen mt-2">
           <section className=" bg-gray-50 w-2/3 p-3 mr-2 border border-gray-400 shadow-sm rounded-md">
@@ -68,7 +68,7 @@ const Fields = () => {
             </section>
           </section>
         </main>
-    </AuthLayout>
+    </>
   );
 };
 

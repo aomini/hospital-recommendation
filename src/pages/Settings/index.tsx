@@ -4,7 +4,7 @@ import AuthLayout from "src/layout/AuthLayout";
 import Fields from "../Fields";
 
 const Settings = () => {
-  const [showFields, setShowFields] = React.useState(false);
+  // const [showFields, setShowFields] = React.useState(false);
   return (
     <AuthLayout childrenClass="grid grid-cols-6 gap-2">
       <section className="col-span-1">
@@ -14,7 +14,7 @@ const Settings = () => {
           className=""
         />
       </section>
-      <section className="col-span-5">{showFields ? <Fields /> : ""}</section>
+      <section className="col-span-5"><Fields /></section>
     </AuthLayout>
   );
 };
