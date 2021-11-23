@@ -13,26 +13,29 @@ const Priorities = () => {
           className=""
         />
       </section>
-      <section className="col-span-4">
-        <section>
-          <span>
+      <section className="col-span-3">
+        <section className="grid grid-cols-4 place-items-center">
+          <section className="col-span-1">
             <label
               htmlFor="priorities"
-              className="text-md font-medium text-left"
+              className="text-md font-medium text-left w-auto"
             >
               Priorities
             </label>
-            <br />
+          </section>
+          <section className="col-span-1">
             <input
-              className="p-5 w-1/2 rounded-md border border-gray-200"
+              className="p-4 py-2.5 !w-[300px] rounded-md border border-gray-200 focus:outline-none focus:ring focus:ring-blue-200"
               name="priorities"
               type="text"
-              placeholder="Enter here"
+              placeholder="Enter Weight"
             />
-          </span>
-          <button className="text-green-700 mt-2">
-            <CheckIcon />
-          </button>
+          </section>
+          <section className="col-span-1">
+            <button className="bg-green-400 p-2 rounded-md">
+              <CheckIcon className="text-white" />
+            </button>
+          </section>
         </section>
       </section>
     </AuthLayout>
