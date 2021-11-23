@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 import AuthLayout from "src/layout/AuthLayout";
 import axios from "src/utils/axios";
@@ -51,10 +51,12 @@ const CreateUser = ({ edit = false }) => {
       if (edit) {
         const { first_name, username } = values;
         console.log("Here!", first_name, username);
-        await axios.put(`/user/${params.id}`, {
-          first_name,
-          username,
-        }).then((resp) => console.log(resp));
+        await axios
+          .put(`/user/${params.id}`, {
+            first_name,
+            username,
+          })
+          .then((resp) => console.log(resp));
         successNotify("User Updated!");
       } else {
         const resp = await axios.post("/user", values);
