@@ -9,7 +9,7 @@ const initialState = {
   labels: [],
 };
 
-const Lookup = () => {
+const Lookups = () => {
   const [data, setData] = React.useState<any>(initialState);
   const [activeId, setActiveId] = React.useState(null);
   const history = useHistory();
@@ -66,4 +66,4 @@ const Lookup = () => {
   );
 };
 
-export default Lookup;
+export default Lookups;

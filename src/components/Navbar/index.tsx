@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
+import EyeIcon from "src/assets/icons/EyeIcon";
 
 import HomeIcon from "src/assets/icons/HomeIcon";
 import LogOutIcon from "src/assets/icons/LogOutIcon";
@@ -14,7 +15,7 @@ const navItems = [
   { name: "Hospitals", href: "/", Icon: HomeIcon },
   { name: "Users", href: "/users", Icon: UsersIcon },
   { name: "Settings", href: "/settings", Icon: SettingsIcon },
-  { name: "Lookup", href: "/look-up", Icon: SettingsIcon },
+  { name: "Lookups", href: "/look-ups", Icon: EyeIcon },
 ];
 
 const Navbar: React.FC<NavbarProps> = () => {
