@@ -6,8 +6,9 @@ const Drop = ({ children, ...rest }) => {
     <Droppable {...rest}>
       {(provided, snapshot) => (
         <div
+          className="h-full"
           ref={provided.innerRef}
-          style={{ backgroundColor: snapshot.isDraggingOver ? "blue" : "grey" }}
+          //   className={snapshot.isDraggingOver ? "bg-gray-200" : null}
           {...provided.droppableProps}
         >
           {children}
