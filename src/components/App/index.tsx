@@ -33,7 +33,6 @@ const routes = [
     component: React.lazy(() => import("src/pages/CreateUser")),
     edit: true,
   },
-<<<<<<< HEAD
   {
     exact: true,
     path: "/settings/fields",
@@ -44,14 +43,6 @@ const routes = [
     path: "/settings/priorities",
     component: React.lazy(() => import("src/pages/Priorities")),
   },
-=======
-  // {
-  //   exact: true,
-  //   path: "/settings/fields",
-  //   component: React.lazy(() => import("src/pages/Fields")),
-  //   edit: true,
-  // },
->>>>>>> 2f43dd09051cf25d329e50e74778e9ee9696ec6c
 ];
 
 const App = () => {
