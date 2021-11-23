@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PageNotFound from "src/pages/404";
 
 const routes = [
   {
@@ -55,6 +56,7 @@ const App = () => {
             </React.Suspense>
           </Route>
         ))}
+        <Route component={PageNotFound} />
       </Switch>
     </Router>
   );
