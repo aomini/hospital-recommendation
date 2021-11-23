@@ -87,7 +87,6 @@ const CreateUser = ({ edit = false }) => {
                 // get user and set form fields
                 axios.get("/user/" + params.id).then((resp) => {
                   const user = resp.data;
-                  console.log(user);
                   const fields = ["first_name", "username"];
                   fields.forEach((field) =>
                     setFieldValue(field, user[field], false)

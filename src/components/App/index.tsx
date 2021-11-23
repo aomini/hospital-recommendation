@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PageNotFound from "src/pages/404";
 
 const routes = [
   {
@@ -39,9 +40,12 @@ const routes = [
     component: React.lazy(() => import("src/pages/Fields")),
   },
   {
-    exact: true,
+    path: "/look-ups",
+    component: React.lazy(() => import("src/pages/Lookups"))
+  },
+  {
     path: "/settings/priorities",
-    component: React.lazy(() => import("src/pages/Priorities")),
+    component: React.lazy(() => import("src/pages/Priorities"))
   },
 ];
 
@@ -50,17 +54,13 @@ const App = () => {
     <Router>
       <Switch>
         {routes.map((route) => (
-          <Route
-            exact={route.exact}
-            path={route.path}
-            key={route.path}
-          >
+          <Route exact={route.exact} path={route.path} key={route.path}>
             <React.Suspense fallback={() => "loading"}>
-            
-            <route.component edit={route.edit || false}/>
+              <route.component edit={route.edit} />
             </React.Suspense>
           </Route>
         ))}
+        <Route component={PageNotFound} />
       </Switch>
     </Router>
   );

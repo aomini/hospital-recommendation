@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 interface SidebarProps {
   className?: string;
@@ -6,18 +6,16 @@ interface SidebarProps {
   showFields?: boolean;
 }
 
-// const menuList = [
-//   {
-//     name: "Staff Details",
-//     href: "/staff-details",
-//     subMenu: [
-//       { name: "Doctors", href: "/doctors" },
-//       { name: "Nurses", href: "/nurses" },
-//       { name: "Assistants", href: "/assistants" },
-//     ],
-//   },
-
-// ];
+const menuList = [
+  {
+    name: "Fields",
+    path: "/settings",
+  },
+  {
+    name: "Priorities",
+    path: "/settings/priorities",
+  },
+];
 
 const Sidebar: React.FC<SidebarProps> = ({
   showFields,
@@ -26,27 +24,22 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
 
   const history = useHistory()
+  const location = useLocation()
   return (
     <div
-      className={`flex-col bg-pink-700 text-white py-3 shadow-md h-screen absolute left-0 top-20 w-1/6 ${className}`}
+      className={`flex-col bg-gray-100 text-white py-3 shadow-md h-screen absolute left-0 top-20 w-1/6 ${className}`}
     >
       <ul>
-        <li className="border-l-8 border-green-500 bg-gray-50">
+        {menuList.map((item) => (
+          <li className={`border-l-8 ${location.pathname === item.path ? "border-green-500 bg-pink-50" : ""} mb-2`} key={item.path}>
           <button
-            className="font-medium p-3 text-green-600 w-full text-lg text-left"
-            onClick={() => history.push("/settings/fields")}
+            className={`font-medium p-3  ${location.pathname === item.path ? "text-green-600" : "text-gray-800"} w-full text-lg text-left`}
+            onClick={() => history.push(item.path)}
           >
-            Fields
+            {item.name}
           </button>
         </li>
-        <li className="border-l-8 border-green-500 bg-gray-50">
-          <button
-            className="font-medium p-3 text-green-600 w-full text-lg text-left"
-            onClick={() => history.push("/settings/priorities")}
-          >
-            Priorities
-          </button>
-        </li>
+        )) }
       </ul>
     </div>
   );
