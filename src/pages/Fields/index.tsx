@@ -1,8 +1,10 @@
 import React from "react";
-
+import { DragDropContext } from "react-beautiful-dnd";
 import AuthLayout from "src/layout/AuthLayout";
 import axios from "src/utils/axios";
 import { H2 } from "src/components/Typography";
+import DragDropPriorities from "./components/DragDropPriorities";
+import DragFields from "./components/DragFields";
 // import { ViewMoreButton } from "src/components/Button";
 // import WarningCard from "src/components/WarningCard.tsx";
 
@@ -10,6 +12,7 @@ const Fields = () => {
   // const [warningModal, setWarningModal] = React.useState(false);
   // const [updateModal, setUpdateModal] = React.useState(false);
   const [fields, setFields] = React.useState<any[]>([]);
+  const [priorities, setPriorities] = React.useState<any>([]);
 
   // console.log("Update, warning", updateModal, warningModal)
   // const handleUpdate = () => {
@@ -27,47 +30,50 @@ const Fields = () => {
     };
     fetchFields();
   }, []);
+
+  const handleDragEnd = (result) => {
+    const { source, destination } = result;
+    if (!destination) {
+      return;
+    }
+
+    // drag from field=>priorities
+    if (
+      source.droppableId.includes("field") &&
+      destination.droppableId.includes("priorities")
+    ) {
+      const dragFieldId = parseInt(
+        source.droppableId.replace("field-drop-", "")
+      );
+
+      const dragField = fields.find((x) => x.id === dragFieldId);
+      const dragItem = dragField.field_items[source.index];
+      if (!priorities.find((x) => x.id === dragItem.id)) {
+        setPriorities((priorities) => [...priorities, dragItem]);
+      }
+    }
+  };
   return (
     <AuthLayout>
-    {/* {updateModal ? <WarningCard /> : ""} */}
+      {/* {updateModal ? <WarningCard /> : ""} */}
+      <DragDropContext onDragEnd={handleDragEnd}>
         <main className="flex justify-between w-full rounded-md min-h-screen mt-2">
           <section className=" bg-gray-50 w-2/3 p-3 mr-2 border border-gray-400 shadow-sm rounded-md">
             <section className="text-center text-purple mb-2">
               <H2>Available Fields</H2>
             </section>
-            <ul className="mt-2">
-              {fields?.map((field) => (
-                <li key={field.order} className="my-2">
-                  <div className="bg-gray-200 text-lg font-medium p-2 rounded-sm">
-                    {field.name}
-                  </div>
-                  <ul className="!bg-none p-2">
-                    {field.field_items.map((item) => (
-                      <li
-                        className="flex items-center justify-between text-sm font-normal text-gray-700 p-2"
-                        key={item.title}
-                      >
-                        {item.title}
-                        {item.subtitle ? `(${item.subtitle})` : ""}
-                        {/* <ViewMoreButton
-                          setUpdateModal={setUpdateModal}
-                          setWarningModal={setWarningModal}
-                          updateModal={updateModal}
-                          warningModal={warningModal}
-                        /> */}
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
+            <DragFields fields={fields} />
           </section>
           <section className=" bg-gray-50 w-2/3 p-3 border border-gray-400 shadow-sm rounded-md">
             <section className="text-center text-purple mb-2">
               <H2>Priorities</H2>
+              <div>
+                <DragDropPriorities priorities={[]} />
+              </div>
             </section>
           </section>
         </main>
+      </DragDropContext>
     </AuthLayout>
   );
 };

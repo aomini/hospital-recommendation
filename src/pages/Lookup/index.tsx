@@ -3,7 +3,6 @@ import AuthLayout from "src/layout/AuthLayout";
 import instance from "src/utils/axios";
 import { Link, Switch, Route, useHistory } from "react-router-dom";
 import LookupForm from "./components/LookupForm";
-import { act } from "react-dom/test-utils";
 
 const initialState = {
   labels: [],
