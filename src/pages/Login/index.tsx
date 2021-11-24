@@ -26,10 +26,10 @@ const Login: React.FC<LoginProps> = () => {
       .required("Please Enter your password")
       .min(6, "Password must be at least 6 characters long")
       .max(32)
-      // .matches(
-      //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      //   "Must have one Uppercase, one Lowercase, one Number and one special Character"
-      // ),
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        "Must have one Uppercase, one Lowercase, one Number and one special Character"
+      ),
   });
 
   const history = useHistory();
@@ -55,7 +55,7 @@ const Login: React.FC<LoginProps> = () => {
   };
 
   return (
-    <div className="flex items-center bg-map bg-center py-6 w-full h-screen">
+    <div className="flex items-center bg-map bg-center bg-cover py-6 w-full h-screen">
       <Card className="shadow-md rounded-lg p-8 mt-16 mx-auto w-1/4">
         <span className="text-center text-purple">
           <H1>Login</H1>
