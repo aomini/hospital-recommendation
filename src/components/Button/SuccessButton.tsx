@@ -14,7 +14,7 @@ const SuccessButton: React.FC<SuccessButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`${className} px-3 py-2 bg-green-400 text-white`}
+      className={`${className} px-3 py-2 bg-green-400 hover:bg-green-600 text-white`}
       type={type}
     >
       {children}
