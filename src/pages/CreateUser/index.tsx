@@ -31,10 +31,11 @@ const CreateUser = ({ edit = false }) => {
     first_name: Yup.string().required("Required"),
     username: Yup.string().required("Required"),
     password: Yup.string()
-          .required("Please Enter your password")
-          .min(6, "Password must be at least 6 characters long")
-          .max(32)
+      .required("Please Enter your password")
+      .min(6, "Password must be at least 6 characters long")
+      .max(32),
   });
+
   const handleSubmit = async (values) => {
     try {
       if (edit) {
@@ -43,7 +44,7 @@ const CreateUser = ({ edit = false }) => {
           .put(`/user/${params.id}`, {
             first_name,
             username,
-            password
+            password,
           })
           .then((resp) => console.log(resp));
         successNotify("User Updated!");
@@ -112,17 +113,17 @@ const CreateUser = ({ edit = false }) => {
                   className="w-full"
                 />
 
-                  <Field
-                    component={InputField}
-                    htmlFor="password"
-                    label="Password"
-                    id="password"
-                    name="password"
-                    placeholder="Enter password"
-                    inputType="password"
-                    error={errors.password}
-                    className="w-full"
-                  />
+                <Field
+                  component={InputField}
+                  htmlFor="password"
+                  label="Password"
+                  id="password"
+                  name="password"
+                  placeholder="Enter password"
+                  inputType="password"
+                  error={errors.password}
+                  className="w-full"
+                />
                 <section className="text-right mt-5">
                   <PrimaryButton
                     type="submit"
