@@ -6,9 +6,7 @@ const Priorities = () => {
   return (
     <AuthLayout childrenClass="grid grid-cols-6">
       <section className="col-span-1">
-        <Sidebar
-          className=""
-        />
+        <Sidebar className="" />
       </section>
       <section className="col-span-3">
         <section className="grid grid-cols-4 place-items-center">

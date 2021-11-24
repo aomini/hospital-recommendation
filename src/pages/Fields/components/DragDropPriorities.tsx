@@ -1,15 +1,17 @@
-import React from "react";
 import TrashIcon from "src/assets/icons/TrashIcon";
 import { IconButton } from "src/components/Button";
 import Drag from "src/components/DragDrop/Drag";
 import Drop from "src/components/DragDrop/Drop";
+import { H3 } from "src/components/Typography";
 
 const DragDropPriorities = ({ priorities, isDragDisabled, handleClick }) => {
   return (
     <Drop droppableId={`priorities-drop`}>
-      <div className="h-full">
+      <div className="h-full ">
         {!priorities.length && (
-          <div className="bg-gray-100 h-full">Drag here..</div>
+          <div className="bg-white border border-purple border-dashed h-full flex items-center justify-center">
+            <H3>Drop here..</H3>
+          </div>
         )}
         {priorities.map((priority, index) => (
           <Drag

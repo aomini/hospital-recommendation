@@ -125,7 +125,7 @@ const Fields = () => {
                   <H2 className="justify-center">Priorities</H2>
                   <div className="justify-end">
                     {!isDisabled && (
-                      <SuccessButton onClick={handleSave}>Save</SuccessButton>
+                      <SuccessButton onClick={handleSave} className="w-20 rounded font-medium">Save</SuccessButton>
                     )}
                   </div>
                 </div>
