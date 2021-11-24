@@ -18,15 +18,14 @@ const Priorities = () => {
           setPriorities(resp.data);
         });
       } catch (error) {
-        // const { status, data } = error.response;
         console.log(error);
       }
     };
     fetchPriorities();
   }, []);
-  console.log("Weight", priorities);
 
   const handleWeightChange = (e, priority) => {
+    console.log(e);
     const { name, value } = e.target;
     setPriorities((prev: any) =>
       prev.map((x) => (x.id === priority.id ? { ...x, [name]: value } : x))
@@ -41,12 +40,16 @@ const Priorities = () => {
       })
       .then((resp: any) => {
         notifySuccess(resp.message);
-        // console.log(resp);
       })
       .catch((error) => {
         console.log(error);
       });
-    // console.log("id", id);
+  };
+
+  const handleKeyDown = (e, priority) => {
+    if (e.keyCode === 13) {
+      handleUpdate(priority);
+    }
   };
 
   return (
@@ -74,6 +77,7 @@ const Priorities = () => {
                 type="text"
                 value={priority.weight}
                 onChange={(e) => handleWeightChange(e, priority)}
+                onKeyUp={(e) => handleKeyDown(e, priority)}
                 placeholder="Enter Weight"
               />
             </section>
@@ -81,6 +85,7 @@ const Priorities = () => {
               <button
                 className="bg-green-400 p-2 rounded-md"
                 onClick={() => handleUpdate(priority)}
+                title="Update"
               >
                 <CheckIcon className="text-white" />
               </button>
