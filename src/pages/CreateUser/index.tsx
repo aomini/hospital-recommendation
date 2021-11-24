@@ -15,17 +15,14 @@ interface FormValues {
   first_name: string;
   username: string;
   password?: string;
-  // email: string;
 }
 const initialValues: FormValues = {
   first_name: "",
   username: "",
   password: "",
-  // email: "",
 };
 
 const CreateUser = ({ edit = false }) => {
-  // const [user, setUser] = React.useState<FormValues>();
   const params = useParams();
   const notify = (message) => toast.warning(message);
   const successNotify = (message) => toast.success(message);
@@ -33,15 +30,10 @@ const CreateUser = ({ edit = false }) => {
   const createUserSchema = Yup.object().shape({
     first_name: Yup.string().required("Required"),
     username: Yup.string().required("Required"),
-    // email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
           .required("Please Enter your password")
           .min(6, "Password must be at least 6 characters long")
           .max(32)
-          // .matches(
-          //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-          //   "Must have one Uppercase, one Lowercase, one Number and one special Character"
-          // )
   });
   const handleSubmit = async (values) => {
     try {
@@ -96,7 +88,6 @@ const CreateUser = ({ edit = false }) => {
             }, [setFieldValue]);
             return (
               <Form className="mt-7">
-                {/* <section className="grid grid-cols-2 gap-5"> */}
                 <Field
                   component={InputField}
                   htmlFor="first_name"
@@ -120,20 +111,6 @@ const CreateUser = ({ edit = false }) => {
                   error={touched.username && errors.username}
                   className="w-full"
                 />
-                {/* </section> */}
-                <br />
-                {/* <section cla> */}
-                {/* <Field
-                  component={InputField}
-                  htmlFor="email"
-                  label="Email"
-                  id="email"
-                  name="email"
-                  placeholder="Enter Email"
-                  inputType="email"
-                  error={errors.email}
-                  className="w-full"
-                /> */}
 
                   <Field
                     component={InputField}
@@ -146,11 +123,9 @@ const CreateUser = ({ edit = false }) => {
                     error={errors.password}
                     className="w-full"
                   />
-                {/* </section> */}
                 <section className="text-right mt-5">
                   <PrimaryButton
                     type="submit"
-                    // onClick={() => console.log("Button clicked!")}
                     className="uppercase tracking-wider font-medium border border-purple bg-pink-100 hover:bg-pink-200 mt-4 mx-auto w-1/4 rounded-md"
                   >
                     Submit

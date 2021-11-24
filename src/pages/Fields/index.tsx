@@ -1,33 +1,19 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import AuthLayout from "src/layout/AuthLayout";
 import axios from "src/utils/axios";
+import instance from "src/utils/axios";
+import { reorder } from "src/utils/drag-drop";
 import { H2 } from "src/components/Typography";
+import { SuccessButton } from "src/components/Button";
+import Sidebar from "src/components/Sidebar";
 import DragDropPriorities from "./components/DragDropPriorities";
 import DragFields from "./components/DragFields";
-import { reorder } from "src/utils/drag-drop";
-import { PrimaryButton } from "src/components/Button";
-import instance from "src/utils/axios";
-import Sidebar from "src/components/Sidebar";
-
-// import { ViewMoreButton } from "src/components/Button";
-// import WarningCard from "src/components/WarningCard.tsx";
 
 const Fields = () => {
-  // const [warningModal, setWarningModal] = React.useState(false);
-  // const [updateModal, setUpdateModal] = React.useState(false);
   const [fields, setFields] = React.useState<any[]>([]);
   const [priorities, setPriorities] = React.useState<any>([]);
   const [isDisabled, setIsDisabled] = React.useState(true);
-
-  // console.log("Update, warning", updateModal, warningModal)
-  // const handleUpdate = () => {
-  //   setUpdateModal(!updateModal);
-  // };
-
-  // const handleDelete = () => {
-  //   setWarningModal(!warningModal);
-  // };
 
   React.useEffect(() => {
     const fetchFields = async () => {
@@ -116,11 +102,8 @@ const Fields = () => {
   };
   return (
     <AuthLayout childrenClass="grid grid-cols-6 gap-2">
-      {/* {updateModal ? <WarningCard /> : ""} */}
       <section className="col-span-1">
         <Sidebar
-          // setShowFields={setShowFields}
-          // showFields={showFields}
           className=""
         />
       </section>
@@ -137,12 +120,12 @@ const Fields = () => {
             </section>
             <section className="bg-gray-50 h-full overflow-auto w-2/3 p-3 border shadow-sm rounded-md">
               <section className="text-center h-full text-purple mb-2">
-                <div className="flex justify-between align-center">
+                <div className="flex justify-between align-center mb-1">
                   <div></div>
                   <H2 className="justify-center">Priorities</H2>
                   <div className="justify-end">
                     {!isDisabled && (
-                      <PrimaryButton onClick={handleSave}>Save</PrimaryButton>
+                      <SuccessButton onClick={handleSave}>Save</SuccessButton>
                     )}
                   </div>
                 </div>

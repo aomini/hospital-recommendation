@@ -3,13 +3,10 @@ import AuthLayout from "src/layout/AuthLayout";
 import Sidebar from "src/components/Sidebar";
 
 const Priorities = () => {
-  //   const handleSubmit = (id) => {}
   return (
     <AuthLayout childrenClass="grid grid-cols-6">
       <section className="col-span-1">
         <Sidebar
-          // setShowFields={setShowFields}
-          // showFields={showFields}
           className=""
         />
       </section>
