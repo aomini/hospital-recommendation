@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
+import EyeIcon from "src/assets/icons/EyeIcon";
 
 import HomeIcon from "src/assets/icons/HomeIcon";
 import LogOutIcon from "src/assets/icons/LogOutIcon";
@@ -11,9 +12,10 @@ import { BodyText, Subtitle } from "../Typography";
 interface NavbarProps {}
 
 const navItems = [
-  { name: "Hospitals", href: "/" },
-  { name: "Users", href: "/users" },
-  { name: "Settings", href: "/settings" },
+  { name: "Hospitals", href: "/", Icon: HomeIcon },
+  { name: "Users", href: "/users", Icon: UsersIcon },
+  { name: "Settings", href: "/settings", Icon: SettingsIcon },
+  { name: "Lookups", href: "/look-ups", Icon: EyeIcon },
 ];
 
 const Navbar: React.FC<NavbarProps> = () => {
@@ -31,10 +33,10 @@ const Navbar: React.FC<NavbarProps> = () => {
   };
 
   return (
-    <div className="sticky top-0 bg-white shadow-sm min-h-20 w-full px-3 z-10">
+    <div className="nav-bar sticky top-0 bg-white shadow-sm min-h-20 w-full px-3 z-10">
       <div className="flex items-center justify-between container mx-auto">
-        <section className="grid grid-cols-3 gap-6 items-center">
-          {navItems.map(({ name, href }) => (
+        <section className="grid grid-cols-12 gap-6 items-center">
+          {navItems.map(({ name, href, Icon }) => (
             <IconButton
               onClick={() => history.push(href)}
               className={`hover:bg-purple hover:text-gray-50 font-medium ${
@@ -44,13 +46,7 @@ const Navbar: React.FC<NavbarProps> = () => {
               }`}
               key={href}
             >
-              {name === "Users" ? (
-                <UsersIcon className="mx-auto" />
-              ) : name === "Hospitals" ? (
-                <HomeIcon className="mx-auto" />
-              ) : (
-                <SettingsIcon className="mx-auto" />
-              )}
+              <Icon className="mx-auto" />
               {name}
             </IconButton>
           ))}
@@ -67,7 +63,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                 className="flex text-sm font-medium py-2 px-3 hover:bg-gray-300 w-full"
                 onClick={handleLogout}
               >
-                <LogOutIcon className="mr-2"/>
+                <LogOutIcon className="mr-2" />
                 Log Out
               </button>
             </section>
