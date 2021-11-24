@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import Map from 'src/pages/Map'
 import axios from "src/utils/axios";
 import PageNotFound from "src/pages/404";
 
@@ -75,6 +75,9 @@ const [currentUser, setCurrentUser] = React.useState<any>()
     <UserContext.Provider value="Hello Context">
       <Router>
         <Switch>
+          <Route path="/map" exact>
+            <Map />
+          </Route>
           {routes.map((route) => (
             <Route exact={route.exact} path={route.path} key={route.path}>
               <React.Suspense fallback={() => "loading"}>
