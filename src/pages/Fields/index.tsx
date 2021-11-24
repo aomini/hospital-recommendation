@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import AuthLayout from "src/layout/AuthLayout";
 import axios from "src/utils/axios";
@@ -9,25 +9,13 @@ import { reorder } from "src/utils/drag-drop";
 import { PrimaryButton } from "src/components/Button";
 import instance from "src/utils/axios";
 import Sidebar from "src/components/Sidebar";
-
-// import { ViewMoreButton } from "src/components/Button";
-// import WarningCard from "src/components/WarningCard.tsx";
+import useAdjustHeight from "src/hooks/useAdjustHeight";
 
 const Fields = () => {
-  // const [warningModal, setWarningModal] = React.useState(false);
-  // const [updateModal, setUpdateModal] = React.useState(false);
   const [fields, setFields] = React.useState<any[]>([]);
   const [priorities, setPriorities] = React.useState<any>([]);
   const [isDisabled, setIsDisabled] = React.useState(true);
-
-  // console.log("Update, warning", updateModal, warningModal)
-  // const handleUpdate = () => {
-  //   setUpdateModal(!updateModal);
-  // };
-
-  // const handleDelete = () => {
-  //   setWarningModal(!warningModal);
-  // };
+  const { adjustHeight } = useAdjustHeight();
 
   React.useEffect(() => {
     const fetchFields = async () => {
@@ -49,16 +37,11 @@ const Fields = () => {
     };
     fetchFields();
     fetchPriorities();
-    adjustHeight();
   }, []);
 
-  const adjustHeight = () => {
-    const navBar: HTMLElement = document.querySelector(
-      ".nav-bar"
-    ) as HTMLElement;
-    const container: any = document.querySelector(".fields");
-    container.style.height = `calc( 100vh - ${navBar.clientHeight + 30}px )`;
-  };
+  React.useEffect(() => {
+    adjustHeight(".nav-bar", ".fields", 30);
+  }, [adjustHeight]);
 
   const handleDragEnd = (result) => {
     const { source, destination } = result;
@@ -116,13 +99,8 @@ const Fields = () => {
   };
   return (
     <AuthLayout childrenClass="grid grid-cols-6 gap-2">
-      {/* {updateModal ? <WarningCard /> : ""} */}
       <section className="col-span-1">
-        <Sidebar
-          // setShowFields={setShowFields}
-          // showFields={showFields}
-          className=""
-        />
+        <Sidebar className="" />
       </section>
       <div className="fields col-span-5">
         <DragDropContext onDragEnd={handleDragEnd}>

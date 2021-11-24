@@ -5,11 +5,6 @@ import PageNotFound from "src/pages/404";
 const routes = [
   {
     exact: true,
-    path: "/",
-    component: React.lazy(() => import("src/pages/Home")),
-  },
-  {
-    exact: true,
     path: "/login",
     component: React.lazy(() => import("src/pages/Login")),
   },
@@ -41,11 +36,19 @@ const routes = [
   },
   {
     path: "/look-ups",
-    component: React.lazy(() => import("src/pages/Lookups"))
+    component: React.lazy(() => import("src/pages/Lookups")),
   },
   {
     path: "/settings/priorities",
-    component: React.lazy(() => import("src/pages/Priorities"))
+    component: React.lazy(() => import("src/pages/Priorities")),
+  },
+  {
+    path: "/hospital/edit/:id",
+    component: React.lazy(() => import("src/pages/Home/Edit")),
+  },
+  {
+    path: "/",
+    component: React.lazy(() => import("src/pages/Home")),
   },
 ];
 
