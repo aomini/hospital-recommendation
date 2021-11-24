@@ -9,11 +9,13 @@ import { SuccessButton } from "src/components/Button";
 import Sidebar from "src/components/Sidebar";
 import DragDropPriorities from "./components/DragDropPriorities";
 import DragFields from "./components/DragFields";
+import useAdjustHeight from "src/hooks/useAdjustHeight";
 
 const Fields = () => {
   const [fields, setFields] = React.useState<any[]>([]);
   const [priorities, setPriorities] = React.useState<any>([]);
   const [isDisabled, setIsDisabled] = React.useState(true);
+  const { adjustHeight } = useAdjustHeight();
 
   React.useEffect(() => {
     const fetchFields = async () => {
@@ -35,16 +37,11 @@ const Fields = () => {
     };
     fetchFields();
     fetchPriorities();
-    adjustHeight();
   }, []);
 
-  const adjustHeight = () => {
-    const navBar: HTMLElement = document.querySelector(
-      ".nav-bar"
-    ) as HTMLElement;
-    const container: any = document.querySelector(".fields");
-    container.style.height = `calc( 100vh - ${navBar.clientHeight + 30}px )`;
-  };
+  React.useEffect(() => {
+    adjustHeight(".nav-bar", ".fields", 30);
+  }, [adjustHeight]);
 
   const handleDragEnd = (result) => {
     const { source, destination } = result;
@@ -103,9 +100,7 @@ const Fields = () => {
   return (
     <AuthLayout childrenClass="grid grid-cols-6 gap-2">
       <section className="col-span-1">
-        <Sidebar
-          className=""
-        />
+        <Sidebar className="" />
       </section>
       <div className="fields col-span-5">
         <DragDropContext onDragEnd={handleDragEnd}>
@@ -125,7 +120,12 @@ const Fields = () => {
                   <H2 className="justify-center">Priorities</H2>
                   <div className="justify-end">
                     {!isDisabled && (
-                      <SuccessButton onClick={handleSave} className="w-20 rounded font-medium">Save</SuccessButton>
+                      <SuccessButton
+                        onClick={handleSave}
+                        className="w-20 rounded font-medium"
+                      >
+                        Save
+                      </SuccessButton>
                     )}
                   </div>
                 </div>

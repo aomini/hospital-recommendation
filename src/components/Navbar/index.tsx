@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import EyeIcon from "src/assets/icons/EyeIcon";
-
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import HomeIcon from "src/assets/icons/HomeIcon";
 import LogOutIcon from "src/assets/icons/LogOutIcon";
 import SettingsIcon from "src/assets/icons/SettingsIcon";
@@ -17,6 +17,7 @@ const navItems = [
   { name: "Users", href: "/users", Icon: UsersIcon },
   { name: "Settings", href: "/settings", Icon: SettingsIcon },
   { name: "Lookups", href: "/look-ups", Icon: EyeIcon },
+  { name: "Maps", href: "/map", Icon: LocationOnIcon },
 ];
 
 const Navbar: React.FC<NavbarProps> = () => {

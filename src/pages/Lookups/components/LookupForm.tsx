@@ -5,7 +5,7 @@ import { PrimaryButton } from "src/components/Button";
 import { H1 } from "src/components/Typography";
 import instance from "src/utils/axios";
 
-const Input = (props) => <input autocomplete="off" {...props} />;
+const Input = (props) => <input autoComplete="off" {...props} />;
 
 const initialValue = {
   label: "",
@@ -42,7 +42,6 @@ const LookupForm = ({ setActiveId }) => {
       .get(`/lookup-values/${id}`)
       .then((values) => {
         setData(values);
-        console.log(values);
       })
       .catch(() => {});
     setEditValue((prev) => ({ ...prev, ...initialEditValue }));

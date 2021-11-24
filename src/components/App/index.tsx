@@ -1,17 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import Map from "src/pages/Map";
 import axios from "src/utils/axios";
 import PageNotFound from "src/pages/404";
 
 export const UserContext = React.createContext({});
 
 const routes = [
-  {
-    exact: true,
-    path: "/",
-    component: React.lazy(() => import("src/pages/Home")),
-  },
   {
     exact: true,
     path: "/login",
@@ -51,10 +46,23 @@ const routes = [
     path: "/settings/priorities",
     component: React.lazy(() => import("src/pages/Priorities")),
   },
+  {
+    path: "/hospital/edit/:id",
+    component: React.lazy(() => import("src/pages/Home/Edit")),
+  },
+  {
+    exact: true,
+    path: "/map",
+    component: React.lazy(() => import("src/pages/Map")),
+  },
+  {
+    path: "/",
+    component: React.lazy(() => import("src/pages/Home")),
+  },
 ];
 
 const App = () => {
-const [currentUser, setCurrentUser] = React.useState<any>()
+  const [currentUser, setCurrentUser] = React.useState<any>();
 
   React.useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -62,7 +70,7 @@ const [currentUser, setCurrentUser] = React.useState<any>()
         .get("/user/me")
         .then((resp: any) => {
           // console.log(resp);
-          setCurrentUser(resp.data)
+          setCurrentUser(resp.data);
         })
         .catch((error) => {
           console.log(error);
@@ -75,6 +83,9 @@ const [currentUser, setCurrentUser] = React.useState<any>()
     <UserContext.Provider value="Hello Context">
       <Router>
         <Switch>
+          <Route path="/map" exact>
+            <Map />
+          </Route>
           {routes.map((route) => (
             <Route exact={route.exact} path={route.path} key={route.path}>
               <React.Suspense fallback={() => "loading"}>
