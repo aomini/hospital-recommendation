@@ -119,8 +119,8 @@ const Fields = () => {
               </div>
             </section>
             <section className="bg-gray-50 h-full overflow-auto w-2/3 p-3 border shadow-sm rounded-md">
-              <section className="text-center h-full text-purple mb-2">
-                <div className="flex justify-between align-center mb-1">
+              <section className="text-center h-full mb-2">
+                <div className="flex justify-between align-center text-purple mb-1">
                   <div></div>
                   <H2 className="justify-center">Priorities</H2>
                   <div className="justify-end">

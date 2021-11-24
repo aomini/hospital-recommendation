@@ -7,7 +7,8 @@ import axios from "src/utils/axios";
 
 const Priorities = () => {
   const [priorities, setPriorities] = useState<any[]>([]);
-  const [newWeight, setNewWeight] = useState<number>();
+  // const [newWeight, setNewWeight] = useState<number>();
+  // const weights = []
 
   useEffect(() => {
     const fetchPriorities = async () => {
@@ -24,10 +25,26 @@ const Priorities = () => {
   }, []);
   console.log("Weight", priorities);
 
-  const handleWeightChange = (e) => {
-    setNewWeight(e.target.value);
+  const handleWeightChange = (e, priority) => {
+    const { name, value } = e.target;
+    setPriorities((prev: any) =>
+      prev.map((x) => (x.id === priority.id ? { ...x, [name]: value } : x))
+    );
+    console.log("Target ko value", e.target.value);
   };
-  console.log("New Weight", newWeight);
+
+  const handleUpdate = (priority) => {
+    axios.put(`/priorities/${priority.id}`, {
+      "weight": priority.weight
+    }).then(
+      (resp => {
+        console.log(resp)
+      })
+    ).catch((error) => {console.log(error)});
+    // console.log("id", id);
+  };
+
+  // console.log("New Weight", newWeight);
   return (
     <AuthLayout childrenClass="grid grid-cols-12">
       <section className="col-span-1">
@@ -48,15 +65,18 @@ const Priorities = () => {
             <section className="col-span-1">
               <input
                 className="p-4 py-2.5 !w-[300px] rounded-md border border-gray-200 focus:outline-none focus:ring focus:ring-blue-200"
-                name="priorities"
+                name="weight"
                 type="text"
                 value={priority.weight}
-                onChange={handleWeightChange}
+                onChange={(e) => handleWeightChange(e, priority)}
                 placeholder="Enter Weight"
               />
             </section>
             <section className="col-span-1">
-              <button className="bg-green-400 p-2 rounded-md">
+              <button
+                className="bg-green-400 p-2 rounded-md"
+                onClick={() => handleUpdate(priority)}
+              >
                 <CheckIcon className="text-white" />
               </button>
             </section>

@@ -20,10 +20,12 @@ const DragDropPriorities = ({ priorities, isDragDisabled, handleClick }) => {
             index={index}
             isDragDisabled={isDragDisabled}
           >
-            <div className="p-2 bg-gray-200 mt-2 text-left flex justify-between items-center">
+            <div className="p-2 mt-2 text-left flex justify-between items-center">
               <div className="text-sm">
                 {priority.title}
-                <span className="ml-2 text-sm">({priority.Field.name})</span>
+                <span className="ml-2 text-xs text-gray-600 bg-gold p-1 rounded-full">
+                  {priority.Field.name}
+                </span>
               </div>
               <div>
                 {!isDragDisabled && (
