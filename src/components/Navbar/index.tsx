@@ -8,10 +8,9 @@ import SettingsIcon from "src/assets/icons/SettingsIcon";
 import UsersIcon from "src/assets/icons/UsersIcon";
 import { IconButton } from "../Button";
 import { BodyText, Subtitle } from "../Typography";
-import { UserContext } from "../App";
+import { UserContext } from "src/Providers/AuthProvider";
 
 interface NavbarProps {}
-
 const navItems = [
   { name: "Hospitals", href: "/", Icon: HomeIcon },
   { name: "Users", href: "/users", Icon: UsersIcon },
@@ -35,7 +34,7 @@ const Navbar: React.FC<NavbarProps> = () => {
 
   return (
     <UserContext.Consumer>
-      {(value) => (
+      {(value: any) => (
         <div className="nav-bar sticky top-0 bg-white shadow-sm min-h-20 w-full px-3 z-10">
           <div className="flex items-center justify-between container mx-auto">
             <section className="grid grid-cols-12 gap-6 items-center">
@@ -54,11 +53,13 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </IconButton>
               ))}
             </section>
-            <button onClick={handleOpen} className="relative flex items-center">
+            <button onClick={handleOpen} className="relative flex items-center min-w-xxs w-auto">
               <div className="rounded-full bg-gold h-7 w-7 mr-2"></div>
               <span className="flex-col justify-start">
-                <BodyText className="text-gold text-left">{value}</BodyText>
-                <Subtitle className="text-gray-600">user@gmail.com</Subtitle>
+                <BodyText className="text-gold text-left">
+                  {value.first_name}
+                </BodyText>
+                <Subtitle className="text-gray-600">{value.username}</Subtitle>
               </span>
               {menuOpen ? (
                 <section className="absolute top-12 bg-gray-100 py-3 text-left shadow-md h-32 w-40">

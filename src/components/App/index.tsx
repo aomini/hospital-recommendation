@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import axios from "src/utils/axios";
+import AuthProvider from "src/Providers/AuthProvider";
 import PageNotFound from "src/pages/404";
 
-export const UserContext = React.createContext({});
+// const UserContext = React.createContext({});
 
 const routes = [
   {
@@ -54,25 +54,12 @@ const routes = [
 ];
 
 const App = () => {
-const [currentUser, setCurrentUser] = React.useState<any>()
+ 
 
-  React.useEffect(() => {
-    const fetchCurrentUser = async () => {
-      await axios
-        .get("/user/me")
-        .then((resp: any) => {
-          // console.log(resp);
-          setCurrentUser(resp.data)
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    fetchCurrentUser();
-  }, []);
+ 
 
   return (
-    <UserContext.Provider value="Hello Context">
+    <AuthProvider>
       <Router>
         <Switch>
           {routes.map((route) => (
@@ -85,7 +72,7 @@ const [currentUser, setCurrentUser] = React.useState<any>()
           <Route component={PageNotFound} />
         </Switch>
       </Router>
-    </UserContext.Provider>
+    </AuthProvider>
   );
 };
 
