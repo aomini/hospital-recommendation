@@ -2,13 +2,13 @@ import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import AuthLayout from "src/layout/AuthLayout";
 import axios from "src/utils/axios";
+import instance from "src/utils/axios";
+import { reorder } from "src/utils/drag-drop";
 import { H2 } from "src/components/Typography";
+import { SuccessButton } from "src/components/Button";
+import Sidebar from "src/components/Sidebar";
 import DragDropPriorities from "./components/DragDropPriorities";
 import DragFields from "./components/DragFields";
-import { reorder } from "src/utils/drag-drop";
-import { PrimaryButton } from "src/components/Button";
-import instance from "src/utils/axios";
-import Sidebar from "src/components/Sidebar";
 import useAdjustHeight from "src/hooks/useAdjustHeight";
 
 const Fields = () => {
@@ -114,13 +114,18 @@ const Fields = () => {
               </div>
             </section>
             <section className="bg-gray-50 h-full overflow-auto w-2/3 p-3 border shadow-sm rounded-md">
-              <section className="text-center h-full text-purple mb-2">
-                <div className="flex justify-between align-center">
+              <section className="text-center h-full mb-2">
+                <div className="flex justify-between align-center text-purple mb-1">
                   <div></div>
                   <H2 className="justify-center">Priorities</H2>
                   <div className="justify-end">
                     {!isDisabled && (
-                      <PrimaryButton onClick={handleSave}>Save</PrimaryButton>
+                      <SuccessButton
+                        onClick={handleSave}
+                        className="w-20 rounded font-medium"
+                      >
+                        Save
+                      </SuccessButton>
                     )}
                   </div>
                 </div>

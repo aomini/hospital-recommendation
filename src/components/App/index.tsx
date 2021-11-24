@@ -1,6 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Map from "src/pages/Map";
+import axios from "src/utils/axios";
 import PageNotFound from "src/pages/404";
+
+export const UserContext = React.createContext({});
 
 const routes = [
   {
@@ -47,25 +51,52 @@ const routes = [
     component: React.lazy(() => import("src/pages/Home/Edit")),
   },
   {
+    exact: true,
+    path: "/map",
+    component: React.lazy(() => import("src/pages/Map")),
+  },
+  {
     path: "/",
     component: React.lazy(() => import("src/pages/Home")),
   },
 ];
 
 const App = () => {
+  const [currentUser, setCurrentUser] = React.useState<any>();
+
+  React.useEffect(() => {
+    const fetchCurrentUser = async () => {
+      await axios
+        .get("/user/me")
+        .then((resp: any) => {
+          // console.log(resp);
+          setCurrentUser(resp.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    fetchCurrentUser();
+  }, []);
+
   return (
-    <Router>
-      <Switch>
-        {routes.map((route) => (
-          <Route exact={route.exact} path={route.path} key={route.path}>
-            <React.Suspense fallback={() => "loading"}>
-              <route.component edit={route.edit} />
-            </React.Suspense>
+    <UserContext.Provider value="Hello Context">
+      <Router>
+        <Switch>
+          <Route path="/map" exact>
+            <Map />
           </Route>
-        ))}
-        <Route component={PageNotFound} />
-      </Switch>
-    </Router>
+          {routes.map((route) => (
+            <Route exact={route.exact} path={route.path} key={route.path}>
+              <React.Suspense fallback={() => "loading"}>
+                <route.component edit={route.edit} />
+              </React.Suspense>
+            </Route>
+          ))}
+          <Route component={PageNotFound} />
+        </Switch>
+      </Router>
+    </UserContext.Provider>
   );
 };
 
