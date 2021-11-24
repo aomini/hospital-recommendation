@@ -59,10 +59,10 @@ const Priorities = () => {
       <section className="w-5/6 ml-auto">
         {priorities?.map((priority) => (
           <section
-            className="grid grid-cols-4 place-items-center mb-2"
+            className="grid grid-cols-4 justify-items-start items-center mb-2"
             key={priority.id}
           >
-            <section className="col-span-2">
+            <section className="col-span-1">
               <label
                 htmlFor="priorities"
                 className="text-md font-medium text-left w-auto"
@@ -83,7 +83,7 @@ const Priorities = () => {
             </section>
             <section className="col-span-1">
               <button
-                className="bg-green-400 p-2 rounded-md"
+                className="bg-green-400 p-1.5 rounded-md"
                 onClick={() => handleUpdate(priority)}
                 title="Update"
               >
