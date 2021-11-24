@@ -37,7 +37,7 @@ const Navbar: React.FC<NavbarProps> = () => {
       {(value: any) => (
         <div className="nav-bar sticky top-0 bg-white shadow-sm min-h-20 w-full px-3 z-10">
           <div className="flex items-center justify-between container mx-auto">
-            <section className="grid grid-cols-12 gap-6 items-center">
+            <section className="grid grid-cols-8 gap-6 items-center">
               {navItems.map(({ name, href, Icon }) => (
                 <IconButton
                   onClick={() => history.push(href)}
@@ -53,28 +53,35 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </IconButton>
               ))}
             </section>
-            <button onClick={handleOpen} className="relative flex items-center min-w-xxs w-auto">
-              <div className="rounded-full bg-gold h-7 w-7 mr-2"></div>
-              <span className="flex-col justify-start">
-                <BodyText className="text-gold text-left">
-                  {value.first_name}
-                </BodyText>
-                <Subtitle className="text-gray-600">{value.username}</Subtitle>
-              </span>
-              {menuOpen ? (
-                <section className="absolute top-12 bg-gray-100 py-3 text-left shadow-md h-32 w-40">
-                  <button
-                    className="flex text-sm font-medium py-2 px-3 hover:bg-gray-300 w-full"
-                    onClick={handleLogout}
-                  >
-                    <LogOutIcon className="mr-2" />
-                    Log Out
-                  </button>
-                </section>
-              ) : (
-                ""
-              )}
-            </button>
+            <section className="flex justify-start w-auto">
+              <button
+                onClick={handleOpen}
+                className="relative flex items-center min-w-xxs w-auto"
+              >
+                <div className="rounded-full bg-gold h-9 w-9 mr-2"></div>
+                <span className="flex-col justify-start">
+                  <BodyText className="text-gold text-left">
+                    {value.first_name}
+                  </BodyText>
+                  <Subtitle className="text-gray-600">
+                    {value.username}
+                  </Subtitle>
+                </span>
+                {menuOpen ? (
+                  <section className="absolute top-12 bg-gray-100 py-3 text-left shadow-md h-32 w-32">
+                    <button
+                      className="flex text-sm font-medium py-2 px-3 hover:bg-gray-300 w-full"
+                      onClick={handleLogout}
+                    >
+                      <LogOutIcon className="mr-2" />
+                      Log Out
+                    </button>
+                  </section>
+                ) : (
+                  ""
+                )}
+              </button>
+            </section>
           </div>
         </div>
       )}
