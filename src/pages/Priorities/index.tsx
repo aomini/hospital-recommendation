@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+import { notifySuccess } from "src/utils/notify";
+import axios from "src/utils/axios";
 import CheckIcon from "src/assets/icons/CheckIcon";
 import AuthLayout from "src/layout/AuthLayout";
 import Sidebar from "src/components/Sidebar";
-import axios from "src/utils/axios";
 
 const Priorities = () => {
   const [priorities, setPriorities] = useState<any[]>([]);
-  // const [newWeight, setNewWeight] = useState<number>();
-  // const weights = []
 
   useEffect(() => {
     const fetchPriorities = async () => {
@@ -34,27 +35,31 @@ const Priorities = () => {
   };
 
   const handleUpdate = (priority) => {
-    axios.put(`/priorities/${priority.id}`, {
-      "weight": priority.weight
-    }).then(
-      (resp => {
-        console.log(resp)
+    axios
+      .put(`/priorities/${priority.id}`, {
+        weight: priority.weight,
       })
-    ).catch((error) => {console.log(error)});
+      .then((resp: any) => {
+        notifySuccess(resp.message);
+        // console.log(resp);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     // console.log("id", id);
   };
 
-  // console.log("New Weight", newWeight);
   return (
-    <AuthLayout childrenClass="grid grid-cols-12">
-      <section className="col-span-1">
-        <Sidebar className="" />
-      </section>
-      <section className="col-span-1"></section>
-      <section className="col-span-10">
+    <AuthLayout>
+      <ToastContainer />
+      <Sidebar className="" />
+      <section className="w-5/6 ml-auto">
         {priorities?.map((priority) => (
-          <section className="grid grid-cols-4 place-items-center mb-2">
-            <section className="col-span-1">
+          <section
+            className="grid grid-cols-4 place-items-center mb-2"
+            key={priority.id}
+          >
+            <section className="col-span-2">
               <label
                 htmlFor="priorities"
                 className="text-md font-medium text-left w-auto"
