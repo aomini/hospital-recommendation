@@ -2,16 +2,12 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import AuthProvider from "src/Providers/AuthProvider";
+import Map from "src/pages/Map";
 import PageNotFound from "src/pages/404";
 
 // const UserContext = React.createContext({});
 
 const routes = [
-  {
-    exact: true,
-    path: "/",
-    component: React.lazy(() => import("src/pages/Home")),
-  },
   {
     exact: true,
     path: "/login",
@@ -51,17 +47,30 @@ const routes = [
     path: "/settings/priorities",
     component: React.lazy(() => import("src/pages/Priorities")),
   },
+  {
+    path: "/hospital/edit/:id",
+    component: React.lazy(() => import("src/pages/Home/Edit")),
+  },
+  {
+    exact: true,
+    path: "/map",
+    component: React.lazy(() => import("src/pages/Map")),
+  },
+  {
+    path: "/",
+    component: React.lazy(() => import("src/pages/Home")),
+  },
 ];
 
 const App = () => {
  
-
- 
-
   return (
     <AuthProvider>
       <Router>
         <Switch>
+          <Route path="/map" exact>
+            <Map />
+          </Route>
           {routes.map((route) => (
             <Route exact={route.exact} path={route.path} key={route.path}>
               <React.Suspense fallback={() => "loading"}>
