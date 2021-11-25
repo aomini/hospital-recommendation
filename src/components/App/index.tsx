@@ -80,7 +80,7 @@ const App = () => {
               <Map />
             </Route>
             {routes.map((route) => (
-              <Route exact={true} path={route.path} key={route.path}>
+              <Route exact={route.exact} path={route.path} key={route.path}>
                 <React.Suspense fallback={() => "loading"}>
                   <route.component edit={route.edit} />
                 </React.Suspense>
