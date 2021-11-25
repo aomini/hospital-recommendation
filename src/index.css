@@ -10,3 +10,12 @@
   cursor: pointer;
   transition: all 200ms ease-in;
 }
+/* @layer utilities {
+    .focus-outline{
+
+    }
+} */
+
+.input-focus {
+    @apply focus:outline-none focus:ring focus:ring-blue-200
+}
