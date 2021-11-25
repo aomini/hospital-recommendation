@@ -1,15 +1,24 @@
-import React from "react";
+import * as React from "react";
+import axios from "src/utils/axios";
 import styled from "styled-components";
 import MapList from "src/components/MapList";
 import MapComponent from "src/components/Map/Map";
-import hospitals from "./hospitals";
 
 const FlexContainer = styled.div`
   display: flex;
 `;
 
 const Map = () => {
+  const [hospitals, setHospitals] = React.useState<any>([]);
   const [hoveredOriginId, setHoveredOriginId] = React.useState(null);
+
+  React.useEffect(() => {
+    axios.get("hospitals/basic").then((resp) => {
+      setHospitals(resp)
+    });
+  }, []);
+
+  console.log(hospitals)
 
   return (
     <FlexContainer>

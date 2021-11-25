@@ -30,7 +30,7 @@ const MapContainer = ({ markers, hoveredOriginId }) => {
 
   React.useEffect(() => {
     const bounds = new window.google.maps.LatLngBounds();
-    markers.forEach(({ lat, lng }) => {
+    markers.forEach(({ latitude: lat, longitude: lng }) => {
       bounds.extend(new window.google.maps.LatLng(lat, lng));
     });
     mapRef.current.fitBounds(bounds);
@@ -51,21 +51,23 @@ const MapContainer = ({ markers, hoveredOriginId }) => {
       onDragStart={() => setIsClickOutsideDisabled(true)}
       onDragEnd={() => setIsClickOutsideDisabled(false)}
     >
-      {markers.map(({ address, name, lat, lng }, index) => (
-        <Marker
-          key={index}
-          position={{ lat, lng }}
-          title={name}
-          name={name}
-          onClick={() => setSelectedOriginId(index)}
-        />
-      ))}
+      {markers.map(
+        ({ address, name, latitude: lat, longitude: lng }, index) => (
+          <Marker
+            key={index}
+            position={{ lat, lng }}
+            title={name}
+            name={name}
+            onClick={() => setSelectedOriginId(index)}
+          />
+        )
+      )}
 
       {selectedData && (
         <InfoWindow
           position={{
-            lat: selectedData.lat,
-            lng: selectedData.lng,
+            lat: selectedData.latitude,
+            lng: selectedData.longitude,
           }}
           options={{
             pixelOffset: new window.google.maps.Size(
