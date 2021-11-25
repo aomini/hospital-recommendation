@@ -1,14 +1,15 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { format } from "date-fns";
-import { Link, Switch, Route } from "react-router-dom";
+
 import AuthLayout from "src/layout/AuthLayout";
 import instance from "src/utils/axios";
+import EditIcon from "src/assets/icons/EditIcon";
 import DataTable from "src/components/DataTable";
 import { H1 } from "src/components/Typography";
-import Tabs from "./components/Tabs";
 import { IconButton, PrimaryButton } from "src/components/Button";
-import EditIcon from "src/assets/icons/EditIcon";
-import Edit from "./Edit";
+
+import Tabs from "./components/Tabs";
 
 const columns = [
   {
@@ -42,7 +43,7 @@ const columns = [
     width: "150px",
     cell: (row) => (
       <Link to={`/hospital/edit/${row.id}`}>
-        <IconButton>
+        <IconButton title="Edit Info">
           <EditIcon />
         </IconButton>
       </Link>

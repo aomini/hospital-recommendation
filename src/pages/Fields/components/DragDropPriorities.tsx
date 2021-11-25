@@ -29,7 +29,10 @@ const DragDropPriorities = ({ priorities, isDragDisabled, handleClick }) => {
               </div>
               <div>
                 {!isDragDisabled && (
-                  <IconButton onClick={() => handleClick(priority)}>
+                  <IconButton
+                    onClick={() => handleClick(priority)}
+                    title="Delete Priority"
+                  >
                     <TrashIcon />
                   </IconButton>
                 )}
