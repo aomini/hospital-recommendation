@@ -55,6 +55,8 @@ const MapContainer = ({ markers, setOrigin, hoveredOriginId }) => {
     }
   };
 
+  console.log(DEFAULT_CENTER);
+
   return (
     <GoogleMap
       ref={mapRef}
