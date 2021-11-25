@@ -25,16 +25,15 @@ const Priorities = () => {
   }, []);
 
   const handleWeightChange = (e, priority) => {
-    // console.log(e);
     const { name, value } = e.target;
     setPriorities((prev: any) =>
       prev.map((x) => (x.id === priority.id ? { ...x, [name]: value } : x))
     );
-    // console.log("Target ko value", e.target.value);
   };
 
   const handleUpdate = (priority) => {
-    axios
+    if(priority.weight) {
+      axios
       .put(`/priorities/${priority.id}`, {
         weight: priority.weight,
       })
@@ -42,8 +41,12 @@ const Priorities = () => {
         notifySuccess(resp.message);
       })
       .catch((error) => {
-        notifyError(error.response);
+        console.log(error);
       });
+    }else{
+      notifyError("Weight cannot be empty!")
+    }
+    
   };
 
   const handleKeyDown = (e, priority) => {
