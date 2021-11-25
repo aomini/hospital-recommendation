@@ -2,7 +2,6 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 
-import AuthLayout from "src/layout/AuthLayout";
 import instance from "src/utils/axios";
 import EditIcon from "src/assets/icons/EditIcon";
 import DataTable from "src/components/DataTable";
@@ -91,7 +90,6 @@ const Home = () => {
       .catch();
   };
   return (
-    <AuthLayout>
       <div className="grid gap-2">
         <H1 className="mt-4 font-medium">Hospitals</H1>
         <div className="flex justify-between items-center">
@@ -100,7 +98,6 @@ const Home = () => {
         </div>
         <DataTable columns={columns} data={hospitalData.rows} />
       </div>
-    </AuthLayout>
   );
 };
 

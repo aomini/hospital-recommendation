@@ -2,7 +2,6 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { PrimaryButton } from "src/components/Button";
 import { H1 } from "src/components/Typography";
-import AuthLayout from "src/layout/AuthLayout";
 import instance from "src/utils/axios";
 import FieldItems from "./components/FieldItems";
 
@@ -116,7 +115,7 @@ const Edit = () => {
       .catch(() => {});
   };
   return (
-    <AuthLayout>
+    <>
       <H1 className="mt-4 mb-2 font-medium">Hospitals Edit</H1>
       <div className=" grid grid-cols-12 gap-6">
         <aside className=" col-span-3 ">
@@ -163,7 +162,7 @@ const Edit = () => {
           </form>
         </section>
       </div>
-    </AuthLayout>
+    </>
   );
 };
 

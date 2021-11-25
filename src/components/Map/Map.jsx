@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
 import MapContainer from "../MapContainer/index";
-import AuthLayout from "src/layout/AuthLayout";
 
 const MapWrapper = styled(Box)`
   position: sticky;
@@ -29,7 +28,6 @@ const MapElement = styled(Box)`
 `;
 
 const Map = (props) => (
-  <AuthLayout>
     <div>
       <MapWrapper>
         <MapContainer
@@ -41,6 +39,5 @@ const Map = (props) => (
         />
       </MapWrapper>
     </div>
-  </AuthLayout>
 );
 export default Map;
