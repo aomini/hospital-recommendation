@@ -4,12 +4,22 @@ import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
-import TransferWithinAStationOutlinedIcon from "@mui/icons-material/TransferWithinAStationOutlined";
-import AirplanemodeActiveOutlinedIcon from "@mui/icons-material/AirplanemodeActiveOutlined";
-import AirportShuttleOutlinedIcon from "@mui/icons-material/AirportShuttleOutlined";
-import { SummaryDiv } from "../MapList";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
-const InfoWindow = ({ Name, Address, Phone, ...rest }) => {
+const InfoWindow = ({
+  name_of_hospital: Name,
+  address: Address,
+  phone_number: Phone,
+  distance_from_airport,
+  distance_from_koteshwor,
+  distance_from_sanga,
+  distance_from_thankot,
+}) => {
   return (
     <Card sx={{ maxWidth: 375, minWidth: 300 }}>
       <CardActionArea>
@@ -36,7 +46,31 @@ const InfoWindow = ({ Name, Address, Phone, ...rest }) => {
           >
             <PermPhoneMsgIcon fontSize="small" /> {Phone ? Phone : "-"}
           </Typography>
-          <SummaryDiv>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableRow>
+                <TableCell style={{ fontWeight: 600 }}>Airport</TableCell>
+                <TableCell style={{ fontWeight: 600 }}>Koteshwor</TableCell>
+              </TableRow>
+              <TableBody>
+                <TableRow>
+                  <TableCell>{distance_from_airport}</TableCell>
+                  <TableCell>{distance_from_koteshwor}</TableCell>
+                </TableRow>
+              </TableBody>
+              <TableRow>
+                <TableCell style={{ fontWeight: 600 }}>Sanga</TableCell>
+                <TableCell style={{ fontWeight: 600 }}>Thankot</TableCell>
+              </TableRow>
+              <TableBody>
+                <TableRow>
+                  <TableCell>{distance_from_sanga}</TableCell>
+                  <TableCell>{distance_from_thankot}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {/* <SummaryDiv>
             <SummaryDiv gap={0} style={{ marginTop: 0 }}>
               <AirplanemodeActiveOutlinedIcon fontSize="small" /> ----
               <TransferWithinAStationOutlinedIcon fontSize="small" />
@@ -51,21 +85,9 @@ const InfoWindow = ({ Name, Address, Phone, ...rest }) => {
             </SummaryDiv>
             {rest["Driving distance from Airport"]},{" "}
             {rest["Driving duration from Airport"]}
-          </SummaryDiv>
-          <Typography
-            style={{ marginTop: 10, color: "#bababa" }}
-            variant="body2"
-            color="text.secondary"
-          >
-            hospital, establishment
-          </Typography>
+          </SummaryDiv> */}
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-      </CardActions>
     </Card>
   );
 };
