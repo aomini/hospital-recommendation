@@ -7,7 +7,7 @@ const FormControl = ({ type, ...rest }) => {
     default:
       return (
         <input
-          className="w-full p-1"
+          className="w-full p-1 input-focus"
           type={type}
           autoComplete="off"
           {...rest}

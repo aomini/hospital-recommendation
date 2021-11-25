@@ -72,7 +72,7 @@ const Priorities = () => {
             </section>
             <section className="col-span-1">
               <input
-                className="p-4 py-2.5 !w-[300px] rounded-md border border-gray-200 focus:outline-none focus:ring focus:ring-blue-200"
+                className="p-4 py-2.5 !w-[300px] rounded-md border border-gray-200 input-focus"
                 name="weight"
                 type="text"
                 value={priority.weight}

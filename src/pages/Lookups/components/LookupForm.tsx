@@ -5,7 +5,9 @@ import { PrimaryButton } from "src/components/Button";
 import { H1 } from "src/components/Typography";
 import instance from "src/utils/axios";
 
-const Input = (props) => <input autoComplete="off" {...props} />;
+const Input = (props) => (
+  <input autoComplete="off" className="input-focus" {...props} />
+);
 
 const initialValue = {
   label: "",
@@ -205,7 +207,8 @@ const LookupForm = ({ setActiveId }) => {
     }));
   };
 
-  const handleCreate = () => {
+  const handleCreate = (e) => {
+    e.preventDefault()
     instance
       .post(`/lookup-values/${id}`, {
         ...newData.data,
@@ -225,16 +228,16 @@ const LookupForm = ({ setActiveId }) => {
       <div className="grid gap-4">
         <section className="bg-white p-3">
           <H1>Add New</H1>
-          <div className="mt-2">
+          <form className="mt-2" onSubmit={(e) => handleCreate(e)}>
             <Input
               name="label"
               placeholder="label"
               value={newData.data.label}
               onChange={handleCreateChange}
-              className="p-2 border border-gray-400 rounded-md"
+              className="p-2 border border-gray-400 rounded-md input-focus"
             />
             <Input
-              className="p-2 border border-gray-400 rounded-md mx-2"
+              className="p-2 border border-gray-400 rounded-md mx-2 input-focus"
               name="value"
               placeholder="value"
               value={newData.data.value}
@@ -242,11 +245,10 @@ const LookupForm = ({ setActiveId }) => {
             />
             <PrimaryButton
               className="px-3 py-2 text-gray-50 bg-green-600 hover:bg-green-700 rounded-md w-32"
-              onClick={handleCreate}
             >
               Add
             </PrimaryButton>
-          </div>
+          </form>
         </section>
         <DataTable columns={columns} data={data.LookupValues || []} />
       </div>
