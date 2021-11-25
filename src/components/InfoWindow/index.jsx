@@ -21,7 +21,7 @@ const InfoWindow = ({
   distance_from_thankot,
 }) => {
   return (
-    <Card sx={{ maxWidth: 375, minWidth: 300 }}>
+    <Card sx={{ maxWidth: 375, minWidth: 300, background: "white" }}>
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -40,13 +40,14 @@ const InfoWindow = ({
               alignItems: "center",
               gap: "5px",
               marginTop: "10px",
+              marginBottom: "10px",
             }}
             variant="body2"
             color="text.secondary"
           >
             <PermPhoneMsgIcon fontSize="small" /> {Phone ? Phone : "-"}
           </Typography>
-          <TableContainer component={Paper}>
+          <TableContainer>
             <Table>
               <TableRow>
                 <TableCell style={{ fontWeight: 600 }}>Airport</TableCell>

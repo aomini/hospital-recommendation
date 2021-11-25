@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
@@ -11,10 +10,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import TransferWithinAStationOutlinedIcon from "@mui/icons-material/TransferWithinAStationOutlined";
-import AirplanemodeActiveOutlinedIcon from "@mui/icons-material/AirplanemodeActiveOutlined";
-import AirportShuttleOutlinedIcon from "@mui/icons-material/AirportShuttleOutlined";
-import NatureIcon from "@mui/icons-material/Nature";
+
 
 export const SummaryDiv = styled.div`
   color: #5e5e5e;
