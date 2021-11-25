@@ -30,7 +30,7 @@ const Priorities = () => {
     setPriorities((prev: any) =>
       prev.map((x) => (x.id === priority.id ? { ...x, [name]: value } : x))
     );
-    console.log("Target ko value", e.target.value);
+    // console.log("Target ko value", e.target.value);
   };
 
   const handleUpdate = (priority) => {
