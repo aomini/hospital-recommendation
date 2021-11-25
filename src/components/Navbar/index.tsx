@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Link } from "react-router-dom";
 // import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 import EyeIcon from "src/assets/icons/EyeIcon";
@@ -42,9 +42,9 @@ const Navbar: React.FC<NavbarProps> = () => {
           <div className="flex items-center justify-between container mx-auto">
             <section className="grid grid-cols-8 gap-6 items-center">
               {navItems.map(({ name, href, Icon }) => (
-                <IconButton
-                  onClick={() => history.push(href)}
-                  className={`hover:bg-purple hover:text-gray-50 font-medium ${
+                <Link
+                  to={href}
+                  className={`text-base flex flex-col justify-center items-center p-3 hover:bg-purple hover:text-gray-50 font-medium ${
                     location.pathname === href
                       ? "text-purple border-b-4 border-purple"
                       : "text-gray-600"
@@ -53,7 +53,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                 >
                   <Icon className="mx-auto h-8 w-8" />
                   {name}
-                </IconButton>
+                </Link>
               ))}
             </section>
             <section className="flex justify-start w-auto">

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { notifySuccess } from "src/utils/notify";
+import { notifyError, notifySuccess } from "src/utils/notify";
 import axios from "src/utils/axios";
 import CheckIcon from "src/assets/icons/CheckIcon";
 import AuthLayout from "src/layout/AuthLayout";
@@ -25,7 +25,7 @@ const Priorities = () => {
   }, []);
 
   const handleWeightChange = (e, priority) => {
-    console.log(e);
+    // console.log(e);
     const { name, value } = e.target;
     setPriorities((prev: any) =>
       prev.map((x) => (x.id === priority.id ? { ...x, [name]: value } : x))
@@ -42,7 +42,7 @@ const Priorities = () => {
         notifySuccess(resp.message);
       })
       .catch((error) => {
-        console.log(error);
+        notifyError(error.response);
       });
   };
 
