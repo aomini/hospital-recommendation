@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+// import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 import EyeIcon from "src/assets/icons/EyeIcon";
 import { UserContext } from "src/Providers/AuthProvider";
 import HomeIcon from "src/assets/icons/HomeIcon";
 import LogOutIcon from "src/assets/icons/LogOutIcon";
+import LocationIcon from "src/assets/icons/LocationIcon";
 import SettingsIcon from "src/assets/icons/SettingsIcon";
 import UsersIcon from "src/assets/icons/UsersIcon";
 import { IconButton } from "../Button";
@@ -14,7 +15,7 @@ import { BodyText, Subtitle } from "../Typography";
 interface NavbarProps {}
 const navItems = [
   { name: "Hospitals", href: "/", Icon: HomeIcon },
-  { name: "Maps", href: "/map", Icon: LocationOnIcon },
+  { name: "Maps", href: "/map", Icon: LocationIcon },
   { name: "Users", href: "/users", Icon: UsersIcon },
   { name: "Lookups", href: "/look-ups", Icon: EyeIcon },
   { name: "Settings", href: "/settings", Icon: SettingsIcon },
@@ -50,7 +51,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   }`}
                   key={href}
                 >
-                  <Icon className="mx-auto" />
+                  <Icon className="mx-auto h-8 w-8" />
                   {name}
                 </IconButton>
               ))}

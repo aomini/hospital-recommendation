@@ -12,7 +12,7 @@ const IconButton: React.FC<IconButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`text-base flex-col justify-center items-center p-3 ${className}`}
+      className={`text-base flex flex-col justify-center items-center p-3 ${className}`}
     >
       {children}
     </button>

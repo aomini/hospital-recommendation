@@ -6,7 +6,7 @@ import { H1 } from "src/components/Typography";
 import instance from "src/utils/axios";
 
 const Input = (props) => (
-  <input autoComplete="off" className="input-focus" {...props} />
+  <input autoComplete="off" className="input-focus !bg-none" {...props} />
 );
 
 const initialValue = {
