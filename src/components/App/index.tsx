@@ -1,10 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Map from "src/pages/Map";
-import axios from "src/utils/axios";
-import PageNotFound from "src/pages/404";
 
-export const UserContext = React.createContext({});
+import AuthProvider from "src/Providers/AuthProvider";
+import Map from "src/pages/Map";
+import PageNotFound from "src/pages/404";
 
 const routes = [
   {
@@ -17,11 +16,6 @@ const routes = [
     path: "/users",
     component: React.lazy(() => import("src/pages/Users")),
   },
-  // {
-  //   exact: true,
-  //   path: "/settings",
-  //   component: React.lazy(() => import("src/pages/Settings")),
-  // },
   {
     exact: true,
     path: "/users/create-user",
@@ -62,25 +56,9 @@ const routes = [
 ];
 
 const App = () => {
-  const [currentUser, setCurrentUser] = React.useState<any>();
-
-  React.useEffect(() => {
-    const fetchCurrentUser = async () => {
-      await axios
-        .get("/user/me")
-        .then((resp: any) => {
-          // console.log(resp);
-          setCurrentUser(resp.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    fetchCurrentUser();
-  }, []);
-
+ 
   return (
-    <UserContext.Provider value="Hello Context">
+    <AuthProvider>
       <Router>
         <Switch>
           <Route path="/map" exact>
@@ -96,7 +74,7 @@ const App = () => {
           <Route component={PageNotFound} />
         </Switch>
       </Router>
-    </UserContext.Provider>
+    </AuthProvider>
   );
 };
 
