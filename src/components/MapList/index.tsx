@@ -21,10 +21,15 @@ export const SummaryDiv = styled.div`
   margin-top: 10px;
 `;
 
-const MapList = ({ items = [], onHandleHover }) => {
+const MapList = ({ items = [], selectedMarkerID, onHandleHover }) => {
+
+  React.useEffect(() => {
+
+  }, [])
+
   return (
-    <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-      {items.slice(0, 10).map((item: any, index) => {
+    <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper", height: "100vh", overflowY: "scroll" }}>
+      {items.map((item: any, index) => {
         const {
           id,
           name_of_hospital: name,
@@ -39,9 +44,11 @@ const MapList = ({ items = [], onHandleHover }) => {
         return (
           <React.Fragment key={id}>
             <ListItem
+              className={`map-list-item map-list-id-${item.id}`}
               alignItems="center"
-              onMouseEnter={() => onHandleHover(index)}
+              onMouseEnter={() => onHandleHover(item.id)}
               onMouseLeave={() => onHandleHover(null)}
+              style={item.id === selectedMarkerID ? {borderLeft: "10px solid #a12568"} : {}}
             >
               <div style={{ flex: 1 }}>
                 <ListItemText
