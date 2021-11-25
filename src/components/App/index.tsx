@@ -5,8 +5,6 @@ import AuthProvider from "src/Providers/AuthProvider";
 import Map from "src/pages/Map";
 import PageNotFound from "src/pages/404";
 
-// const UserContext = React.createContext({});
-
 const routes = [
   {
     exact: true,
@@ -18,11 +16,6 @@ const routes = [
     path: "/users",
     component: React.lazy(() => import("src/pages/Users")),
   },
-  // {
-  //   exact: true,
-  //   path: "/settings",
-  //   component: React.lazy(() => import("src/pages/Settings")),
-  // },
   {
     exact: true,
     path: "/users/create-user",

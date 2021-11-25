@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
-// import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 import EyeIcon from "src/assets/icons/EyeIcon";
 import { UserContext } from "src/Providers/AuthProvider";
@@ -9,7 +8,6 @@ import LogOutIcon from "src/assets/icons/LogOutIcon";
 import LocationIcon from "src/assets/icons/LocationIcon";
 import SettingsIcon from "src/assets/icons/SettingsIcon";
 import UsersIcon from "src/assets/icons/UsersIcon";
-import { IconButton } from "../Button";
 import { BodyText, Subtitle } from "../Typography";
 
 interface NavbarProps {}

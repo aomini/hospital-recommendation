@@ -14,7 +14,6 @@ const AuthProvider = ({ children }) => {
       await axios
         .get("/user/me")
         .then((resp: any) => {
-          console.log(resp);
           setCurrentUser(resp.data);
         })
         .catch((error) => {
