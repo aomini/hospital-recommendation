@@ -1,50 +1,34 @@
 import React from "react";
-import Select from "react-select";
-import FormControl from "src/components/Form/FormControl";
-import FormGroup from "src/components/Form/FormGroup";
-import FormLabel from "src/components/Form/FormLabel";
+import Lookup from "../Lookup";
+import MultipleComposite from "../MultipleComposite";
+import SwitchField from "./SwitchField";
 
-const SwitchField = ({ form, handleChange }) => {
-  switch (form.type) {
-    default: {
-      return (
-        <FormGroup>
-          <FormLabel htmlFor={form.code}>{form.title}</FormLabel>
-          <FormControl
-            placeholder={form.title.toLowerCase()}
-            id={form.code}
-            type={form.type}
-            value={form.value || ""}
-            onChange={(e) => handleChange(e, form)}
-          ></FormControl>
-        </FormGroup>
-      );
-    }
-  }
-};
+const Wrapper = ({ children }) => (
+  <div className="grid items-start grid-cols-2 gap-6">{children}</div>
+);
 
-const FieldItems = ({ field, handleChange }) => {
-  if (field?.meta?.fromLookup) {
+const FieldItems = ({ field, handleMultipleCompositeClick, handleChange }) => {
+  const { multiple, composite, fromLookup } = field?.meta || {};
+
+  if (multiple && composite)
     return (
-      <FormGroup>
-        <FormLabel htmlFor={field.meta.lookup_code}>{field.name}</FormLabel>
-        <Select
-          placeholder={`Choose ${field.name}..`}
-          isClearable
-          isSearchable
-          id={field.meta.lookup_code}
-          isMulti={field.meta.multiple}
-          options={field.field_items}
+      <Wrapper>
+        <MultipleComposite
+          field={field}
+          handleMultipleCompositeClick={handleMultipleCompositeClick}
+          handleChange={handleChange}
         />
-      </FormGroup>
+      </Wrapper>
     );
-  }
+  else if (fromLookup)
+    return <Lookup field={field} handleChange={handleChange} />;
+
   return (
-    <div className="grid items-start grid-cols-2 gap-6">
+    <Wrapper>
       {field.field_items.map((form) => (
         <SwitchField handleChange={handleChange} key={form.id} form={form} />
       ))}
-    </div>
+    </Wrapper>
   );
 };
 

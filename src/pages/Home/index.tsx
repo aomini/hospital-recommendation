@@ -1,6 +1,6 @@
 import * as React from "react";
-import { format } from "date-fns";
-import { Link, Switch, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import AuthLayout from "src/layout/AuthLayout";
 import instance from "src/utils/axios";
 import DataTable from "src/components/DataTable";
@@ -8,56 +8,20 @@ import { H1 } from "src/components/Typography";
 import Tabs from "./components/Tabs";
 import { IconButton, PrimaryButton } from "src/components/Button";
 import EditIcon from "src/assets/icons/EditIcon";
-import Edit from "./Edit";
+import { Switch } from "@mui/material";
 
-const columns = [
-  {
-    name: "SN",
-    cell: (_, index) => index + 1,
-    width: "80px",
-  },
-  {
-    name: "Name",
-    selector: (row) => "Hospital-" + row.id,
-  },
-  {
-    name: "Significance",
-    selector: (row) => row.significance,
-    cell: (row) => (row.significance ? "significance" : "Not significance"),
-  },
-  {
-    name: "Status",
-    selector: (row) => row.status,
-  },
-  {
-    name: "Created At",
-    cell: (row) => format(new Date(row.created_at), "MMM-dd-yyyy, hh:mm aa"),
-  },
-  {
-    name: "Updated At",
-    cell: (row) => format(new Date(row.updated_at), "MMM-dd-yyyy, hh:mm aa"),
-  },
-  {
-    name: "Actions",
-    width: "150px",
-    cell: (row) => (
-      <Link to={`/hospital/edit/${row.id}`}>
-        <IconButton>
-          <EditIcon />
-        </IconButton>
-      </Link>
-    ),
-  },
-];
+const getFieldValue = (list, key) =>
+  list.HospitalDetails.find((x) => x.FieldItem.code === key)?.value?.value ||
+  "";
 
 const Home = () => {
   const [hospitalData, setHospitalData] = React.useState({
     rows: [],
     count: 0,
   });
+  const history = useHistory();
 
-  const [activeTabName, setActiveTabName] =
-    React.useState<string>("auto-draft");
+  const [activeTabName, setActiveTabName] = React.useState<string>("published");
 
   const getHospitalList = React.useCallback(() => {
     instance
@@ -77,6 +41,54 @@ const Home = () => {
     getHospitalList();
   }, [getHospitalList]);
 
+  const columns = [
+    {
+      name: "SN",
+      cell: (_, index) => index + 1,
+      width: "80px",
+    },
+    {
+      name: "Name",
+      selector: (row) => getFieldValue(row, "name_of_hospital"),
+    },
+
+    {
+      name: "Address",
+      selector: (row) => getFieldValue(row, "address"),
+    },
+    {
+      name: "Phone",
+      selector: (row) => getFieldValue(row, "phone_number"),
+    },
+
+    {
+      name: "Significance",
+      selector: (row) => row.significance,
+      cell: (row) => (
+        <Switch
+          checked={row.significance}
+          onChange={() => onSignificanceChange(row)}
+        />
+      ),
+    },
+
+    {
+      name: "Actions",
+      width: "150px",
+      cell: (row) => (
+        <Link to={`/hospital/edit/${row.id}`}>
+          <IconButton>
+            <EditIcon />
+          </IconButton>
+        </Link>
+      ),
+    },
+  ];
+
+  const onSignificanceChange = (row) => {
+    console.log(row);
+  };
+
   const handleClick = (tab) => {
     setActiveTabName(tab);
   };
@@ -85,7 +97,7 @@ const Home = () => {
     instance
       .post("/hospitals")
       .then((res) => {
-        getHospitalList();
+        history.push(`/hospital/edit/${res.data.id}`);
       })
       .catch();
   };

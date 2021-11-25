@@ -1,6 +1,6 @@
 import React from "react";
 
-const tabData = ["auto-draft", "draft", "published"];
+const tabData = ["draft", "published"];
 
 const Tabs = ({ activeTabName, handleClick }) => {
   return (
