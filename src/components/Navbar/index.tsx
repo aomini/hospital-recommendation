@@ -59,13 +59,15 @@ const Navbar: React.FC<NavbarProps> = () => {
                 onClick={handleOpen}
                 className="relative flex items-center min-w-xxs w-auto"
               >
-                <div className="rounded-full bg-gold h-9 w-9 mr-2"></div>
+                <div className=" flex items-center justify-center rounded-full bg-gold h-8 w-8 mr-2">
+                  <span className="uppercase text-purple font-medium">{value?.first_name.substr(0, 1) + value?.last_name.substr(0, 1)}</span>
+                </div>
                 <span className="flex-col justify-start">
                   <BodyText className="text-gold text-left">
                     {value.first_name}
                   </BodyText>
-                  <Subtitle className="text-gray-600">
-                    {value.username}
+                  <Subtitle className="text-gray-600 text-xs -mt-1">
+                    @{value.username}
                   </Subtitle>
                 </span>
                 {menuOpen ? (

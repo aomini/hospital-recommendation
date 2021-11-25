@@ -7,6 +7,7 @@ const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = React.useState<any>({
     first_name: "User",
     username: "user@123.com",
+    last_name: ""
   });
 
   React.useEffect(() => {
@@ -23,6 +24,7 @@ const AuthProvider = ({ children }) => {
     fetchCurrentUser();
   }, []);
 
+  console.log(currentUser)
   return (
     <UserContext.Provider value={currentUser}>{children}</UserContext.Provider>
   );

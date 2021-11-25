@@ -5,9 +5,7 @@ module.exports = {
     cursor: {
       pointer: "pointer",
     },
-    fontSize: {
-      tiny: ".6rem",
-    },
+
     extend: {
       colors: {
         gold: "#FEC260",
@@ -20,6 +18,9 @@ module.exports = {
       },
       minWidth: {
         xxs: "80px",
+      },
+      fontSize: {
+        tiny: ".6rem",
       },
     },
   },
