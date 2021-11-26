@@ -6,7 +6,7 @@ const FormGroup = ({ children, type = "" }) => {
     <div
       className={`${
         type === "radio"
-          ? "bg-red-400 flex flex-row-reverse justify-end items-center"
+          ? "flex flex-row-reverse justify-end items-center"
           : "w-full grid "
       }`}
     >

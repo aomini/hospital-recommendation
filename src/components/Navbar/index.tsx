@@ -59,7 +59,9 @@ const Navbar: React.FC<NavbarProps> = () => {
                 onClick={handleOpen}
                 className="relative flex items-center min-w-xxs w-auto"
               >
-                <div className="rounded-full bg-gold h-9 w-9 mr-2"></div>
+                <div className="rounded-full bg-gold h-9 w-9 mr-2">
+                  <img src={`https://avatars.dicebear.com/api/big-ears-neutral/${value.first_name}.svg`} alt="User Icon" />
+                </div>
                 <span className="flex-col justify-start">
                   <BodyText className="text-gold text-left">
                     {value.first_name}
