@@ -156,7 +156,7 @@ const Edit = () => {
                 {fields.activeIndex === 0 ? (
                   <div></div>
                 ) : (
-                  <StyledButton onClick={handlePrev}>Back</StyledButton>
+                  <StyledButton onClick={handlePrev} sm>Back</StyledButton>
                 )}
 
                 {fields.rows.length === fields.activeIndex ? (

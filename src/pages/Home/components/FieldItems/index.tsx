@@ -8,8 +8,8 @@ const SwitchField = ({ form, handleChange, inputClass = "" }) => {
   switch (form.type) {
     default: {
       return (
-        <FormGroup>
-          <FormLabel htmlFor={form.code}>{form.title}</FormLabel>
+        <FormGroup type={form.type}>
+          <FormLabel htmlFor={form.code} type={form.type}>{form.title}</FormLabel>
           <FormControl
             placeholder={form.title.toLowerCase()}
             id={form.code}
