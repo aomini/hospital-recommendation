@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import { PrimaryButton } from "src/components/Button";
+import { StyledButton } from "src/components/Button";
 import { H1 } from "src/components/Typography";
 import AuthLayout from "src/layout/AuthLayout";
 import instance from "src/utils/axios";
@@ -145,20 +145,26 @@ const Edit = () => {
             <div className="grid gap-2">
               <div className="p-4 bg-gray-100 rounded-sm">
                 {formData && (
-                  <FieldItems handleChange={handleChange} field={formData} inputClass="p-3 rounded-md" />
+                  <FieldItems
+                    handleChange={handleChange}
+                    field={formData}
+                    inputClass="p-3 rounded-md"
+                  />
                 )}
               </div>
               <div className="flex justify-between">
                 {fields.activeIndex === 0 ? (
                   <div></div>
                 ) : (
-                  <PrimaryButton onClick={handlePrev}>Back</PrimaryButton>
+                  <StyledButton onClick={handlePrev}>Back</StyledButton>
                 )}
 
                 {fields.rows.length === fields.activeIndex ? (
                   <div></div>
                 ) : (
-                  <PrimaryButton type="submit">Next</PrimaryButton>
+                  <StyledButton type="submit" sm success>
+                    Next
+                  </StyledButton>
                 )}
               </div>
             </div>
