@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.map-class {
+  padding: 0 !important;
+}
+
+.map-list-item:hover {
+  cursor: pointer;
+  transition: all 200ms ease-in;
+}
+/* @layer utilities {
+    .focus-outline{
+
+    }
+} */
+
+.input-focus {
+    @apply focus:outline-none focus:ring focus:ring-blue-200
+}

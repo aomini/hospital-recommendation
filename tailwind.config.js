@@ -15,6 +15,9 @@ module.exports = {
       backgroundImage: {
         map: "url('./assets/images/ktm-map.png')",
       },
+      minWidth:{
+        "xxs": "80px"
+      }
     },
   },
   variants: {

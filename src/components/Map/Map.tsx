@@ -7,7 +7,7 @@ import AuthLayout from "src/layout/AuthLayout";
 const MapWrapper = styled(Box)`
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: calc(100vh - 90px);
 `;
 
 const MapElement = styled(Box)`
@@ -29,7 +29,7 @@ const MapElement = styled(Box)`
 `;
 
 const Map = (props) => (
-  <AuthLayout>
+  <AuthLayout childrenClass="map-class">
     <div>
       <MapWrapper>
         <MapContainer
