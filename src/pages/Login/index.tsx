@@ -96,7 +96,6 @@ const Login: React.FC<LoginProps> = () => {
               <section className="text-center">
                 <PrimaryButton
                   type="submit"
-                  // onClick={notify}
                   className="uppercase tracking-wider font-medium border bg-gold hover:bg-yellow-500 mt-4 mx-auto py-4 w-1/2 rounded-md"
                 >
                   SUBMIT

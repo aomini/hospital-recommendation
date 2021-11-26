@@ -1,6 +1,5 @@
 import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import AuthLayout from "src/layout/AuthLayout";
 import axios from "src/utils/axios";
 import instance from "src/utils/axios";
 import { reorder } from "src/utils/drag-drop";
@@ -98,7 +97,7 @@ const Fields = () => {
       .catch((err) => {});
   };
   return (
-    <AuthLayout childrenClass="grid grid-cols-6 gap-2">
+    <div className="grid grid-cols-6 gap-2">
       <section className="col-span-1">
         <Sidebar className="" />
       </section>
@@ -141,7 +140,7 @@ const Fields = () => {
           </main>
         </DragDropContext>
       </div>
-    </AuthLayout>
+    </div>
   );
 };
 

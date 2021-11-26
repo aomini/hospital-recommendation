@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import EditIcon from "src/assets/icons/EditIcon";
 import TrashIcon from "src/assets/icons/TrashIcon";
 import UserAddIcon from "src/assets/icons/UserAddIcon";
-import AuthLayout from "src/layout/AuthLayout";
 import axios from "src/utils/axios";
 import { H1 } from "../../components/Typography";
 import DataTable from "../../components/DataTable";
@@ -52,9 +51,9 @@ const Users = () => {
     {
       name: "Name",
       selector: (row) => [row.first_name, row.last_name].join(" "),
-      style:{
-        textTransform: "capitalize"
-      }
+      style: {
+        textTransform: "capitalize",
+      },
     },
     {
       name: "Username",
@@ -68,7 +67,9 @@ const Users = () => {
             <button
               className="text-green-600 mr-5"
               title="Edit User"
-              onClick={() => {history.push(`/users/edit/${row.id}`)}}
+              onClick={() => {
+                history.push(`/users/edit/${row.id}`);
+              }}
             >
               <EditIcon />
             </button>
@@ -86,7 +87,7 @@ const Users = () => {
   ];
 
   return (
-    <AuthLayout>
+    <>
       <ToastContainer />
       <div className="bg-gray-200 p-5">
         <H1 className="font-medium">Users</H1>
@@ -103,7 +104,7 @@ const Users = () => {
         </section>
         <DataTable columns={columns} data={users} />
       </div>
-    </AuthLayout>
+    </>
   );
 };
 

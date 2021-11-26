@@ -26,7 +26,7 @@ const InputField: React.FC<InputProps> = ({
       </label>
       <br />
       <input
-        className={`${className} p-3 border border-gray-400 rounded-md text-gray-800  ${
+        className={`${className} p-3 border border-gray-400 rounded-md text-gray-800 input-focus ${
           error ? "border-2 border-red-500" : ""
         }`}
         type={inputType}

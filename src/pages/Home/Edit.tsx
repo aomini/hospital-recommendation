@@ -186,7 +186,7 @@ const Edit = () => {
       .catch(() => {});
   };
   return (
-    <AuthLayout>
+    <div>
       <H1 className="mt-4 mb-2 font-medium">
         Hospital {hospitalData?.HospitalDetails.length ? "Update" : "Create"}
       </H1>
@@ -238,7 +238,7 @@ const Edit = () => {
           </form>
         </section>
       </div>
-    </AuthLayout>
+    </div>
   );
 };
 

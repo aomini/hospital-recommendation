@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import AuthLayout from "src/layout/AuthLayout";
 import instance from "src/utils/axios";
-import DataTable from "src/components/DataTable";
-import { H1 } from "src/components/Typography";
-import Tabs from "./components/Tabs";
-import { IconButton, PrimaryButton } from "src/components/Button";
 import EditIcon from "src/assets/icons/EditIcon";
+import DataTable from "src/components/DataTable";
+import Tabs from "./components/Tabs";
+import { H1 } from "src/components/Typography";
+import { IconButton, PrimaryButton } from "src/components/Button";
 import { Switch } from "@mui/material";
 
 const getFieldValue = (list, key) =>
@@ -77,7 +77,7 @@ const Home = () => {
       width: "150px",
       cell: (row) => (
         <Link to={`/hospital/edit/${row.id}`}>
-          <IconButton>
+          <IconButton title="edit">
             <EditIcon />
           </IconButton>
         </Link>
@@ -102,16 +102,14 @@ const Home = () => {
       .catch();
   };
   return (
-    <AuthLayout>
-      <div className="grid gap-2">
-        <H1 className="mt-4 font-medium">Hospitals</H1>
-        <div className="flex justify-between items-center">
-          <Tabs activeTabName={activeTabName} handleClick={handleClick} />
-          <PrimaryButton onClick={handleAdd}>Add hospital</PrimaryButton>
-        </div>
-        <DataTable columns={columns} data={hospitalData.rows} />
+    <div className="grid gap-2">
+      <H1 className="mt-4 font-medium">Hospitals</H1>
+      <div className="flex justify-between items-center">
+        <Tabs activeTabName={activeTabName} handleClick={handleClick} />
+        <PrimaryButton onClick={handleAdd}>Add hospital</PrimaryButton>
       </div>
-    </AuthLayout>
+      <DataTable columns={columns} data={hospitalData.rows} />
+    </div>
   );
 };
 
