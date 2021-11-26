@@ -1,10 +1,10 @@
 import { useState, useRef } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
 
-import EyeIcon from "src/assets/icons/EyeIcon";
 import { UserContext } from "src/Providers/AuthProvider";
 import useClickOutside from "src/hooks/useOutsideClick";
 import HomeIcon from "src/assets/icons/HomeIcon";
+import EyeIcon from "src/assets/icons/EyeIcon";
 import LogOutIcon from "src/assets/icons/LogOutIcon";
 import LocationIcon from "src/assets/icons/LocationIcon";
 import SettingsIcon from "src/assets/icons/SettingsIcon";
