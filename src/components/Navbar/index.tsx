@@ -22,12 +22,13 @@ const navItems = [
 
 const Navbar: React.FC<NavbarProps> = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef: any = useRef();
+  const location = useLocation();
+  const history = useHistory();
+
   const handleOpen = () => {
     setMenuOpen(!menuOpen);
   };
-  const menuRef:any = useRef();
-  const location = useLocation();
-  const history = useHistory();
 
   const handleLogout = () => {
     localStorage.clear();
