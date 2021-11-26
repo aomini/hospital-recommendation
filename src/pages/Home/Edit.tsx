@@ -1,9 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+
 import { PrimaryButton } from "src/components/Button";
 import { H1 } from "src/components/Typography";
 import AuthLayout from "src/layout/AuthLayout";
 import instance from "src/utils/axios";
+
 import FieldItems from "./components/FieldItems";
 
 const Edit = () => {
@@ -119,15 +121,15 @@ const Edit = () => {
     <AuthLayout>
       <H1 className="mt-4 mb-2 font-medium">Hospitals Edit</H1>
       <div className=" grid grid-cols-12 gap-6">
-        <aside className=" col-span-3 ">
-          <ul className="bg-gray-100">
+        <aside className=" col-span-3">
+          <ul className="bg-gray-100 rounded-md">
             {fields.rows.map((field, index) => (
               <li
                 key={field.id}
                 onClick={() => handleClick(index)}
-                className={`p-2 cursor-pointer ${
+                className={`p-3 px-5 cursor-pointer rounded-sm hover:bg-gray-300 ${
                   index === fields.activeIndex
-                    ? "bg-pink-600 text-white"
+                    ? "bg-pink-600 hover:bg-pink-600 text-white"
                     : index > fields.activeIndex
                     ? "text-gray-500"
                     : null
@@ -138,12 +140,12 @@ const Edit = () => {
             ))}
           </ul>
         </aside>
-        <section className=" col-span-9">
+        <section className="col-span-9">
           <form onSubmit={handleSubmit}>
             <div className="grid gap-2">
-              <div className=" p-2 bg-gray-100">
+              <div className="p-4 bg-gray-100 rounded-sm">
                 {formData && (
-                  <FieldItems handleChange={handleChange} field={formData} />
+                  <FieldItems handleChange={handleChange} field={formData} inputClass="p-3 rounded-md" />
                 )}
               </div>
               <div className="flex justify-between">

@@ -4,7 +4,7 @@ import FormControl from "src/components/Form/FormControl";
 import FormGroup from "src/components/Form/FormGroup";
 import FormLabel from "src/components/Form/FormLabel";
 
-const SwitchField = ({ form, handleChange }) => {
+const SwitchField = ({ form, handleChange, inputClass = "" }) => {
   switch (form.type) {
     default: {
       return (
@@ -16,6 +16,7 @@ const SwitchField = ({ form, handleChange }) => {
             type={form.type}
             value={form.value || ""}
             onChange={(e) => handleChange(e, form)}
+            inputClass={inputClass}
           ></FormControl>
         </FormGroup>
       );
@@ -23,7 +24,7 @@ const SwitchField = ({ form, handleChange }) => {
   }
 };
 
-const FieldItems = ({ field, handleChange }) => {
+const FieldItems = ({ field, handleChange, inputClass = "" }) => {
   if (field?.meta?.fromLookup) {
     return (
       <FormGroup>
@@ -42,7 +43,12 @@ const FieldItems = ({ field, handleChange }) => {
   return (
     <div className="grid items-start grid-cols-2 gap-6">
       {field.field_items.map((form) => (
-        <SwitchField handleChange={handleChange} key={form.id} form={form} />
+        <SwitchField
+          handleChange={handleChange}
+          key={form.id}
+          form={form}
+          inputClass={inputClass}
+        />
       ))}
     </div>
   );

@@ -8,7 +8,7 @@ interface IFormProps extends React.ComponentPropsWithoutRef<"label"> {
 const FormLabel: React.FC<IFormProps> = (props) => {
   const { children, className, ...rest } = props;
   return (
-    <label className={`cursor-pointer ${className}`} {...rest}>
+    <label className={`cursor-pointer mb-1.5 ${className}`} {...rest}>
       {children}
     </label>
   );
