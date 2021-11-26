@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
 
 import EyeIcon from "src/assets/icons/EyeIcon";
 import { UserContext } from "src/Providers/AuthProvider";
+import useClickOutside from "src/hooks/useOutsideClick";
 import HomeIcon from "src/assets/icons/HomeIcon";
 import LogOutIcon from "src/assets/icons/LogOutIcon";
 import LocationIcon from "src/assets/icons/LocationIcon";
@@ -24,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   const handleOpen = () => {
     setMenuOpen(!menuOpen);
   };
-
+  const menuRef:any = useRef();
   const location = useLocation();
   const history = useHistory();
 
@@ -32,6 +33,10 @@ const Navbar: React.FC<NavbarProps> = () => {
     localStorage.clear();
     history.push("/login");
   };
+
+  useClickOutside(menuRef, () => {
+    setMenuOpen(false);
+  });
 
   return (
     <UserContext.Consumer>
@@ -54,20 +59,23 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </Link>
               ))}
             </section>
-            <section className="flex justify-start w-auto">
+            <section className="flex justify-start w-auto" ref={menuRef}>
               <button
                 onClick={handleOpen}
                 className="relative flex items-center min-w-xxs w-auto"
               >
                 <div className="rounded-full bg-gold h-9 w-9 mr-2">
-                  <img src={`https://avatars.dicebear.com/api/big-ears-neutral/${value.first_name}.svg`} alt="User Icon" />
+                  <img
+                    src={`https://avatars.dicebear.com/api/big-ears-neutral/${value.first_name}.svg`}
+                    alt="User Icon"
+                  />
                 </div>
                 <span className="flex-col justify-start">
                   <BodyText className="text-gold text-left">
                     {value.first_name}
                   </BodyText>
                   <Subtitle className="text-gray-600">
-                    {value.username}
+                    @{value.username}
                   </Subtitle>
                 </span>
                 {menuOpen ? (

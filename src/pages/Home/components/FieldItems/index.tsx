@@ -11,7 +11,7 @@ const SwitchField = ({ form, handleChange, inputClass = "" }) => {
         <FormGroup type={form.type}>
           <FormLabel htmlFor={form.code} type={form.type}>{form.title}</FormLabel>
           <FormControl
-            placeholder={form.title.toLowerCase()}
+            placeholder={form.title}
             id={form.code}
             type={form.type}
             value={form.value || ""}
