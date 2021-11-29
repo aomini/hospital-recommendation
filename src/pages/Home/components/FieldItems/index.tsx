@@ -11,25 +11,34 @@ const FieldItems = ({
   field,
   handleChange,
   handleMultipleCompositeClick,
+  handleCompositeDelete,
+  handleCompositeChange,
   inputClass = "",
 }) => {
   const { multiple, composite, fromLookup } = field?.meta || {};
+  console.log({ field });
+
   if (multiple && composite) {
     return (
       <Wrapper>
         <MultipleComposite
           field={field}
-          handleMultipleCompositeClick={handleMultipleCompositeClick}
           handleChange={handleChange}
+          handleCompositeChange={handleCompositeChange}
+          handleCompositeDelete={handleCompositeDelete}
+          handleMultipleCompositeClick={handleMultipleCompositeClick}
         />
       </Wrapper>
     );
-  } else if (fromLookup)
+  } else if (fromLookup) {
+    console.log({ fromLookup });
+
     return <Lookup field={field} handleChange={handleChange} />;
+  }
 
   return (
     <Wrapper>
-      {field.field_items.map((form) => (
+      {field?.field_items?.map((form) => (
         <SwitchField
           handleChange={handleChange}
           key={form.id}

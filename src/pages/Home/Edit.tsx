@@ -7,13 +7,18 @@ import instance from "src/utils/axios";
 
 import FieldItems from "./components/FieldItems";
 
+const initialFormData = {
+  id: null,
+  meta: null,
+};
+
 const Edit = () => {
   const [fields, setFields] = React.useState<any>({
     rows: [],
     activeIndex: 0,
   });
   const [hospitalData, setHospitalData] = React.useState<any>(null);
-  const [formData, setFormData] = React.useState<any>(null);
+  const [formData, setFormData] = React.useState<any>({ ...initialFormData });
   const { id } = useParams();
 
   const getHospitalData = (id) => {
@@ -37,7 +42,7 @@ const Edit = () => {
     if (hospitalData && fields.rows.length) {
       const activeField = fields.rows[fields.activeIndex] || null;
       if (activeField?.meta?.fromLookup) {
-        setFormData(null);
+        setFormData({ ...initialFormData });
         getFieldsFromLookUp(activeField, hospitalData);
       } else {
         // set field values
@@ -56,6 +61,17 @@ const Edit = () => {
       }
     }
   }, [hospitalData, fields.rows, fields.activeIndex]);
+
+  React.useEffect(() => {
+    if (
+      formData?.id &&
+      formData?.meta &&
+      formData?.meta?.composite &&
+      formData?.meta?.multiple
+    ) {
+      getComposite(id, formData.id);
+    }
+  }, [id, formData.id, formData.meta]);
 
   const getFields = () => {
     instance
@@ -86,6 +102,18 @@ const Edit = () => {
           ...activeField,
           options,
         });
+      })
+      .catch(() => {});
+  };
+
+  const getComposite = (hospital_id, field_id) => {
+    instance
+      .get(`/composite/${hospital_id}/${field_id}`)
+      .then((res) => {
+        setFormData((prev) => ({
+          ...prev,
+          field_data: res?.data?.values || [],
+        }));
       })
       .catch(() => {});
   };
@@ -136,19 +164,51 @@ const Edit = () => {
       ...prev,
       field_data: [
         ...(prev.field_data || []),
-        prev.field_items.map((x) => ({ field_item_id: x.id, value: x.value })),
+        prev.field_items.map((y) => ({
+          field_item_id: y.id,
+          value: y.value,
+        })),
       ],
       field_items: prev.field_items.map((x) => ({ ...x, value: "" })),
+    }));
+  };
+
+  const handleCompositeDelete = (xIndex) => {
+    setFormData((prev) => ({
+      ...prev,
+      field_data: prev.field_data.filter((x, index) => index !== xIndex),
+    }));
+  };
+
+  const handleCompositeChange = (e, xIndex, id) => {
+    setFormData((prev) => ({
+      ...prev,
+      field_data: prev.field_data.map((x, index) => {
+        let newX = [...x];
+        if (index === xIndex) {
+          newX = newX.map((y) =>
+            y.field_item_id === id ? { ...y, value: e.target.value } : y
+          );
+        }
+        return newX;
+      }),
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let payload;
+    let url;
     const { lookup_code, composite, multiple } = formData?.meta || {};
 
     if (multiple && composite) {
-      payload = formData.field_data;
+      url = `/composite/${id}/${formData.id}`;
+    } else {
+      url = `/hospitals/${id}/${formData.id}`;
+    }
+
+    if (multiple && composite) {
+      payload = formData.field_data || [];
     } else if (lookup_code) {
       if (multiple) {
         payload = [
@@ -175,7 +235,7 @@ const Edit = () => {
       fields.rows.length - 1 === fields.activeIndex ? "published" : null;
 
     instance
-      .put(`/hospitals/${id}/${formData.id}`, payload, {
+      .put(url, payload, {
         params: {
           status,
         },
@@ -216,9 +276,11 @@ const Edit = () => {
               <div className="p-4 bg-gray-100 rounded-sm">
                 {formData && (
                   <FieldItems
+                    field={formData}
+                    handleCompositeDelete={handleCompositeDelete}
                     handleMultipleCompositeClick={handleMultipleCompositeClick}
                     handleChange={handleChange}
-                    field={formData}
+                    handleCompositeChange={handleCompositeChange}
                     inputClass="p-3 rounded-md"
                   />
                 )}

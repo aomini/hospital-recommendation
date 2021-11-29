@@ -4,22 +4,26 @@ import FormGroup from "src/components/Form/FormGroup";
 import FormLabel from "src/components/Form/FormLabel";
 
 const SwitchField = ({ form, handleChange, inputClass }) => {
+  const formProps = {
+    placeholder: form.title.toLowerCase(),
+    id: form?.tempId || form.code,
+    type: form.type,
+    inputClass,
+  };
   switch (form.type) {
     case "radio": {
       return (
         <FormGroup>
-          <FormLabel htmlFor={form.code}>{form.title}</FormLabel>
+          <FormLabel htmlFor={form?.tempFor || form.code}>
+            {form.title}
+          </FormLabel>
           <FormControl
-            placeholder={form.title.toLowerCase()}
-            id={form.code}
-            type={form.type}
             checked={!!form.value}
             value={!!form.value}
             onClick={(e) => {
               handleChange(e, form);
             }}
-            onChange={() => {}}
-            inputClass={inputClass}
+            {...formProps}
           ></FormControl>
         </FormGroup>
       );
@@ -27,14 +31,13 @@ const SwitchField = ({ form, handleChange, inputClass }) => {
     default: {
       return (
         <FormGroup>
-          <FormLabel htmlFor={form.code}>{form.title}</FormLabel>
+          <FormLabel htmlFor={form?.tempFor || form.code}>
+            {form.title}
+          </FormLabel>
           <FormControl
-            placeholder={form.title.toLowerCase()}
-            id={form.code}
-            type={form.type}
             value={form.value || ""}
             onChange={(e) => handleChange(e, form)}
-            inputClass={inputClass}
+            {...formProps}
           ></FormControl>
         </FormGroup>
       );
