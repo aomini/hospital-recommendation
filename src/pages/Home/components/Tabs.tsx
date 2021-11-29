@@ -6,9 +6,8 @@ const Tabs = ({ activeTabName, handleClick }) => {
   return (
     <ul className="flex gap-2">
       {tabData.map((tab, index) => (
-        <React.Fragment>
+        <React.Fragment key={tab}>
           <li
-            key={tab}
             onClick={() => handleClick(tab)}
             className={`${
               activeTabName === tab ? "text-blue-600" : "text-gray-500"

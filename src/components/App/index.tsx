@@ -87,7 +87,7 @@ const App = () => {
               </Route>
             ))}
           </AuthLayout>
-          <Route path='*' component={PageNotFound} />
+          <Route path="*" component={PageNotFound} />
         </Switch>
       </Router>
     </AuthProvider>

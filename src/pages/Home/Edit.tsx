@@ -1,10 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-
 import { StyledButton } from "src/components/Button";
 import { H1 } from "src/components/Typography";
 import instance from "src/utils/axios";
-
 import FieldItems from "./components/FieldItems";
 
 const initialFormData = {
