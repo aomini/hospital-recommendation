@@ -16,7 +16,6 @@ const Edit = () => {
   const [hospitalData, setHospitalData] = React.useState<any>(null);
   const [formData, setFormData] = React.useState<any>(null);
   const { id } = useParams();
-
   const getHospitalData = (id) => {
     instance
       .get(`/hospitals/${id}`)
@@ -156,14 +155,18 @@ const Edit = () => {
                 {fields.activeIndex === 0 ? (
                   <div></div>
                 ) : (
-                  <StyledButton onClick={handlePrev} sm>Back</StyledButton>
+                  <StyledButton onClick={handlePrev} sm>
+                    Previous
+                  </StyledButton>
                 )}
 
                 {fields.rows.length === fields.activeIndex ? (
                   <div></div>
                 ) : (
                   <StyledButton type="submit" sm success>
-                    Next
+                    {fields.activeIndex === fields.rows.length - 1
+                      ? "Save"
+                      : "Save and Continue"}
                   </StyledButton>
                 )}
               </div>
