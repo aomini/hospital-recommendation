@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import AuthProvider from "src/Providers/AuthProvider";
 import Map from "src/pages/Map";
+import StreetMapPage from "src/pages/StreetMap";
 import PageNotFound from "src/pages/404";
 
 const routes = [
@@ -53,6 +54,7 @@ const routes = [
     path: "/",
     component: React.lazy(() => import("src/pages/Home")),
   },
+ 
 ];
 
 const App = () => {
@@ -61,9 +63,13 @@ const App = () => {
     <AuthProvider>
       <Router>
         <Switch>
+          <Route path="/street-map" exact>
+            <StreetMapPage />
+          </Route>
           <Route path="/map" exact>
             <Map />
           </Route>
+          
           {routes.map((route) => (
             <Route exact={route.exact} path={route.path} key={route.path}>
               <React.Suspense fallback={() => "loading"}>
