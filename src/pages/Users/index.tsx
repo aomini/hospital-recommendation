@@ -26,13 +26,6 @@ const Users = () => {
     fetchData();
   }, []);
 
-  // const handleEdit = async(id) =>
-  // {console.log(id)
-  // const resp = await axios.put("/user/:id", {
-
-  // })
-  // };
-
   const handleDelete = async (id) => {
     console.log(id);
     try {
