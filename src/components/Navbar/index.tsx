@@ -49,6 +49,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                 <Link
                   to={href}
                   className={`text-base flex flex-col justify-center items-center p-3 hover:bg-purple hover:text-gray-50 font-medium ${
+                    (href !== "/" && location.pathname.includes(href)) ||
                     location.pathname === href
                       ? "text-purple border-b-4 border-purple"
                       : "text-gray-600"
