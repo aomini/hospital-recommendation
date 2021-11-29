@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,13 +8,17 @@ import TrashIcon from "src/assets/icons/TrashIcon";
 import UserAddIcon from "src/assets/icons/UserAddIcon";
 import AuthLayout from "src/layout/AuthLayout";
 import axios from "src/utils/axios";
+import WarningCard from "src/components/WarningCard";
 import { H1 } from "../../components/Typography";
 import DataTable from "../../components/DataTable";
 import { PrimaryButton } from "../../components/Button";
+import useClickOutside from "src/hooks/useOutsideClick";
 
 const Users = () => {
   const history = useHistory();
   const [users, setUsers] = useState([]);
+  const [warning, setWarning] = useState(false);
+  const warnRef = useRef<HTMLInputElement>(null);
   const notify = (message) => toast.success(message);
   const notifyError = (message) => toast.error(message);
 
@@ -37,6 +41,10 @@ const Users = () => {
     }
   };
 
+  useClickOutside(warnRef, () => {
+    setWarning(false);
+  });
+
   const columns = [
     {
       name: "ID",
@@ -45,9 +53,9 @@ const Users = () => {
     {
       name: "Name",
       selector: (row) => [row.first_name, row.last_name].join(" "),
-      style:{
-        textTransform: "capitalize"
-      }
+      style: {
+        textTransform: "capitalize",
+      },
     },
     {
       name: "Username",
@@ -61,14 +69,16 @@ const Users = () => {
             <button
               className="text-green-600 mr-5"
               title="Edit User"
-              onClick={() => {history.push(`/users/edit/${row.id}`)}}
+              onClick={() => {
+                history.push(`/users/edit/${row.id}`);
+              }}
             >
               <EditIcon />
             </button>
             <button
               className="text-red-700"
               title="Delete User"
-              onClick={() => handleDelete(row.id)}
+              onClick={() => setWarning(true)}
             >
               <TrashIcon />
             </button>
@@ -79,24 +89,27 @@ const Users = () => {
   ];
 
   return (
-    <AuthLayout>
-      <ToastContainer />
-      <div className="bg-gray-200 p-5">
-        <H1 className="font-medium">Users</H1>
-      </div>
-      <div className="p-5 bg-gray-50 border border-gray-200 rounded-md shadow-sm h-full">
-        <section className="text-right mb-5">
-          <PrimaryButton
-            onClick={() => history.push("/users/create-user")}
-            className="inline-flex items-center bg-purple hover:bg-pink-600 text-white rounded-sm"
-          >
-            Create a New User
-            <UserAddIcon className="ml-1" />
-          </PrimaryButton>
-        </section>
-        <DataTable columns={columns} data={users} />
-      </div>
-    </AuthLayout>
+    <>
+      {warning ? <WarningCard ref={warnRef} /> : ""}
+      <AuthLayout>
+        <ToastContainer />
+        <div className="bg-gray-200 p-5">
+          <H1 className="font-medium">Users</H1>
+        </div>
+        <div className="p-5 bg-gray-50 border border-gray-200 rounded-md shadow-sm h-full">
+          <section className="text-right mb-5">
+            <PrimaryButton
+              onClick={() => history.push("/users/create-user")}
+              className="inline-flex items-center bg-purple hover:bg-pink-600 text-white rounded-sm"
+            >
+              Create a New User
+              <UserAddIcon className="ml-1" />
+            </PrimaryButton>
+          </section>
+          <DataTable columns={columns} data={users} />
+        </div>
+      </AuthLayout>
+    </>
   );
 };
 
