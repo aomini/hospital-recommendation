@@ -62,3 +62,21 @@
 .ol-popup-closer:after {
   content: "✖";
 }
+
+.layers-container {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}
+
+.layers-container img {
+  border: 2px solid white;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.layers-container img:hover,
+.layers-container img.active {
+  border-color: #ef54a3;
+  cursor: pointer;
+}
