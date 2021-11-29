@@ -13,8 +13,8 @@ const SwitchField = ({ form, handleChange, inputClass }) => {
   switch (form.type) {
     case "radio": {
       return (
-        <FormGroup>
-          <FormLabel htmlFor={form?.tempFor || form.code}>
+        <FormGroup type={form.type}>
+          <FormLabel type={form.type} htmlFor={form?.tempFor || form.code}>
             {form.title}
           </FormLabel>
           <FormControl

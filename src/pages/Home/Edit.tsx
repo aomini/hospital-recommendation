@@ -87,10 +87,13 @@ const Edit = () => {
     instance
       .get(`/lookups/${lookup_code}`)
       .then((res) => {
+        console.log({ activeField, hospitalData });
+
         const selectedValues = hospitalData.HospitalDetails.find(
-          (x) => x.field_item_id === activeField.field_items[0].id
+          (x) => x.field_item_id === activeField.field_items[0]?.id
         );
         let options = res.data.LookupValues;
+
         if (selectedValues)
           options = res.data.LookupValues.map((x) => ({
             ...x,
@@ -103,7 +106,9 @@ const Edit = () => {
           options,
         });
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.log({ err });
+      });
   };
 
   const getComposite = (hospital_id, field_id) => {

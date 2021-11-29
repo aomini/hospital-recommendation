@@ -16,7 +16,6 @@ const FieldItems = ({
   inputClass = "",
 }) => {
   const { multiple, composite, fromLookup } = field?.meta || {};
-  console.log({ field });
 
   if (multiple && composite) {
     return (
@@ -31,8 +30,6 @@ const FieldItems = ({
       </Wrapper>
     );
   } else if (fromLookup) {
-    console.log({ fromLookup });
-
     return <Lookup field={field} handleChange={handleChange} />;
   }
 
