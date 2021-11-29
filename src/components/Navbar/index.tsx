@@ -8,7 +8,6 @@ import LogOutIcon from "src/assets/icons/LogOutIcon";
 import LocationIcon from "src/assets/icons/LocationIcon";
 import SettingsIcon from "src/assets/icons/SettingsIcon";
 import UsersIcon from "src/assets/icons/UsersIcon";
-import avatarGenerator from "src/utils/avatarGenerator"
 import { BodyText, Subtitle } from "../Typography";
 
 interface NavbarProps {}
@@ -60,8 +59,11 @@ const Navbar: React.FC<NavbarProps> = () => {
                 onClick={handleOpen}
                 className="relative flex items-center min-w-xxs w-auto"
               >
-                <div className=" flex items-center justify-center rounded-full bg-gold h-8 w-8 mr-2">
-                  <span className="uppercase text-purple font-medium">{avatarGenerator(value?.first_name, value?.last_name)}</span>
+                <div className="rounded-full bg-gold h-9 w-9 mr-2">
+                  <img
+                    src={`https://avatars.dicebear.com/api/big-ears-neutral/${value.first_name}.svg`}
+                    alt="User Icon"
+                  />
                 </div>
                 <span className="flex-col justify-start">
                   <BodyText className="text-gold text-left">

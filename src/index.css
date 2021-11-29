@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.map-class {
+  padding: 0 !important;
+}
+
+.map-list-item:hover {
+  cursor: pointer;
+  transition: all 200ms ease-in;
+}
 /* @layer utilities {
     .focus-outline{
 

@@ -7,10 +7,14 @@ const Wrapper = ({ children }) => (
   <div className="grid items-start grid-cols-2 gap-6">{children}</div>
 );
 
-const FieldItems = ({ field, handleMultipleCompositeClick, handleChange }) => {
+const FieldItems = ({
+  field,
+  handleChange,
+  handleMultipleCompositeClick,
+  inputClass = "",
+}) => {
   const { multiple, composite, fromLookup } = field?.meta || {};
-
-  if (multiple && composite)
+  if (multiple && composite) {
     return (
       <Wrapper>
         <MultipleComposite
@@ -20,13 +24,18 @@ const FieldItems = ({ field, handleMultipleCompositeClick, handleChange }) => {
         />
       </Wrapper>
     );
-  else if (fromLookup)
+  } else if (fromLookup)
     return <Lookup field={field} handleChange={handleChange} />;
 
   return (
     <Wrapper>
       {field.field_items.map((form) => (
-        <SwitchField handleChange={handleChange} key={form.id} form={form} />
+        <SwitchField
+          handleChange={handleChange}
+          key={form.id}
+          form={form}
+          inputClass={inputClass}
+        />
       ))}
     </Wrapper>
   );

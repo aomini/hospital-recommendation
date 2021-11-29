@@ -10,7 +10,12 @@ const MultipleComposite = ({
   return (
     <>
       {field.field_items.map((form) => (
-        <SwitchField handleChange={handleChange} key={form.id} form={form} />
+        <SwitchField
+          inputClass={""}
+          handleChange={handleChange}
+          key={form.id}
+          form={form}
+        />
       ))}
       <div className="col-span-2">
         <SuccessButton onClick={handleMultipleCompositeClick} type="button">

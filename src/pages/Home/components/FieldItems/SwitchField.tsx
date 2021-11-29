@@ -3,7 +3,7 @@ import FormControl from "src/components/Form/FormControl";
 import FormGroup from "src/components/Form/FormGroup";
 import FormLabel from "src/components/Form/FormLabel";
 
-const SwitchField = ({ form, handleChange }) => {
+const SwitchField = ({ form, handleChange, inputClass }) => {
   switch (form.type) {
     case "radio": {
       return (
@@ -19,6 +19,7 @@ const SwitchField = ({ form, handleChange }) => {
               handleChange(e, form);
             }}
             onChange={() => {}}
+            inputClass={inputClass}
           ></FormControl>
         </FormGroup>
       );
@@ -33,6 +34,7 @@ const SwitchField = ({ form, handleChange }) => {
             type={form.type}
             value={form.value || ""}
             onChange={(e) => handleChange(e, form)}
+            inputClass={inputClass}
           ></FormControl>
         </FormGroup>
       );

@@ -1,9 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+
 import axios from "src/utils/axios";
 
 export const UserContext = React.createContext({});
 
 const AuthProvider = ({ children }) => {
+  const history = useHistory();
   const [currentUser, setCurrentUser] = React.useState<any>({
     first_name: "User",
     username: "user@123.com",
@@ -18,7 +21,8 @@ const AuthProvider = ({ children }) => {
           setCurrentUser(resp.data);
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
+          // history.push("/login");
         });
     };
     fetchCurrentUser();
