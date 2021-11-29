@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
@@ -24,6 +24,7 @@ const initialValues: FormValues = {
 
 const CreateUser = ({ edit = false }) => {
   const params = useParams();
+  const history = useHistory();
   const notify = (message) => toast.warning(message);
   const successNotify = (message) => toast.success(message);
 
@@ -52,6 +53,7 @@ const CreateUser = ({ edit = false }) => {
         const resp = await axios.post("/user", values);
         successNotify(resp);
       }
+      history.push("/users");
     } catch (err: any) {
       const { status, data } = err.response;
       if (status === 400) {
