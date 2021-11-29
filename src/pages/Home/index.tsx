@@ -7,7 +7,7 @@ import instance from "src/utils/axios";
 import EditIcon from "src/assets/icons/EditIcon";
 import DataTable from "src/components/DataTable";
 import { H1 } from "src/components/Typography";
-import { IconButton, PrimaryButton } from "src/components/Button";
+import { IconButton, StyledButton } from "src/components/Button";
 
 import Tabs from "./components/Tabs";
 
@@ -96,7 +96,9 @@ const Home = () => {
         <H1 className="mt-4 font-medium">Hospitals</H1>
         <div className="flex justify-between items-center">
           <Tabs activeTabName={activeTabName} handleClick={handleClick} />
-          <PrimaryButton onClick={handleAdd}>Add hospital</PrimaryButton>
+          <StyledButton success bold onClick={handleAdd}>
+            Add hospital
+          </StyledButton>
         </div>
         <DataTable columns={columns} data={hospitalData.rows} />
       </div>

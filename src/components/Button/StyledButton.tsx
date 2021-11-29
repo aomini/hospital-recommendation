@@ -6,7 +6,8 @@ const StyledButton = styled.button`
   /* width: ${(props) => (props.sm ? "80px" : "160px")}; */
   background: ${(props) =>
     props.success ? "#009E60" : props.error ? "#9b2c2c" : "#FFFFFF"};
-  border-radius: "6px";
+  border-radius: 6px;
+  font-weight: ${(props) => props.bold ? 500 : ""};
   &:hover {
     background: ${(props) => (props.success ? "#035333" : "#D0D7E2")};
   }
