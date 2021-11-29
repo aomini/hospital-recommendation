@@ -25,10 +25,81 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Hospital Analytics | Codavatar</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      .ol-popup {
+        width: 25%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        border: 1px solid #d0d7e2;
+        border-radius: 10px;
+      }
+      h3 {
+        margin: 0 0 10px;
+        font-size: 28px;
+        font-weight: 400;
+      }
+      p {
+        display: flex;
+        align-items: center;
+        color: #596579;
+      }
+      i {
+        margin-right: 5px;
+      }
+      .heading-row > td {
+        font-weight: 600;
+      }
+      td {
+        padding: 10px;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+
     <div id="root"></div>
+
+    <div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div id="popup-content">
+        <h3 id="name">Grande International Hospital</h3>
+        <p id="address">
+          <i class="ri-map-pin-fill"></i>Tokha Rd, Kathmandu, 44600, Nepal
+        </p>
+        <p id="phone"><i class="ri-phone-fill"></i>+977 5555555</p>
+        <p id="website"><i class="ri-ie-fill"></i>abc@gmail.com</p>
+
+        <table>
+          <tr class="heading-row">
+            <td>Airport</td>
+            <td>Koteshwor</td>
+          </tr>
+          <tr>
+            <td id="airport">d</td>
+            <td id="koteshwor">b</td>
+          </tr>
+          <tr class="heading-row">
+            <td>Sangha</td>
+            <td>Thankot</td>
+          </tr>
+          <tr>
+            <td id="sangha"></td>
+            <td id="thankot"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
