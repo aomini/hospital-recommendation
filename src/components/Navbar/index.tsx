@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
 
-import EyeIcon from "src/assets/icons/EyeIcon";
 import { UserContext } from "src/Providers/AuthProvider";
+import useClickOutside from "src/hooks/useOutsideClick";
 import HomeIcon from "src/assets/icons/HomeIcon";
+import EyeIcon from "src/assets/icons/EyeIcon";
 import LogOutIcon from "src/assets/icons/LogOutIcon";
 import LocationIcon from "src/assets/icons/LocationIcon";
 import SettingsIcon from "src/assets/icons/SettingsIcon";
@@ -21,17 +22,22 @@ const navItems = [
 
 const Navbar: React.FC<NavbarProps> = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef: any = useRef();
+  const location = useLocation();
+  const history = useHistory();
+
   const handleOpen = () => {
     setMenuOpen(!menuOpen);
   };
-
-  const location = useLocation();
-  const history = useHistory();
 
   const handleLogout = () => {
     localStorage.clear();
     history.push("/login");
   };
+
+  useClickOutside(menuRef, () => {
+    setMenuOpen(false);
+  });
 
   return (
     <UserContext.Consumer>
@@ -43,6 +49,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                 <Link
                   to={href}
                   className={`text-base flex flex-col justify-center items-center p-3 hover:bg-purple hover:text-gray-50 font-medium ${
+                    (href !== "/" && location.pathname.includes(href)) ||
                     location.pathname === href
                       ? "text-purple border-b-4 border-purple"
                       : "text-gray-600"
@@ -54,7 +61,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </Link>
               ))}
             </section>
-            <section className="flex justify-start w-auto">
+            <section className="flex justify-start w-auto" ref={menuRef}>
               <button
                 onClick={handleOpen}
                 className="relative flex items-center min-w-xxs w-auto"
@@ -69,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   <BodyText className="text-gold text-left">
                     {value.first_name}
                   </BodyText>
-                  <Subtitle className="text-gray-600 text-xs -mt-1">
+                  <Subtitle className="text-gray-600">
                     @{value.username}
                   </Subtitle>
                 </span>

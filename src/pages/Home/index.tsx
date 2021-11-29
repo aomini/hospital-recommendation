@@ -7,7 +7,7 @@ import EditIcon from "src/assets/icons/EditIcon";
 import DataTable from "src/components/DataTable";
 import Tabs from "./components/Tabs";
 import { H1 } from "src/components/Typography";
-import { IconButton, PrimaryButton } from "src/components/Button";
+import { IconButton, StyledButton } from "src/components/Button";
 import { Switch } from "@mui/material";
 
 const getFieldValue = (list, key) =>
@@ -102,13 +102,17 @@ const Home = () => {
       .catch();
   };
   return (
-    <div className="grid gap-2">
-      <H1 className="mt-4 font-medium">Hospitals</H1>
-      <div className="flex justify-between items-center">
-        <Tabs activeTabName={activeTabName} handleClick={handleClick} />
-        <PrimaryButton onClick={handleAdd}>Add hospital</PrimaryButton>
+    <div>
+      <div className="grid gap-2">
+        <H1 className="mt-4 font-medium">Hospitals</H1>
+        <div className="flex justify-between items-center">
+          <Tabs activeTabName={activeTabName} handleClick={handleClick} />
+          <StyledButton success bold onClick={handleAdd}>
+            Add hospital
+          </StyledButton>
+        </div>
+        <DataTable columns={columns} data={hospitalData.rows} />
       </div>
-      <DataTable columns={columns} data={hospitalData.rows} />
     </div>
   );
 };

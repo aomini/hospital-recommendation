@@ -26,9 +26,9 @@ const MultipleComposite = ({
           Add new
         </SuccessButton>
       </div>
-      <div className="bg-gray-300 rounded p-2 grid gap-4 col-span-2">
-        {field?.field_data &&
-          field?.field_data?.map((x, xIndex) => (
+      {field?.field_data && !!field.field_data.length && (
+        <div className="bg-gray-300 rounded p-2 grid gap-4 col-span-2">
+          {field?.field_data?.map((x, xIndex) => (
             <div
               className={`grid gap-2 rounded shadow-md p-2 grid-cols-2 bg-gray-100`}
               key={xIndex}
@@ -59,7 +59,8 @@ const MultipleComposite = ({
               </div>
             </div>
           ))}
-      </div>
+        </div>
+      )}
     </>
   );
 };
