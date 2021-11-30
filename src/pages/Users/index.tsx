@@ -26,13 +26,13 @@ const Users = () => {
     };
     fetchData();
   }, []);
-  
+
   const handleDelete = async (id) => {
-    console.log(id);
     try {
       const resp: any = await axios.delete(`/user/${id}`);
-      const newUsers = users.filter((user: any) => user.id !== id);
-      setUsers(newUsers);
+      setUsers((prev) => {
+        return prev.filter((user: any) => user.id !== id);
+      });
       notifySuccess(resp.message);
     } catch (error) {
       console.log(error);
