@@ -10,7 +10,7 @@ import instance from "src/utils/axios";
 import { notifyError, notifySuccess } from "src/utils/notify";
 
 const Input = (props) => (
-  <input autoComplete="off" className="input-focus !bg-none" {...props} />
+  <input autoComplete="off" className="input-focus" {...props} />
 );
 
 const initialValue = {
@@ -218,7 +218,7 @@ const LookupForm = ({ setActiveId }) => {
       if (!label) {
         notifyError("Label cannot be empty!");
       }
-       if (!value) {
+      if (!value) {
         notifyError("Value cannot be empty!");
       }
 
@@ -254,7 +254,7 @@ const LookupForm = ({ setActiveId }) => {
               className="p-2 border border-gray-400 rounded-md input-focus"
             />
             <Input
-              className="p-2 border border-gray-400 rounded-md mx-2 input-focus"
+              className="p-2 border border-gray-400 rounded-md mx-2 input-focus !bg-white"
               name="value"
               placeholder="value"
               value={newData.data.value}

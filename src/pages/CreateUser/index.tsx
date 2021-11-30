@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import AuthLayout from "src/layout/AuthLayout";
 import axios from "src/utils/axios";
 import { PrimaryButton } from "../../components/Button";
 import InputField from "../../components/InputField";
@@ -65,7 +64,7 @@ const CreateUser = ({ edit = false }) => {
   };
 
   return (
-    <AuthLayout>
+    <>
       <ToastContainer />
       <div className="bg-gray-50 text-purple p-7 mx-auto mt-5 w-1/3 rounded-md shadow-sm">
         <H1>{edit ? "Update" : "Enter"} User Details</H1>
@@ -139,7 +138,7 @@ const CreateUser = ({ edit = false }) => {
           }}
         </Formik>
       </div>
-    </AuthLayout>
+    </>
   );
 };
 
