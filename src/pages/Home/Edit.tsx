@@ -291,7 +291,7 @@ const Edit = () => {
                 {fields.activeIndex === 0 ? (
                   <div></div>
                 ) : (
-                  <StyledButton onClick={handlePrev} sm>
+                  <StyledButton onClick={handlePrev} sm primary>
                     Previous
                   </StyledButton>
                 )}
