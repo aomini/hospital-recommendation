@@ -18,7 +18,9 @@ const Users = () => {
   const history = useHistory();
   const [users, setUsers] = useState([]);
   const [warning, setWarning] = useState(false);
-  const warnRef = useRef<HTMLInputElement>(null);
+  const [userId, setUserId] = useState<number>();
+  const warnRef = useRef<HTMLDivElement>(null);
+
   const notify = (message) => toast.success(message);
   const notifyError = (message) => toast.error(message);
 
@@ -78,7 +80,10 @@ const Users = () => {
             <button
               className="text-red-700"
               title="Delete User"
-              onClick={() => setWarning(true)}
+              onClick={() => {
+                setWarning(true);
+                setUserId(row.id);
+              }}
             >
               <TrashIcon />
             </button>
@@ -90,7 +95,16 @@ const Users = () => {
 
   return (
     <>
-      {warning ? <WarningCard ref={warnRef} /> : ""}
+      {warning ? (
+        <WarningCard
+          setWarning={setWarning}
+          handleDelete={handleDelete}
+          userId={userId}
+          ref={warnRef}
+        />
+      ) : (
+        ""
+      )}
       <AuthLayout>
         <ToastContainer />
         <div className="bg-gray-200 p-5">
