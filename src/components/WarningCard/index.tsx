@@ -20,15 +20,14 @@ const WarningCard = forwardRef<Ref, Props>(
           ref={ref}
         >
           <span className="text-red-500 flex-col justify-center text-center">
-            <H1>
-              <ShieldIcon className="mx-auto" />
-              Are you sure?
-            </H1>
+            <ShieldIcon className="mx-auto h-12 w-12" />
+            <H1>Are you sure?</H1>
           </span>
-          <BodyText className="mt-3">
-            Do you really want to delete this field? Once done, this action
-            cannot be undone.
-          </BodyText>
+          <h5 className="mt-3 text-center">
+            Do you really want to delete this field?
+            <p className="text-sm text-gray-600">Once done, this action
+            cannot be undone.</p>
+          </h5>
           <section className="flex items-center justify-around mt-3">
             <StyledButton primary bold onClick={() => setWarning(false)}>
               No, cancel it.
