@@ -82,7 +82,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </Subtitle>
                 </span>
                 {menuOpen ? (
-                  <section className="absolute top-12 bg-gray-100 py-3 text-left shadow-md h-32 w-32">
+                  <section className="absolute top-12 bg-gray-100 py-3 text-left shadow-md h-auto w-32">
                     <button
                       className="flex text-sm font-medium py-2 px-3 hover:bg-gray-300 w-full"
                       onClick={handleLogout}

@@ -44,7 +44,7 @@ const CreateUser = ({ edit = false }) => {
             password,
           })
           .then((resp) => console.log(resp));
-          notifySuccess("User Updated!");
+        notifySuccess("User Updated!");
       } else {
         const resp = await axios.post("/user", values);
         notifySuccess(resp);
@@ -85,10 +85,10 @@ const CreateUser = ({ edit = false }) => {
               }
             }, [setFieldValue]);
             return (
-              <Form className="mt-7">
+              <Form className="mt-7 grid gap-6">
                 <Field
                   component={InputField}
-                  htmlFor="first_name"
+                  // htmlFor="first_name"
                   label="First Name"
                   id="first_name"
                   name="first_name"
@@ -97,7 +97,6 @@ const CreateUser = ({ edit = false }) => {
                   error={touched.first_name && errors.first_name}
                   className="w-full"
                 />
-                <br />
                 <Field
                   component={InputField}
                   htmlFor="username"
@@ -121,10 +120,10 @@ const CreateUser = ({ edit = false }) => {
                   error={errors.password}
                   className="w-full"
                 />
-                <section className="text-right mt-5">
+                <section className="text-right">
                   <PrimaryButton
                     type="submit"
-                    className="uppercase tracking-wider font-medium border border-purple bg-pink-100 hover:bg-pink-200 mt-4 mx-auto w-1/4 rounded-md"
+                    className="uppercase tracking-wider font-medium border border-purple bg-pink-100 hover:bg-pink-200 mx-auto w-1/4 rounded-md"
                   >
                     Submit
                   </PrimaryButton>
