@@ -2,10 +2,9 @@ import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import axios from "src/utils/axios";
+import { notifySuccess, notifyError } from "src/utils/notify";
 import { PrimaryButton } from "../../components/Button";
 import InputField from "../../components/InputField";
 import { H1 } from "../../components/Typography";
@@ -24,8 +23,6 @@ const initialValues: FormValues = {
 const CreateUser = ({ edit = false }) => {
   const params = useParams();
   const history = useHistory();
-  const notify = (message) => toast.warning(message);
-  const successNotify = (message) => toast.success(message);
 
   const createUserSchema = Yup.object().shape({
     first_name: Yup.string().required("Required"),
@@ -47,25 +44,24 @@ const CreateUser = ({ edit = false }) => {
             password,
           })
           .then((resp) => console.log(resp));
-        successNotify("User Updated!");
+          notifySuccess("User Updated!");
       } else {
         const resp = await axios.post("/user", values);
-        successNotify(resp);
+        notifySuccess(resp);
       }
       history.push("/users");
     } catch (err: any) {
       const { status, data } = err.response;
       if (status === 400) {
-        notify(data);
+        notifySuccess(data);
       } else {
-        notify("Couldn't create user! Something went wrong");
+        notifyError("Couldn't create user! Something went wrong");
       }
     }
   };
 
   return (
     <>
-      <ToastContainer />
       <div className="bg-gray-50 text-purple p-7 mx-auto mt-5 w-1/3 rounded-md shadow-sm">
         <H1>{edit ? "Update" : "Enter"} User Details</H1>
         <Formik

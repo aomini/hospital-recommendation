@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import EditIcon from "src/assets/icons/EditIcon";
 import TrashIcon from "src/assets/icons/TrashIcon";
 import UserAddIcon from "src/assets/icons/UserAddIcon";
+import useClickOutside from "src/hooks/useOutsideClick";
 import axios from "src/utils/axios";
+import { notifyError, notifySuccess } from "src/utils/notify";
 import WarningCard from "src/components/WarningCard";
 import { H1 } from "../../components/Typography";
 import DataTable from "../../components/DataTable";
 import { PrimaryButton } from "../../components/Button";
-import useClickOutside from "src/hooks/useOutsideClick";
 
 const Users = () => {
   const history = useHistory();
@@ -19,9 +18,6 @@ const Users = () => {
   const [warning, setWarning] = useState(false);
   const [userId, setUserId] = useState<number>();
   const warnRef = useRef<HTMLDivElement>(null);
-
-  const notify = (message) => toast.success(message);
-  const notifyError = (message) => toast.error(message);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +31,7 @@ const Users = () => {
     console.log(id);
     try {
       const resp: any = await axios.delete(`/user/${id}`);
-      notify(resp.message);
+      notifySuccess(resp.message);
     } catch (error) {
       console.log(error);
       notifyError(error);
@@ -104,7 +100,6 @@ const Users = () => {
       ) : (
         ""
       )}
-        <ToastContainer />
         <div className="bg-gray-200 p-5">
           <H1 className="font-medium">Users</H1>
         </div>

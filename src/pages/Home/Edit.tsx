@@ -301,7 +301,7 @@ const Edit = () => {
                 ) : (
                   <StyledButton type="submit" sm success>
                     {fields.activeIndex === fields.rows.length - 1
-                      ? "Save"
+                      ? "Save and Finish"
                       : "Save and Continue"}
                   </StyledButton>
                 )}

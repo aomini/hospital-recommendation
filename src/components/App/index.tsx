@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import AuthProvider from "src/Providers/AuthProvider";
 import AuthLayout from "src/layout/AuthLayout";
@@ -76,6 +78,7 @@ const App = () => {
             <Login />
           </Route>
           <AuthLayout>
+            <ToastContainer />
             <Route path="/map" exact>
               <Map />
             </Route>

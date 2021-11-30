@@ -1,13 +1,11 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import { useParams } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
-import { PrimaryButton } from "src/components/Button";
-import { H1 } from "src/components/Typography";
 import instance from "src/utils/axios";
 import { notifyError, notifySuccess } from "src/utils/notify";
+import { PrimaryButton } from "src/components/Button";
+import { H1 } from "src/components/Typography";
 
 const Input = (props) => (
   <input autoComplete="off" className="input-focus" {...props} />
@@ -242,7 +240,6 @@ const LookupForm = ({ setActiveId }) => {
   return (
     <div>
       <div className="grid gap-4">
-        <ToastContainer />
         <section className="bg-white p-3">
           <H1>Add New</H1>
           <form className="mt-2" onSubmit={(e) => handleCreate(e)}>
