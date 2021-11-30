@@ -10,11 +10,6 @@ import PageNotFound from "src/pages/404";
 import Login from "src/pages/Login";
 
 const routes = [
-  // {
-  //   exact: true,
-  //   path: "/login",
-  //   component: React.lazy(() => import("src/pages/Login")),
-  // },
   {
     exact: true,
     path: "/users",
