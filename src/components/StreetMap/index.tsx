@@ -15,6 +15,7 @@ import BingMaps from "ol/source/BingMaps";
 import XYZ from "ol/source/XYZ";
 import Stamen from "ol/source/Stamen";
 import VectorTile from "ol/source/VectorTile";
+import TileJson from "ol/source/TileJSON"
 
 import { fromLonLat } from "ol/proj";
 import GeoJSON from "ol/format/GeoJSON";
@@ -60,9 +61,9 @@ const allLayers = [
     label: "Carto DB",
   },
   {
-    name: "StamenTerrain",
+    name: "positron",
     img: "/map-positron.png",
-    label: "Stamen Terrain",
+    label: "Positron",
   },
   {
     name: "VectorTile",
@@ -140,7 +141,7 @@ const markerStyle = new Style({
 // Open Street Map Standard
 const openStreetMapStandardLayer = new TileLayer({
   source: new OSM({
-    url: "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png",
+    // url: "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png",
   }),
   visible: true,
 });
@@ -177,14 +178,17 @@ const cartoDBBaseLayer = new TileLayer({
 });
 cartoDBBaseLayer.set("title", "CartoDB");
 
-// @reference maps.stamen.com
-const stamenLayer = new TileLayer({
-  source: new Stamen({
-    layer: "watercolor",
+// positron
+const positronLayer = new TileLayer({
+  source: new TileJson({
+    url: 'https://api.maptiler.com/maps/positron/tiles.json?key=1osjkWprx6Puy9Pnocom',
+    tileSize: 512,
+    crossOrigin: 'anonymous'
   }),
-  visible: false,
-});
-stamenLayer.set("title", "StamenTerrain");
+  visible: false
+})
+positronLayer.set("title", "positron")
+
 
 // Base vector layers
 // Vector tile layer open street map
@@ -218,8 +222,8 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
         openStreetMapStandardLayer,
         openStreetMapHumanitarian,
         bingmapsBaseLayer,
-        cartoDBBaseLayer,
-        stamenLayer,
+        cartoDBBaseLayer,        positronLayer,
+
         openStreetMapVectorTile,
       ],
     });
