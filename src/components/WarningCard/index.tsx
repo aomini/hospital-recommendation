@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 
 import ShieldIcon from "src/assets/icons/ShieldIcon";
 import { StyledButton } from "../Button";
-import { H1, BodyText } from "../Typography";
+import { H1 } from "../Typography";
 
 type Ref = HTMLDivElement;
 interface Props {

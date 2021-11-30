@@ -51,7 +51,18 @@ const Users = () => {
     },
     {
       name: "Name",
-      selector: (row) => [row.first_name, row.last_name].join(" "),
+      cell: (row) => (
+        <span className="flex items-center">
+          <img
+            src={`https://avatars.dicebear.com/api/big-ears-neutral/${row.first_name}.svg`}
+            width="40px"
+            height="40px"
+            alt="User Icon"
+            className="mr-2 rounded-full"
+          />
+          {[row.first_name, row.last_name].join(" ")}
+        </span>
+      ),
       style: {
         textTransform: "capitalize",
       },

@@ -71,6 +71,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   <img
                     src={`https://avatars.dicebear.com/api/big-ears-neutral/${value.first_name}.svg`}
                     alt="User Icon"
+                    className="rounded-full"
                   />
                 </div>
                 <span className="flex-col justify-start">
