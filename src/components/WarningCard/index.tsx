@@ -14,9 +14,9 @@ interface Props {
 const WarningCard = forwardRef<Ref, Props>(
   ({ setWarning, handleDelete, userId }, ref) => {
     return (
-      <div className="fixed w-full h-screen bg-gray-500 bg-opacity-25 z-20">
+      <div className="absolute top-0 left-0 w-full h-screen bg-gray-500 bg-opacity-25 z-20">
         <div
-          className="bg-white w-1/3 mx-auto my-32 p-4 z-50 rounded-md"
+          className="bg-white w-1/3 mx-auto my-40 p-4 z-50 rounded-md"
           ref={ref}
         >
           <span className="text-red-500 flex-col justify-center text-center">
