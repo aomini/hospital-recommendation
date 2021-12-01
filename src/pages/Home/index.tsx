@@ -27,7 +27,6 @@ const Home = () => {
 
   const getHospitalList = React.useCallback(() => {
     const page = new URLSearchParams(location.search).get("page") || 1;
-
     instance
       .get(`/hospitals`, {
         params: {
@@ -114,6 +113,7 @@ const Home = () => {
 
   const handleClick = (tab) => {
     setActiveTabName(tab);
+    history.push(location.pathname);
   };
 
   const handleAdd = () => {

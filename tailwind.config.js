@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     cursor: {
       pointer: "pointer",
+      "not-allowed": "not-allowed",
     },
 
     extend: {

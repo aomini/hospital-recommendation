@@ -45,7 +45,7 @@ const Edit = () => {
         // set field values
         const hospitalDetails = hospitalData.HospitalDetails;
         let field_items = [...activeField.field_items];
-        hospitalDetails.map((x) => {
+        hospitalDetails.forEach((x) => {
           field_items = field_items.map((y) =>
             y.id === x.field_item_id ? { ...y, value: x.value.value } : y
           );
@@ -84,8 +84,6 @@ const Edit = () => {
     instance
       .get(`/lookups/${lookup_code}`)
       .then((res) => {
-        console.log({ activeField, hospitalData });
-
         const selectedValues = hospitalData.HospitalDetails.find(
           (x) => x.field_item_id === activeField.field_items[0]?.id
         );
@@ -291,7 +289,7 @@ const Edit = () => {
                 {fields.activeIndex === 0 ? (
                   <div></div>
                 ) : (
-                  <StyledButton onClick={handlePrev} sm>
+                  <StyledButton type="button" onClick={handlePrev} sm>
                     Previous
                   </StyledButton>
                 )}
