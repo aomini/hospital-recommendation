@@ -1,6 +1,5 @@
 import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import AuthLayout from "src/layout/AuthLayout";
 import axios from "src/utils/axios";
 import instance from "src/utils/axios";
 import { reorder } from "src/utils/drag-drop";
@@ -10,13 +9,15 @@ import Sidebar from "src/components/Sidebar";
 import DragDropPriorities from "./components/DragDropPriorities";
 import DragFields from "./components/DragFields";
 import useAdjustHeight from "src/hooks/useAdjustHeight";
+import { notifySuccess } from "src/utils/notify";
 
 const Fields = () => {
   const [fields, setFields] = React.useState<any[]>([]);
   const [priorities, setPriorities] = React.useState<any>([]);
-  const [isDisabled, setIsDisabled] = React.useState(true);
+  const [hasPriorities, setHasPriorities] = React.useState(true);
   const { adjustHeight } = useAdjustHeight();
 
+  // return <Test />;
   React.useEffect(() => {
     const fetchFields = async () => {
       const { data } = await axios.get("/fields");
@@ -29,7 +30,7 @@ const Fields = () => {
         .then((res) => {
           const { data } = res;
           setPriorities(data.map((x) => x.FieldItem));
-          setIsDisabled(!!data.length);
+          setHasPriorities(!!data.length);
         })
         .catch((err) => {
           console.log(err);
@@ -48,6 +49,8 @@ const Fields = () => {
     if (!destination) {
       return;
     }
+
+    console.log("");
 
     // drag from field=>priorities
     if (
@@ -87,18 +90,23 @@ const Fields = () => {
   };
 
   const handleSave = () => {
+    const method = hasPriorities ? "put" : "post";
     const fieldItems = priorities.map((x) => x.id);
-    instance
-      .post("/priorities", {
-        fieldItems,
-      })
+    instance[method]("/priorities", {
+      fieldItems,
+    })
       .then((res) => {
-        setIsDisabled(true);
+        setHasPriorities(true);
+        notifySuccess(
+          !hasPriorities ? "Created successfully" : "Updated successfully"
+        );
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
-    <AuthLayout childrenClass="grid grid-cols-6 gap-2">
+    <div className="grid grid-cols-6 gap-2">
       <section className="col-span-1">
         <Sidebar className="" />
       </section>
@@ -110,7 +118,11 @@ const Fields = () => {
                 <H2>Available Fields</H2>
               </section>
               <div>
-                <DragFields isDragDisabled={isDisabled} fields={fields} />
+                <DragFields
+                  priorities={priorities}
+                  isDragDisabled={false}
+                  fields={fields}
+                />
               </div>
             </section>
             <section className="bg-gray-50 h-full overflow-auto w-2/3 p-3 border shadow-sm rounded-md">
@@ -119,21 +131,19 @@ const Fields = () => {
                   <div></div>
                   <H2 className="justify-center">Priorities</H2>
                   <div className="justify-end">
-                    {!isDisabled && (
-                      <SuccessButton
-                        onClick={handleSave}
-                        className="w-20 rounded font-medium"
-                      >
-                        Save
-                      </SuccessButton>
-                    )}
+                    <SuccessButton
+                      onClick={handleSave}
+                      className="w-20 rounded font-medium"
+                    >
+                      {!hasPriorities ? "Create" : "Update"}
+                    </SuccessButton>
                   </div>
                 </div>
                 <div className="w-full h-full">
                   <DragDropPriorities
                     handleClick={handleClick}
                     priorities={priorities}
-                    isDragDisabled={isDisabled}
+                    isDragDisabled={false}
                   />
                 </div>
               </section>
@@ -141,7 +151,7 @@ const Fields = () => {
           </main>
         </DragDropContext>
       </div>
-    </AuthLayout>
+    </div>
   );
 };
 

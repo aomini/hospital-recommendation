@@ -4,15 +4,16 @@ const customStyles = {
   headCells: {
     style: {
       background: "#fcc260",
-      fontWeight: 500
-    }
-  }
-}
+      fontWeight: 500,
+    },
+  },
+};
 
 interface DataTableProps {
   columns: any;
   data: any;
   title?: string;
+  responsive?: boolean;
 }
 const datatableStyles = {
   headRow: {
@@ -48,13 +49,19 @@ const datatableStyles = {
     },
   },
 };
-const DataTable: React.FC<DataTableProps> = ({ columns, data, title }) => {
+const DataTable: React.FC<DataTableProps> = ({
+  columns,
+  responsive = true,
+  data,
+  title,
+}) => {
   return (
     <ReactDataTable
       columns={columns}
       data={data}
       title={title}
       striped={true}
+      responsive={responsive}
       customStyles={{ ...datatableStyles }}
     />
   );

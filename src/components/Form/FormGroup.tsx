@@ -1,7 +1,6 @@
 import React from "react";
 
 const FormGroup = ({ children, type = "" }) => {
-  console.log(type);
   return (
     <div
       className={`${

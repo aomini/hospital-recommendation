@@ -1,7 +1,5 @@
 import React from "react";
-import { act } from "react-dom/test-utils";
 
-import AuthLayout from "src/layout/AuthLayout";
 import instance from "src/utils/axios";
 import { Link, Switch, Route, useHistory } from "react-router-dom";
 import LookupForm from "./components/LookupForm";
@@ -38,32 +36,30 @@ const Lookups = () => {
       .catch(() => {});
   };
   return (
-    <AuthLayout>
-      <div className="grid grid-cols-12 gap-4">
-        <div className="col-span-3">
-          <aside className="bg-gray-100 p-4 capitalize grid">
-            {data.labels.map(({ name, id }) => (
-              <Link key={id} to={`/look-ups/${id}`}>
-                <div
-                  className={`p-2 ${
-                    activeId == id ? "bg-pink-700 text-white" : null
-                  }`}
-                >
-                  {name}
-                </div>
-              </Link>
-            ))}
-          </aside>
-        </div>
-        <section className="col-span-9">
-          <Switch>
-            <Route path="/look-ups/:id">
-              <LookupForm setActiveId={setActiveId} />
-            </Route>
-          </Switch>
-        </section>
+    <div className="grid grid-cols-12 gap-4">
+      <div className="col-span-3">
+        <aside className="bg-gray-100 p-4 capitalize grid">
+          {data.labels.map(({ name, id }) => (
+            <Link key={id} to={`/look-ups/${id}`}>
+              <div
+                className={`p-2 ${
+                  activeId == id ? "bg-pink-700 text-white" : null
+                }`}
+              >
+                {name}
+              </div>
+            </Link>
+          ))}
+        </aside>
       </div>
-    </AuthLayout>
+      <section className="col-span-9">
+        <Switch>
+          <Route path="/look-ups/:id">
+            <LookupForm setActiveId={setActiveId} />
+          </Route>
+        </Switch>
+      </section>
+    </div>
   );
 };
 

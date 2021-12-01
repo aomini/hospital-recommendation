@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import { notifyError, notifySuccess } from "src/utils/notify";
 import axios from "src/utils/axios";
 import CheckIcon from "src/assets/icons/CheckIcon";
-import AuthLayout from "src/layout/AuthLayout";
 import Sidebar from "src/components/Sidebar";
 
 const Priorities = () => {
@@ -32,21 +29,20 @@ const Priorities = () => {
   };
 
   const handleUpdate = (priority) => {
-    if(priority.weight) {
+    if (priority.weight) {
       axios
-      .put(`/priorities/${priority.id}`, {
-        weight: priority.weight,
-      })
-      .then((resp: any) => {
-        notifySuccess(resp.message);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }else{
-      notifyError("Weight cannot be empty!")
+        .put(`/priorities/${priority.id}`, {
+          weight: priority.weight,
+        })
+        .then((resp: any) => {
+          notifySuccess(resp.message);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      notifyError("Weight cannot be empty!");
     }
-    
   };
 
   const handleKeyDown = (e, priority) => {
@@ -56,8 +52,7 @@ const Priorities = () => {
   };
 
   return (
-    <AuthLayout>
-      <ToastContainer />
+    <>
       <Sidebar className="" />
       <section className="w-5/6 ml-auto">
         {priorities?.map((priority) => (
@@ -96,7 +91,7 @@ const Priorities = () => {
           </section>
         ))}
       </section>
-    </AuthLayout>
+    </>
   );
 };
 
