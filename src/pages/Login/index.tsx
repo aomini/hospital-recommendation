@@ -1,11 +1,10 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
-import "react-toastify/dist/ReactToastify.css";
 
 import axios from "src/utils/axios";
+import { notifyError, notifySuccess } from "src/utils/notify";
 import { H1 } from "../../components/Typography";
 import Card from "../../components/Card";
 import InputField from "../../components/InputField";
@@ -33,7 +32,6 @@ const Login: React.FC<LoginProps> = () => {
   });
 
   const history = useHistory();
-  const notify = (message) => toast.warning(message);
 
   React.useEffect(() => {
     axios.get("/user");
@@ -47,9 +45,9 @@ const Login: React.FC<LoginProps> = () => {
     } catch (err: any) {
       const { status, data } = err.response;
       if (status === 400) {
-        notify(data);
+        notifySuccess(data);
       } else {
-        notify("Couldn't login! Something went wrong");
+        notifyError("Couldn't login! Something went wrong");
       }
     }
   };
@@ -69,7 +67,6 @@ const Login: React.FC<LoginProps> = () => {
         >
           {({ errors, touched }) => (
             <Form className="mt-7">
-              <ToastContainer />
               <Field
                 component={InputField}
                 htmlFor="username"
@@ -96,7 +93,6 @@ const Login: React.FC<LoginProps> = () => {
               <section className="text-center">
                 <PrimaryButton
                   type="submit"
-                  // onClick={notify}
                   className="uppercase tracking-wider font-medium border bg-gold hover:bg-yellow-500 mt-4 mx-auto py-4 w-1/2 rounded-md"
                 >
                   SUBMIT

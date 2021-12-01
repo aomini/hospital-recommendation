@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
 import MapContainer from "../MapContainer/index";
-import AuthLayout from "src/layout/AuthLayout";
 
 const MapWrapper = styled(Box)`
   position: sticky;
@@ -29,18 +28,16 @@ const MapElement = styled(Box)`
 `;
 
 const Map = (props) => (
-  <AuthLayout childrenClass="map-class">
-    <div>
-      <MapWrapper>
-        <MapContainer
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_KEY}`}
-          loadingElement={<Box height="100%" />}
-          containerElement={<Box height="100%" />}
-          mapElement={<MapElement height="100%" />}
-          {...props}
-        />
-      </MapWrapper>
-    </div>
-  </AuthLayout>
+  <div>
+    <MapWrapper>
+      <MapContainer
+        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_KEY}`}
+        loadingElement={<Box height="100%" />}
+        containerElement={<Box height="100%" />}
+        mapElement={<MapElement height="100%" />}
+        {...props}
+      />
+    </MapWrapper>
+  </div>
 );
 export default Map;

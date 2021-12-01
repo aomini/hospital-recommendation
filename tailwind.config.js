@@ -4,7 +4,9 @@ module.exports = {
   theme: {
     cursor: {
       pointer: "pointer",
+      "not-allowed": "not-allowed",
     },
+
     extend: {
       colors: {
         gold: "#FEC260",
@@ -15,9 +17,12 @@ module.exports = {
       backgroundImage: {
         map: "url('./assets/images/ktm-map.png')",
       },
-      minWidth:{
-        "xxs": "80px"
-      }
+      minWidth: {
+        xxs: "80px",
+      },
+      fontSize: {
+        tiny: ".6rem",
+      },
     },
   },
   variants: {
