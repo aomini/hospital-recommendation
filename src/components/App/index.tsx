@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AuthProvider from "src/Providers/AuthProvider";
 import AuthLayout from "src/layout/AuthLayout";
 import Map from "src/pages/Map";
+import StreetMapPage from "src/pages/StreetMap";
 import PageNotFound from "src/pages/404";
 import Login from "src/pages/Login";
 
@@ -76,9 +77,13 @@ const App = () => {
             <Login />
           </Route>
           <AuthLayout>
+            {/* <Route path="/street-map" exact>
+              <StreetMapPage />
+            </Route> */}
             <Route path="/map" exact>
               <Map />
             </Route>
+
             {routes.map((route) => (
               <Route exact={route.exact} path={route.path} key={route.path}>
                 <React.Suspense fallback={() => "loading"}>
