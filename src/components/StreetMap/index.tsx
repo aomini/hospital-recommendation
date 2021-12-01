@@ -282,6 +282,7 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
     */
 
     map.on("click", function (evt) {
+      container!.style.display = "block"
       const feature = map.forEachFeatureAtPixel(
         evt.pixel,
         function (feat, layer) {
