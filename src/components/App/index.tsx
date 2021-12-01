@@ -77,11 +77,8 @@ const App = () => {
             <Login />
           </Route>
           <AuthLayout>
-            {/* <Route path="/street-map" exact>
+            <Route path="/street-map" exact>
               <StreetMapPage />
-            </Route> */}
-            <Route path="/map" exact>
-              <Map />
             </Route>
 
             {routes.map((route) => (
