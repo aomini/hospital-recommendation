@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import { notifyError, notifySuccess } from "src/utils/notify";
 import axios from "src/utils/axios";
@@ -55,7 +53,6 @@ const Priorities = () => {
 
   return (
     <>
-      <ToastContainer />
       <Sidebar className="" />
       <section className="w-5/6 ml-auto">
         {priorities?.map((priority) => (

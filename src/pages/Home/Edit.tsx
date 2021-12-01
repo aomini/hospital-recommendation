@@ -289,7 +289,7 @@ const Edit = () => {
                 {fields.activeIndex === 0 ? (
                   <div></div>
                 ) : (
-                  <StyledButton type="button" onClick={handlePrev} sm>
+                  <StyledButton type="button" onClick={handlePrev} primary sm>
                     Previous
                   </StyledButton>
                 )}
@@ -299,7 +299,7 @@ const Edit = () => {
                 ) : (
                   <StyledButton type="submit" sm success>
                     {fields.activeIndex === fields.rows.length - 1
-                      ? "Save"
+                      ? "Save and Finish"
                       : "Save and Continue"}
                   </StyledButton>
                 )}

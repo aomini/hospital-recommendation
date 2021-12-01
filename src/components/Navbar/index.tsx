@@ -10,6 +10,7 @@ import LocationIcon from "src/assets/icons/LocationIcon";
 import SettingsIcon from "src/assets/icons/SettingsIcon";
 import UsersIcon from "src/assets/icons/UsersIcon";
 import { BodyText, Subtitle } from "../Typography";
+import activeLinkChecker from "src/utils/activeLinkChecker";
 
 interface NavbarProps {}
 const navItems = [
@@ -26,6 +27,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   const location = useLocation();
   const history = useHistory();
 
+  const path = location.pathname.split("/");
   const handleOpen = () => {
     setMenuOpen(!menuOpen);
   };
@@ -38,7 +40,8 @@ const Navbar: React.FC<NavbarProps> = () => {
   useClickOutside(menuRef, () => {
     setMenuOpen(false);
   });
-
+  console.log(location);
+  console.log(path);
   return (
     <UserContext.Consumer>
       {(value: any) => (
@@ -48,12 +51,10 @@ const Navbar: React.FC<NavbarProps> = () => {
               {navItems.map(({ name, href, Icon }) => (
                 <Link
                   to={href}
-                  className={`text-base flex flex-col justify-center items-center p-3 hover:bg-purple hover:text-gray-50 font-medium ${
-                    (href !== "/" && location.pathname.includes(href)) ||
-                    location.pathname === href
-                      ? "text-purple border-b-4 border-purple"
-                      : "text-gray-600"
-                  }`}
+                  className={`text-base flex flex-col justify-center items-center p-3 hover:bg-purple hover:text-gray-50 font-medium ${activeLinkChecker(
+                    href,
+                    location.pathname
+                  )}`}
                   key={href}
                 >
                   <Icon className="mx-auto h-8 w-8" />
@@ -70,6 +71,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   <img
                     src={`https://avatars.dicebear.com/api/big-ears-neutral/${value.first_name}.svg`}
                     alt="User Icon"
+                    className="rounded-full"
                   />
                 </div>
                 <span className="flex-col justify-start">
@@ -81,7 +83,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </Subtitle>
                 </span>
                 {menuOpen ? (
-                  <section className="absolute top-12 bg-gray-100 py-3 text-left shadow-md h-32 w-32">
+                  <section className="absolute top-12 bg-gray-100 py-3 text-left shadow-md h-auto w-32">
                     <button
                       className="flex text-sm font-medium py-2 px-3 hover:bg-gray-300 w-full"
                       onClick={handleLogout}

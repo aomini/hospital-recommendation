@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import EditIcon from "src/assets/icons/EditIcon";
 import TrashIcon from "src/assets/icons/TrashIcon";
 import UserAddIcon from "src/assets/icons/UserAddIcon";
+import useClickOutside from "src/hooks/useOutsideClick";
 import axios from "src/utils/axios";
+import { notifyError, notifySuccess } from "src/utils/notify";
+import WarningCard from "src/components/WarningCard";
 import { H1 } from "../../components/Typography";
 import DataTable from "../../components/DataTable";
 import { PrimaryButton } from "../../components/Button";
@@ -14,8 +15,9 @@ import { PrimaryButton } from "../../components/Button";
 const Users = () => {
   const history = useHistory();
   const [users, setUsers] = useState([]);
-  const notify = (message) => toast.success(message);
-  const notifyError = (message) => toast.error(message);
+  const [warning, setWarning] = useState(false);
+  const [userId, setUserId] = useState<number>();
+  const warnRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,15 +28,21 @@ const Users = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    console.log(id);
     try {
       const resp: any = await axios.delete(`/user/${id}`);
-      notify(resp.message);
+      setUsers((prev) => {
+        return prev.filter((user: any) => user.id !== id);
+      });
+      notifySuccess(resp.message);
     } catch (error) {
       console.log(error);
       notifyError(error);
     }
   };
+
+  useClickOutside(warnRef, () => {
+    setWarning(false);
+  });
 
   const columns = [
     {
@@ -43,7 +51,18 @@ const Users = () => {
     },
     {
       name: "Name",
-      selector: (row) => [row.first_name, row.last_name].join(" "),
+      cell: (row) => (
+        <span className="flex items-center">
+          <img
+            src={`https://avatars.dicebear.com/api/big-ears-neutral/${row.first_name}.svg`}
+            width="40px"
+            height="40px"
+            alt="User Icon"
+            className="mr-2 rounded-full"
+          />
+          {[row.first_name, row.last_name].join(" ")}
+        </span>
+      ),
       style: {
         textTransform: "capitalize",
       },
@@ -69,7 +88,10 @@ const Users = () => {
             <button
               className="text-red-700"
               title="Delete User"
-              onClick={() => handleDelete(row.id)}
+              onClick={() => {
+                setWarning(true);
+                setUserId(row.id);
+              }}
             >
               <TrashIcon />
             </button>
@@ -81,7 +103,16 @@ const Users = () => {
 
   return (
     <>
-      <ToastContainer />
+      {warning ? (
+        <WarningCard
+          setWarning={setWarning}
+          handleDelete={handleDelete}
+          userId={userId}
+          ref={warnRef}
+        />
+      ) : (
+        ""
+      )}
       <div className="bg-gray-200 p-5">
         <H1 className="font-medium">Users</H1>
       </div>

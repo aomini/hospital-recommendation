@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import AuthProvider from "src/Providers/AuthProvider";
 import AuthLayout from "src/layout/AuthLayout";
@@ -9,11 +11,6 @@ import PageNotFound from "src/pages/404";
 import Login from "src/pages/Login";
 
 const routes = [
-  // {
-  //   exact: true,
-  //   path: "/login",
-  //   component: React.lazy(() => import("src/pages/Login")),
-  // },
   {
     exact: true,
     path: "/users",
