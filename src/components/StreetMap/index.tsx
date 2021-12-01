@@ -79,7 +79,7 @@ const fetchIsoline = async ({ lat, lon, time = 10 }) => {
       lon,
       type: "time",
       mode: "drive",
-      range: time * 60,
+      range: time * 30,
       apiKey: "eeb4c8f5a97e455c98fa0c08e0495ef8",
     },
   });
@@ -242,6 +242,7 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
       });
     });
 
+    
     /** Vector source for markers */
     const markerVectorSource = new VectorSource({
       features: markerFeatures,
@@ -252,6 +253,33 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
       zIndex: 2,
     });
     map.addLayer(markerVectorLayer);
+
+    /** Plot isoline */
+    /*
+    for(let data of hospitals){      
+      const {latitude: lat, longitude: lng} = data
+      fetchIsoline({ lat: lat, lon: lng }).then((resp) => {
+          const { data } = resp;
+          const geojsonObject = JSON.stringify(data);          
+
+          const isolineVectorSource = new VectorSource({
+            features: new GeoJSON({
+              featureProjection: "EPSG:3857",
+            }).readFeatures(geojsonObject),
+          });
+
+          const isolineVectorLayer = new VectorLayer({
+            source: isolineVectorSource,
+            zIndex: 1,
+            style: isolineStyle,
+            //@ts-ignore
+            title: "isolineLayer",
+          });
+
+          map.addLayer(isolineVectorLayer);
+        });
+    }
+    */
 
     map.on("click", function (evt) {
       const feature = map.forEachFeatureAtPixel(
@@ -280,7 +308,6 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
           return acc;
         }, {});
 
-        console.log(data);
 
         name.textContent = data.name_of_hospital;
         address.textContent = data.address;
@@ -293,32 +320,32 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
         //@ts-ignore
         overlay.setPosition(feature.getGeometry()?.getCoordinates());
 
-        fetchIsoline({ lat: data.lat, lon: data.lng }).then((resp) => {
-          const { data } = resp;
-          const geojsonObject = JSON.stringify(data);
+        // fetchIsoline({ lat: data.lat, lon: data.lng }).then((resp) => {
+        //   const { data } = resp;
+        //   const geojsonObject = JSON.stringify(data);
 
-          /** remove previous isoline layers */
-          map.getLayers().forEach(function (element) {
-            let baseLayerName = element.get("title");
-            element.setVisible(baseLayerName !== "isolineLayer");
-          });
+        //   /** remove previous isoline layers */
+        //   map.getLayers().forEach(function (element) {
+        //     let baseLayerName = element.get("title");
+        //     element.setVisible(baseLayerName !== "isolineLayer");
+        //   });
 
-          const isolineVectorSource = new VectorSource({
-            features: new GeoJSON({
-              featureProjection: "EPSG:3857",
-            }).readFeatures(geojsonObject),
-          });
+        //   const isolineVectorSource = new VectorSource({
+        //     features: new GeoJSON({
+        //       featureProjection: "EPSG:3857",
+        //     }).readFeatures(geojsonObject),
+        //   });
 
-          const isolineVectorLayer = new VectorLayer({
-            source: isolineVectorSource,
-            zIndex: 1,
-            style: isolineStyle,
-            //@ts-ignore
-            title: "isolineLayer",
-          });
+        //   const isolineVectorLayer = new VectorLayer({
+        //     source: isolineVectorSource,
+        //     zIndex: 1,
+        //     style: isolineStyle,
+        //     //@ts-ignore
+        //     title: "isolineLayer",
+        //   });
 
-          map.addLayer(isolineVectorLayer);
-        });
+        //   map.addLayer(isolineVectorLayer);
+        // });
       }
     });
 
