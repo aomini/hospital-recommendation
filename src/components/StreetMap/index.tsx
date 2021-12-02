@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import serverAxios from "../../utils/axios"
 import Map from "ol/Map";
 import View from "ol/View";
 import Feature from "ol/Feature";
@@ -26,6 +27,7 @@ import Point from "ol/geom/Point";
 import { Attribution, defaults } from "ol/control";
 import { StreetMapProps } from "src/types/StreetMapTypes";
 import Overlay from "ol/Overlay";
+
 
 /** list */
 import Tooltip from "@mui/material/Tooltip";
@@ -384,9 +386,61 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
     });
   };
 
+  const exportMap = () => {
+    let map = mapInstance
+    map.once('rendercomplete', function () {
+    const mapCanvas = document.createElement('canvas');
+    const size = map.getSize();
+    mapCanvas.width = size[0];
+    mapCanvas.height = size[1];
+    const mapContext = mapCanvas.getContext('2d');
+    Array.prototype.forEach.call(
+      document.querySelectorAll('.ol-layer canvas'),
+      function (canvas) {
+        if (canvas.width > 0) {
+          const opacity = canvas.parentNode.style.opacity;
+          mapContext.globalAlpha = opacity === '' ? 1 : Number(opacity);
+          const transform = canvas.style.transform;
+          // Get the transform parameters from the style's transform matrix
+          const matrix = transform
+            .match(/^matrix\(([^\(]*)\)$/)[1]
+            .split(',')
+            .map(Number);
+          // Apply the transform to the export map context
+          CanvasRenderingContext2D.prototype.setTransform.apply(
+            mapContext,
+            matrix
+          );
+          mapContext.drawImage(canvas, 0, 0);
+        }
+      }
+    );
+    // @ts-ignore
+    mapCanvas.toBlob((blob) => {
+      if(blob){
+        const file = new File([blob], "someblob.png");
+        const formData = new FormData()
+        formData.append("file", file)
+        serverAxios.post("/map/upload", formData)
+      }     
+    }, "image/png", 1)
+    // if (navigator.msSaveBlob) {
+    //   // link download attribute does not work on MS browsers
+    //   navigator.msSaveBlob(mapCanvas.msToBlob(), 'map.png');
+    // } else {
+    //   const link = document.getElementById('image-download');
+    //   link.href = mapCanvas.toDataURL();
+    //   link.click();
+    // }
+  });
+  map.renderSync();
+  }
+
   return (
     <div>
       <div className="h-screen w-screen" id="map"></div>;
+      <button onClick={exportMap}>export</button>
+
       <div className="layers-container">
         {allLayers.map((x, i) => (
           <Tooltip title={x.label} placement="right">
