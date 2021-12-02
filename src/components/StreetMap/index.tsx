@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import serverAxios from "../../utils/axios"
+import serverAxios from "../../utils/axios";
 import Map from "ol/Map";
 import View from "ol/View";
 import Feature from "ol/Feature";
@@ -16,7 +16,7 @@ import BingMaps from "ol/source/BingMaps";
 import XYZ from "ol/source/XYZ";
 import Stamen from "ol/source/Stamen";
 import VectorTile from "ol/source/VectorTile";
-import TileJson from "ol/source/TileJSON"
+import TileJson from "ol/source/TileJSON";
 
 import { fromLonLat } from "ol/proj";
 import GeoJSON from "ol/format/GeoJSON";
@@ -27,7 +27,6 @@ import Point from "ol/geom/Point";
 import { Attribution, defaults } from "ol/control";
 import { StreetMapProps } from "src/types/StreetMapTypes";
 import Overlay from "ol/Overlay";
-
 
 /** list */
 import Tooltip from "@mui/material/Tooltip";
@@ -40,6 +39,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import InboxIcon from "@mui/icons-material/Inbox";
 import DraftsIcon from "@mui/icons-material/Drafts";
+import useQuery from "src/hooks/useQuery";
 
 const allLayers = [
   {
@@ -183,14 +183,13 @@ cartoDBBaseLayer.set("title", "CartoDB");
 // positron
 const positronLayer = new TileLayer({
   source: new TileJson({
-    url: 'https://api.maptiler.com/maps/positron/tiles.json?key=1osjkWprx6Puy9Pnocom',
+    url: "https://api.maptiler.com/maps/positron/tiles.json?key=1osjkWprx6Puy9Pnocom",
     tileSize: 512,
-    crossOrigin: 'anonymous'
+    crossOrigin: "anonymous",
   }),
-  visible: false
-})
-positronLayer.set("title", "positron")
-
+  visible: false,
+});
+positronLayer.set("title", "positron");
 
 // Base vector layers
 // Vector tile layer open street map
@@ -209,14 +208,30 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
   const [mapInstance, setMap] = React.useState<any>(null);
   const [baseLayerGroup, setBaseLayerGroup] = React.useState<any>(null);
   const [selectedLayerIndex, setSelectedLayerIndex] = React.useState(0);
+  const query = useQuery();
 
   React.useEffect(() => {
     if (!hospitals.length || mapInstance) {
       return;
     }
 
+   
+    const significantHospitals = query.get("hospitals")
+     // @ts-ignore
+      ? JSON.parse(query.get("hospitals"))
+      : [];
+
     const map = init();
 
+    // get zoom
+    const queryZoom = query.get('zoom')
+    if(queryZoom){
+      map.getView().setZoom((map.getView().getZoom() || 12) + parseInt(queryZoom))
+    }
+
+    // Single hospital
+    const hospital = query.get('hospital') ? [parseInt(query.get('hospital') as string)] : []
+    
     setMap(map);
     /** Layer group */
     const baseLayerGroup = new LayerGroup({
@@ -224,27 +239,35 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
         openStreetMapStandardLayer,
         openStreetMapHumanitarian,
         bingmapsBaseLayer,
-        cartoDBBaseLayer,        positronLayer,
+        cartoDBBaseLayer,
+        positronLayer,
 
         openStreetMapVectorTile,
       ],
     });
     setBaseLayerGroup(baseLayerGroup);
     map.addLayer(baseLayerGroup);
-
-    /** Create a features for a hospital point marker */
-    const markerFeatures = hospitals.map((x) => {
-      const { latitude: lat, longitude: lng, ...rest } = x;
-      return new Feature({
-        geometry: new Point(fromLonLat([lng, lat])),
-        marker: true,
-        lat,
-        lng,
-        ...rest,
-      });
-    });
-
     
+    /** Create a features for a hospital point marker */
+    const filteredHospitals = hospitals
+      .filter((x) =>
+        significantHospitals.length ? significantHospitals.includes(x.id) : true
+      )
+      .filter(y => hospital.length  ? hospital.includes(y.id) : true);
+      console.log(filteredHospitals)
+
+    const markerFeatures = filteredHospitals
+      .map((x) => {
+        const { latitude: lat, longitude: lng, ...rest } = x;
+        return new Feature({
+          geometry: new Point(fromLonLat([lng, lat])),
+          marker: true,
+          lat,
+          lng,
+          ...rest,
+        });
+      });
+
     /** Vector source for markers */
     const markerVectorSource = new VectorSource({
       features: markerFeatures,
@@ -257,34 +280,37 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
     map.addLayer(markerVectorLayer);
 
     /** Plot isoline */
-    /*
-    for(let data of hospitals){      
-      const {latitude: lat, longitude: lng} = data
-      fetchIsoline({ lat: lat, lon: lng }).then((resp) => {
-          const { data } = resp;
-          const geojsonObject = JSON.stringify(data);          
+    const isoline = query.get('isoline') ? JSON.parse(query.get('isoline') as string) : false
+    const time = query.get('time') ? parseInt(query.get('time') as string): 10
+    if(isoline){
+      for(let data of filteredHospitals){      
+        const {latitude: lat, longitude: lng} = data
+        fetchIsoline({ lat: lat, lon: lng, time }).then((resp) => {
+            const { data } = resp;
+            const geojsonObject = JSON.stringify(data);          
 
-          const isolineVectorSource = new VectorSource({
-            features: new GeoJSON({
-              featureProjection: "EPSG:3857",
-            }).readFeatures(geojsonObject),
+            const isolineVectorSource = new VectorSource({
+              features: new GeoJSON({
+                featureProjection: "EPSG:3857",
+              }).readFeatures(geojsonObject),
+            });
+
+            const isolineVectorLayer = new VectorLayer({
+              source: isolineVectorSource,
+              zIndex: 1,
+              style: isolineStyle,
+              //@ts-ignore
+              title: "isolineLayer",
+            });
+
+            map.addLayer(isolineVectorLayer);
           });
-
-          const isolineVectorLayer = new VectorLayer({
-            source: isolineVectorSource,
-            zIndex: 1,
-            style: isolineStyle,
-            //@ts-ignore
-            title: "isolineLayer",
-          });
-
-          map.addLayer(isolineVectorLayer);
-        });
+      }
     }
-    */
+    
 
     map.on("click", function (evt) {
-      container!.style.display = "block"
+      container!.style.display = "block";
       const feature = map.forEachFeatureAtPixel(
         evt.pixel,
         function (feat, layer) {
@@ -310,7 +336,6 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
           acc[iterator] = feature.get(iterator);
           return acc;
         }, {});
-
 
         name.textContent = data.name_of_hospital;
         address.textContent = data.address;
@@ -375,7 +400,7 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
         return false;
       };
     }
-  }, [hospitals]);
+  }, [hospitals, query]);
 
   const handleLayerSwitch = (name, index) => {
     setSelectedLayerIndex(index);
@@ -387,59 +412,66 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
   };
 
   const exportMap = () => {
-    let map = mapInstance
-    map.once('rendercomplete', function () {
-    const mapCanvas = document.createElement('canvas');
-    const size = map.getSize();
-    mapCanvas.width = size[0];
-    mapCanvas.height = size[1];
-    const mapContext = mapCanvas.getContext('2d');
-    Array.prototype.forEach.call(
-      document.querySelectorAll('.ol-layer canvas'),
-      function (canvas) {
-        if (canvas.width > 0) {
-          const opacity = canvas.parentNode.style.opacity;
-          mapContext.globalAlpha = opacity === '' ? 1 : Number(opacity);
-          const transform = canvas.style.transform;
-          // Get the transform parameters from the style's transform matrix
-          const matrix = transform
-            .match(/^matrix\(([^\(]*)\)$/)[1]
-            .split(',')
-            .map(Number);
-          // Apply the transform to the export map context
-          CanvasRenderingContext2D.prototype.setTransform.apply(
-            mapContext,
-            matrix
-          );
-          mapContext.drawImage(canvas, 0, 0);
+    let map = mapInstance;
+    map.once("rendercomplete", function () {
+      const mapCanvas = document.createElement("canvas");
+      const size = map.getSize();
+      mapCanvas.width = size[0];
+      mapCanvas.height = size[1];
+      const mapContext = mapCanvas.getContext("2d");
+      Array.prototype.forEach.call(
+        document.querySelectorAll(".ol-layer canvas"),
+        function (canvas) {
+          if (canvas.width > 0) {
+            const opacity = canvas.parentNode.style.opacity;
+            mapContext.globalAlpha = opacity === "" ? 1 : Number(opacity);
+            const transform = canvas.style.transform;
+            // Get the transform parameters from the style's transform matrix
+            const matrix = transform
+              .match(/^matrix\(([^\(]*)\)$/)[1]
+              .split(",")
+              .map(Number);
+            // Apply the transform to the export map context
+            CanvasRenderingContext2D.prototype.setTransform.apply(
+              mapContext,
+              matrix
+            );
+            mapContext.drawImage(canvas, 0, 0);
+          }
         }
-      }
-    );
-    // @ts-ignore
-    mapCanvas.toBlob((blob) => {
-      if(blob){
-        const file = new File([blob], "someblob.png");
-        const formData = new FormData()
-        formData.append("file", file)
-        serverAxios.post("/map/upload", formData)
-      }     
-    }, "image/png", 1)
-    // if (navigator.msSaveBlob) {
-    //   // link download attribute does not work on MS browsers
-    //   navigator.msSaveBlob(mapCanvas.msToBlob(), 'map.png');
-    // } else {
-    //   const link = document.getElementById('image-download');
-    //   link.href = mapCanvas.toDataURL();
-    //   link.click();
-    // }
-  });
-  map.renderSync();
-  }
+      );
+      // @ts-ignore
+      mapCanvas.toBlob(
+        (blob) => {
+          if (blob) {
+            // pass file name on query as ?file=somename
+            const file = new File([blob], query.get("file") + ".png");
+            const formData = new FormData();
+            formData.append("file", file);
+            serverAxios.post("/map/upload", formData);
+          }
+        },
+        "image/png",
+        1
+      );
+      // if (navigator.msSaveBlob) {
+      //   // link download attribute does not work on MS browsers
+      //   navigator.msSaveBlob(mapCanvas.msToBlob(), 'map.png');
+      // } else {
+      //   const link = document.getElementById('image-download');
+      //   link.href = mapCanvas.toDataURL();
+      //   link.click();
+      // }
+    });
+    map.renderSync();
+  };
 
   return (
     <div>
-      <div className="h-screen w-screen" id="map"></div>;
-      <button onClick={exportMap}>export</button>
+      <div className="h-screen w-screen" id="map"></div>
+      <button id="export" onClick={exportMap}>
+        export
+      </button>
 
       <div className="layers-container">
         {allLayers.map((x, i) => (
