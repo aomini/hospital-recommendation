@@ -1,4 +1,5 @@
 import React from "react";
+import Button from '@mui/material/Button'
 import axios from "axios";
 import serverAxios from "../../utils/axios";
 import Map from "ol/Map";
@@ -18,7 +19,7 @@ import Stamen from "ol/source/Stamen";
 import VectorTile from "ol/source/VectorTile";
 import TileJson from "ol/source/TileJSON";
 
-import { fromLonLat } from "ol/proj";
+import { fromLonLat, toLonLat } from "ol/proj";
 import GeoJSON from "ol/format/GeoJSON";
 import MVT from "ol/format/MVT";
 import { Style, Fill, Stroke, Icon } from "ol/style";
@@ -208,6 +209,7 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
   const [mapInstance, setMap] = React.useState<any>(null);
   const [baseLayerGroup, setBaseLayerGroup] = React.useState<any>(null);
   const [selectedLayerIndex, setSelectedLayerIndex] = React.useState(0);
+  const [logging, setLogging] = React.useState(false)
   const query = useQuery();
 
   React.useEffect(() => {
@@ -466,14 +468,30 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
     map.renderSync();
   };
 
+  const logPoints = (e) => {
+    const [lon, lat] = toLonLat(e.coordinate)
+      alert(`here's your longitude & latitude ${lat},${lon}`)
+  }
+
+  const turnOnCoordinates = () => {
+    setLogging(true)
+    mapInstance.on('click',logPoints)    
+  }
+
   return (
     <div>
       <div className="h-screen w-screen" id="map"></div>
-      <button id="export" onClick={exportMap}>
-        export
-      </button>
+      
 
       <div className="layers-container">
+        <div style={{display: 'flex', alignItems: 'flex-start', flexDirection: 'column', gap: '10px', marginBottom: "10px"}}> 
+          <Button variant='contained' id="export" onClick={exportMap}>
+            export
+          </Button>
+          {!logging && 
+          <Button variant='outlined' onClick={turnOnCoordinates}>Coordinate logging</Button>}
+        </div>
+       
         {allLayers.map((x, i) => (
           <Tooltip title={x.label} placement="right">
             <img
