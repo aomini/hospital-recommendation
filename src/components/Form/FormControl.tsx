@@ -1,14 +1,10 @@
-import React from "react";
+import * as React from "react";
 
 const FormControl = ({ type, inputClass = "", ...rest }) => {
   switch (type) {
     case "textarea":
       return (
-        <textarea
-          rows={4}
-          {...rest}
-          className="input-focus p-2 rounded-md"
-        ></textarea>
+        <textarea rows={4} className="input-focus p-2 rounded-md" {...rest} />
       );
     default:
       return (
@@ -34,7 +30,7 @@ const FormControl = ({ type, inputClass = "", ...rest }) => {
                   : ""
               }`}
               onClick={rest.handleClick}
-            ></div>
+            />
           ) : (
             ""
           )}

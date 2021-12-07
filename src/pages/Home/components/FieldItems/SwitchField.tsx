@@ -24,7 +24,7 @@ const SwitchField = ({ form, handleChange, inputClass }) => {
               handleChange(e, form);
             }}
             {...formProps}
-          ></FormControl>
+          />
         </FormGroup>
       );
     }
@@ -38,7 +38,7 @@ const SwitchField = ({ form, handleChange, inputClass }) => {
             value={form.value || ""}
             onChange={(e) => handleChange(e, form)}
             {...formProps}
-          ></FormControl>
+          />
         </FormGroup>
       );
     }

@@ -1,3 +1,4 @@
+import * as React from "react";
 interface SubtitleProps {
   children: any;
   className?: string;

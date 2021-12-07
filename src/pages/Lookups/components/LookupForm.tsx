@@ -64,7 +64,7 @@ const LookupForm = ({ setActiveId }) => {
     },
     {
       name: "Label",
-      cell: (row, index) => (
+      cell: (row) => (
         <Input
           type="text"
           name="label"
@@ -80,7 +80,7 @@ const LookupForm = ({ setActiveId }) => {
     },
     {
       name: "Values",
-      cell: (row, index) => (
+      cell: (row) => (
         <Input
           type="text"
           name="value"
@@ -130,7 +130,7 @@ const LookupForm = ({ setActiveId }) => {
         label,
         value,
       })
-      .then((res) => {
+      .then(() => {
         setData((data) => ({
           ...data,
           LookupValues: data.LookupValues.map((values) =>
@@ -142,7 +142,7 @@ const LookupForm = ({ setActiveId }) => {
           ...initialEditValue,
         }));
       })
-      .catch((err) => {});
+      .catch(() => {});
   };
 
   const handleEdit = (row, index) => {
@@ -161,7 +161,7 @@ const LookupForm = ({ setActiveId }) => {
   const handleDelete = (row) => {
     instance
       .delete(`lookup-values/${row.id}`)
-      .then((res) => {
+      .then(() => {
         setData((data) => ({
           ...data,
           LookupValues: data.LookupValues.filter((x) => x.id !== row.id),
@@ -180,7 +180,7 @@ const LookupForm = ({ setActiveId }) => {
     }));
   };
 
-  const handleEditChange = (e, row) => {
+  const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditValue((prev) => ({
       ...prev,

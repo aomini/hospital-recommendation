@@ -4,22 +4,22 @@ import configs from "src/config/axios";
 const instance = axios.create({ ...configs });
 
 instance.interceptors.request.use(
-  function (config) {
+  (config) => {
     config.headers = {
-      Authorization: "Bearer " + localStorage.getItem("tok"),
+      Authorization: `Bearer ${localStorage.getItem("tok")}`,
     };
     return config;
   },
-  function (error) {
+  (error) => {
     return Promise.reject(error);
   }
 );
 
 instance.interceptors.response.use(
-  function (response) {
+  (response) => {
     return response.data;
   },
-  function (error) {
+  (error) => {
     return Promise.reject(error);
   }
 );

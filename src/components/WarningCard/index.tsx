@@ -1,5 +1,4 @@
-import { forwardRef } from "react";
-
+import React, { forwardRef } from "react";
 import ShieldIcon from "src/assets/icons/ShieldIcon";
 import { StyledButton } from "../Button";
 import { H1 } from "../Typography";
@@ -25,8 +24,9 @@ const WarningCard = forwardRef<Ref, Props>(
           </span>
           <h5 className="mt-3 text-center">
             Do you really want to delete this field?
-            <p className="text-sm text-gray-600">Once done, this action
-            cannot be undone.</p>
+            <p className="text-sm text-gray-600">
+              Once done, this action cannot be undone.
+            </p>
           </h5>
           <section className="flex items-center justify-around mt-3">
             <StyledButton primary bold onClick={() => setWarning(false)}>
@@ -48,5 +48,7 @@ const WarningCard = forwardRef<Ref, Props>(
     );
   }
 );
+
+WarningCard.displayName = "WarningCard";
 
 export default WarningCard;

@@ -4,7 +4,7 @@ import { Draggable } from "react-beautiful-dnd";
 const Drag = ({ children, ...rest }) => {
   return (
     <Draggable {...rest}>
-      {(provided, snapshot) => (
+      {(provided) => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}

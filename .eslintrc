@@ -1,0 +1,6 @@
+{
+  "extends": ["rakeshshrestha", "rakeshshrestha/react"],
+  "rules": {
+    // "react/no-unstable-nested-components": "off"
+  }
+}

@@ -11,7 +11,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-
 export const SummaryDiv = styled.div`
   color: #5e5e5e;
   display: flex;
@@ -22,14 +21,19 @@ export const SummaryDiv = styled.div`
 `;
 
 const MapList = ({ items = [], selectedMarkerID, onHandleHover }) => {
-
-  React.useEffect(() => {
-
-  }, [])
+  React.useEffect(() => {}, []);
 
   return (
-    <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper", height: "100vh", overflowY: "scroll" }}>
-      {items.map((item: any, index) => {
+    <List
+      sx={{
+        width: "100%",
+        maxWidth: 360,
+        bgcolor: "background.paper",
+        height: "100vh",
+        overflowY: "scroll",
+      }}
+    >
+      {items.map((item: any) => {
         const {
           id,
           name_of_hospital: name,
@@ -48,34 +52,36 @@ const MapList = ({ items = [], selectedMarkerID, onHandleHover }) => {
               alignItems="center"
               onMouseEnter={() => onHandleHover(item.id)}
               onMouseLeave={() => onHandleHover(null)}
-              style={item.id === selectedMarkerID ? {borderLeft: "10px solid #a12568"} : {}}
+              style={
+                item.id === selectedMarkerID
+                  ? { borderLeft: "10px solid #a12568" }
+                  : {}
+              }
             >
               <div style={{ flex: 1 }}>
                 <ListItemText
                   primary={name}
                   secondary={
-                    <React.Fragment>
-                      <Typography
-                        sx={{ display: "inline" }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                      >
-                        {address}
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      {address}
 
-                        <div style={{ color: "#7b7b7b" }}>
-                          {phone_number ? phone_number : "-"}
-                        </div>
-                        {website ? (
-                          <a
-                            href={website}
-                            style={{ display: "block", color: "#2366fe" }}
-                          >
-                            Visit website
-                          </a>
-                        ) : null}
-                      </Typography>
-                    </React.Fragment>
+                      <div style={{ color: "#7b7b7b" }}>
+                        {phone_number ? phone_number : "-"}
+                      </div>
+                      {website ? (
+                        <a
+                          href={website}
+                          style={{ display: "block", color: "#2366fe" }}
+                        >
+                          Visit website
+                        </a>
+                      ) : null}
+                    </Typography>
                   }
                 />
                 <TableContainer component={Paper}>

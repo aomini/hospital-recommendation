@@ -1,46 +1,30 @@
 import React from "react";
-import Button from '@mui/material/Button'
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
-import serverAxios from "../../utils/axios";
-import Map from "ol/Map";
-import View from "ol/View";
+import { Attribution, defaults } from "ol/control";
 import Feature from "ol/Feature";
-
-import LayerGroup from "ol/layer/Group";
-import VectorLayer from "ol/layer/Vector";
-import TileLayer from "ol/layer/Tile";
-import VectorTileLayer from "ol/layer/VectorTile";
-
-import VectorSource from "ol/source/Vector";
-import OSM from "ol/source/OSM";
-import BingMaps from "ol/source/BingMaps";
-import XYZ from "ol/source/XYZ";
-import Stamen from "ol/source/Stamen";
-import VectorTile from "ol/source/VectorTile";
-import TileJson from "ol/source/TileJSON";
-
-import { fromLonLat, toLonLat } from "ol/proj";
 import GeoJSON from "ol/format/GeoJSON";
 import MVT from "ol/format/MVT";
-import { Style, Fill, Stroke, Icon } from "ol/style";
 import Point from "ol/geom/Point";
-
-import { Attribution, defaults } from "ol/control";
-import { StreetMapProps } from "src/types/StreetMapTypes";
+import LayerGroup from "ol/layer/Group";
+import TileLayer from "ol/layer/Tile";
+import VectorLayer from "ol/layer/Vector";
+import VectorTileLayer from "ol/layer/VectorTile";
+import Map from "ol/Map";
 import Overlay from "ol/Overlay";
-
-/** list */
-import Tooltip from "@mui/material/Tooltip";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-import InboxIcon from "@mui/icons-material/Inbox";
-import DraftsIcon from "@mui/icons-material/Drafts";
+import { fromLonLat, toLonLat } from "ol/proj";
+import BingMaps from "ol/source/BingMaps";
+import OSM from "ol/source/OSM";
+import TileJson from "ol/source/TileJSON";
+import VectorSource from "ol/source/Vector";
+import VectorTile from "ol/source/VectorTile";
+import XYZ from "ol/source/XYZ";
+import { Fill, Icon, Stroke, Style } from "ol/style";
+import View from "ol/View";
 import useQuery from "src/hooks/useQuery";
+import { StreetMapProps } from "src/types/StreetMapTypes";
+import serverAxios from "../../utils/axios";
 
 const allLayers = [
   {
@@ -89,7 +73,7 @@ const fetchIsoline = async ({ lat, lon, time = 10 }) => {
 };
 
 /** Iso line style */
-var isolineStyle = new Style({
+const isolineStyle = new Style({
   stroke: new Stroke({
     color: "rgba(52, 190, 130, 1)",
     width: 3,
@@ -209,7 +193,7 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
   const [mapInstance, setMap] = React.useState<any>(null);
   const [baseLayerGroup, setBaseLayerGroup] = React.useState<any>(null);
   const [selectedLayerIndex, setSelectedLayerIndex] = React.useState(0);
-  const [logging, setLogging] = React.useState(false)
+  const [logging, setLogging] = React.useState(false);
   const query = useQuery();
 
   React.useEffect(() => {
@@ -217,23 +201,26 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
       return;
     }
 
-   
     const significantHospitals = query.get("hospitals")
-     // @ts-ignore
-      ? JSON.parse(query.get("hospitals"))
+      ? // @ts-ignore
+        JSON.parse(query.get("hospitals"))
       : [];
 
     const map = init();
 
     // get zoom
-    const queryZoom = query.get('zoom')
-    if(queryZoom){
-      map.getView().setZoom((map.getView().getZoom() || 12) + parseInt(queryZoom))
+    const queryZoom = query.get("zoom");
+    if (queryZoom) {
+      map
+        .getView()
+        .setZoom((map.getView().getZoom() || 12) + parseInt(queryZoom));
     }
 
     // Single hospital
-    const hospital = query.get('hospital') ? [parseInt(query.get('hospital') as string)] : []
-    
+    const hospital = query.get("hospital")
+      ? [parseInt(query.get("hospital") as string)]
+      : [];
+
     setMap(map);
     /** Layer group */
     const baseLayerGroup = new LayerGroup({
@@ -249,26 +236,25 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
     });
     setBaseLayerGroup(baseLayerGroup);
     map.addLayer(baseLayerGroup);
-    
+
     /** Create a features for a hospital point marker */
     const filteredHospitals = hospitals
       .filter((x) =>
         significantHospitals.length ? significantHospitals.includes(x.id) : true
       )
-      .filter(y => hospital.length  ? hospital.includes(y.id) : true);
-      console.log(filteredHospitals)
+      .filter((y) => (hospital.length ? hospital.includes(y.id) : true));
+    console.log(filteredHospitals);
 
-    const markerFeatures = filteredHospitals
-      .map((x) => {
-        const { latitude: lat, longitude: lng, ...rest } = x;
-        return new Feature({
-          geometry: new Point(fromLonLat([lng, lat])),
-          marker: true,
-          lat,
-          lng,
-          ...rest,
-        });
+    const markerFeatures = filteredHospitals.map((x) => {
+      const { latitude: lat, longitude: lng, ...rest } = x;
+      return new Feature({
+        geometry: new Point(fromLonLat([lng, lat])),
+        marker: true,
+        lat,
+        lng,
+        ...rest,
       });
+    });
 
     /** Vector source for markers */
     const markerVectorSource = new VectorSource({
@@ -282,43 +268,41 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
     map.addLayer(markerVectorLayer);
 
     /** Plot isoline */
-    const isoline = query.get('isoline') ? JSON.parse(query.get('isoline') as string) : false
-    const time = query.get('time') ? parseInt(query.get('time') as string): 10
-    if(isoline){
-      for(let data of filteredHospitals){      
-        const {latitude: lat, longitude: lng} = data
+    const isoline = query.get("isoline")
+      ? JSON.parse(query.get("isoline") as string)
+      : false;
+    const time = query.get("time") ? parseInt(query.get("time") as string) : 10;
+    if (isoline) {
+      for (const data of filteredHospitals) {
+        const { latitude: lat, longitude: lng } = data;
         fetchIsoline({ lat: lat, lon: lng, time }).then((resp) => {
-            const { data } = resp;
-            const geojsonObject = JSON.stringify(data);          
+          const { data } = resp;
+          const geojsonObject = JSON.stringify(data);
 
-            const isolineVectorSource = new VectorSource({
-              features: new GeoJSON({
-                featureProjection: "EPSG:3857",
-              }).readFeatures(geojsonObject),
-            });
-
-            const isolineVectorLayer = new VectorLayer({
-              source: isolineVectorSource,
-              zIndex: 1,
-              style: isolineStyle,
-              //@ts-ignore
-              title: "isolineLayer",
-            });
-
-            map.addLayer(isolineVectorLayer);
+          const isolineVectorSource = new VectorSource({
+            features: new GeoJSON({
+              featureProjection: "EPSG:3857",
+            }).readFeatures(geojsonObject),
           });
+
+          const isolineVectorLayer = new VectorLayer({
+            source: isolineVectorSource,
+            zIndex: 1,
+            style: isolineStyle,
+            //@ts-ignore
+            title: "isolineLayer",
+          });
+
+          map.addLayer(isolineVectorLayer);
+        });
       }
     }
-    
 
-    map.on("click", function (evt) {
+    map.on("click", (evt) => {
       container!.style.display = "block";
-      const feature = map.forEachFeatureAtPixel(
-        evt.pixel,
-        function (feat, layer) {
-          return feat;
-        }
-      );
+      const feature = map.forEachFeatureAtPixel(evt.pixel, (feat) => {
+        return feat;
+      });
 
       if (feature && feature.get("marker")) {
         const keys = [
@@ -407,30 +391,30 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
   const handleLayerSwitch = (name, index) => {
     setSelectedLayerIndex(index);
 
-    baseLayerGroup.getLayers().forEach(function (element, index, array) {
-      let baseLayerName = element.get("title");
+    baseLayerGroup.getLayers().forEach((element) => {
+      const baseLayerName = element.get("title");
       element.setVisible(baseLayerName === name);
     });
   };
 
   const exportMap = () => {
-    let map = mapInstance;
-    map.once("rendercomplete", function () {
-      const mapCanvas = document.createElement("canvas");
+    const map = mapInstance;
+    map.once("rendercomplete", () => {
+      const mapCanvas: HTMLCanvasElement = document.createElement("canvas");
       const size = map.getSize();
       mapCanvas.width = size[0];
       mapCanvas.height = size[1];
       const mapContext = mapCanvas.getContext("2d");
       Array.prototype.forEach.call(
         document.querySelectorAll(".ol-layer canvas"),
-        function (canvas) {
+        (canvas) => {
           if (canvas.width > 0) {
             const opacity = canvas.parentNode.style.opacity;
-            mapContext.globalAlpha = opacity === "" ? 1 : Number(opacity);
+            mapContext!.globalAlpha = opacity === "" ? 1 : Number(opacity);
             const transform = canvas.style.transform;
             // Get the transform parameters from the style's transform matrix
             const matrix = transform
-              .match(/^matrix\(([^\(]*)\)$/)[1]
+              .match(/^matrix\(([^(]*)\)$/)[1]
               .split(",")
               .map(Number);
             // Apply the transform to the export map context
@@ -438,7 +422,7 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
               mapContext,
               matrix
             );
-            mapContext.drawImage(canvas, 0, 0);
+            mapContext!.drawImage(canvas, 0, 0);
           }
         }
       );
@@ -447,7 +431,7 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
         (blob) => {
           if (blob) {
             // pass file name on query as ?file=somename
-            const file = new File([blob], query.get("file") + ".png");
+            const file = new File([blob], `${query.get("file")}.png`);
             const formData = new FormData();
             formData.append("file", file);
             serverAxios.post("/map/upload", formData);
@@ -469,31 +453,41 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
   };
 
   const logPoints = (e) => {
-    const [lon, lat] = toLonLat(e.coordinate)
-      alert(`here's your longitude & latitude ${lat},${lon}`)
-  }
+    const [lon, lat] = toLonLat(e.coordinate);
+    alert(`here's your longitude & latitude ${lat},${lon}`);
+  };
 
   const turnOnCoordinates = () => {
-    setLogging(true)
-    mapInstance.on('click',logPoints)    
-  }
+    setLogging(true);
+    mapInstance.on("click", logPoints);
+  };
 
   return (
     <div>
-      <div className="h-screen w-screen" id="map"></div>
-      
+      <div className="h-screen w-screen" id="map" />
 
       <div className="layers-container">
-        <div style={{display: 'flex', alignItems: 'flex-start', flexDirection: 'column', gap: '10px', marginBottom: "10px"}}> 
-          <Button variant='contained' id="export" onClick={exportMap}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            flexDirection: "column",
+            gap: "10px",
+            marginBottom: "10px",
+          }}
+        >
+          <Button variant="contained" id="export" onClick={exportMap}>
             export
           </Button>
-          {!logging && 
-          <Button variant='outlined' onClick={turnOnCoordinates}>Coordinate logging</Button>}
+          {!logging && (
+            <Button variant="outlined" onClick={turnOnCoordinates}>
+              Coordinate logging
+            </Button>
+          )}
         </div>
-       
+
         {allLayers.map((x, i) => (
-          <Tooltip title={x.label} placement="right">
+          <Tooltip key={i} title={x.label} placement="right">
             <img
               key={x.name}
               alt={x.label}

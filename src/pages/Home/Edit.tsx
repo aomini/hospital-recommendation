@@ -240,7 +240,7 @@ const Edit = () => {
           status,
         },
       })
-      .then((res) => {
+      .then(() => {
         getHospitalData(id);
         if (fields.activeIndex < fields.rows.length - 1) handleNext();
       })
@@ -287,7 +287,7 @@ const Edit = () => {
               </div>
               <div className="flex justify-between">
                 {fields.activeIndex === 0 ? (
-                  <div></div>
+                  <div />
                 ) : (
                   <StyledButton type="button" onClick={handlePrev} primary sm>
                     Previous
@@ -295,7 +295,7 @@ const Edit = () => {
                 )}
 
                 {fields.rows.length === fields.activeIndex ? (
-                  <div></div>
+                  <div />
                 ) : (
                   <StyledButton type="submit" sm success>
                     {fields.activeIndex === fields.rows.length - 1

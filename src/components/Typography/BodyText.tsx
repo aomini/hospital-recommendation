@@ -1,3 +1,4 @@
+import * as React from "react";
 interface BodyTextProps {
   children: any;
   className?: string;

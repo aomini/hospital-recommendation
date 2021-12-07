@@ -1,17 +1,17 @@
 import React from "react";
 import {
-  withGoogleMap,
-  withScriptjs,
   GoogleMap,
   InfoWindow,
   Marker,
+  withGoogleMap,
+  withScriptjs,
 } from "react-google-maps";
 import OutsideClickHandler from "react-outside-click-handler";
-import mapConfigs from "./map.config";
 import InfoWindowContent from "../InfoWindow";
+import mapConfigs from "./map.config";
 
 const {
-  MARKER_SIZE,
+  // MARKER_SIZE,
   DEFAULT_ZOOM,
   DEFAULT_CENTER,
   DEFAULT_MAP_OPTIONS,
@@ -55,8 +55,6 @@ const MapContainer = ({ markers, setOrigin, hoveredOriginId }) => {
     }
   };
 
-  console.log(DEFAULT_CENTER);
-
   return (
     <GoogleMap
       ref={mapRef}
@@ -66,17 +64,15 @@ const MapContainer = ({ markers, setOrigin, hoveredOriginId }) => {
       onDragStart={() => setIsClickOutsideDisabled(true)}
       onDragEnd={() => setIsClickOutsideDisabled(false)}
     >
-      {markers.map(
-        ({ id, address, name, latitude: lat, longitude: lng }, index) => (
-          <Marker
-            key={index}
-            position={{ lat, lng }}
-            title={name}
-            name={name}
-            onClick={() => handleClick(id)}
-          />
-        )
-      )}
+      {markers.map(({ id, name, latitude: lat, longitude: lng }, index) => (
+        <Marker
+          key={index}
+          position={{ lat, lng }}
+          title={name}
+          name={name}
+          onClick={() => handleClick(id)}
+        />
+      ))}
 
       {selectedData && (
         <InfoWindow

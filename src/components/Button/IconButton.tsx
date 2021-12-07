@@ -1,3 +1,4 @@
+import * as React from "react";
 interface IconButtonProps {
   children: any;
   className?: string;

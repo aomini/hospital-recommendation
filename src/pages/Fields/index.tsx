@@ -1,15 +1,14 @@
 import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import axios from "src/utils/axios";
-import instance from "src/utils/axios";
 import { reorder } from "src/utils/drag-drop";
 import { H2 } from "src/components/Typography";
 import { SuccessButton } from "src/components/Button";
 import Sidebar from "src/components/Sidebar";
-import DragDropPriorities from "./components/DragDropPriorities";
-import DragFields from "./components/DragFields";
 import useAdjustHeight from "src/hooks/useAdjustHeight";
 import { notifySuccess } from "src/utils/notify";
+import DragDropPriorities from "./components/DragDropPriorities";
+import DragFields from "./components/DragFields";
 
 const Fields = () => {
   const [fields, setFields] = React.useState<any[]>([]);
@@ -25,7 +24,7 @@ const Fields = () => {
     };
 
     const fetchPriorities = () => {
-      instance
+      axios
         .get("/priorities")
         .then((res) => {
           const { data } = res;
@@ -92,10 +91,10 @@ const Fields = () => {
   const handleSave = () => {
     const method = hasPriorities ? "put" : "post";
     const fieldItems = priorities.map((x) => x.id);
-    instance[method]("/priorities", {
+    axios[method]("/priorities", {
       fieldItems,
     })
-      .then((res) => {
+      .then(() => {
         setHasPriorities(true);
         notifySuccess(
           !hasPriorities ? "Created successfully" : "Updated successfully"
@@ -118,17 +117,13 @@ const Fields = () => {
                 <H2>Available Fields</H2>
               </section>
               <div>
-                <DragFields
-                  priorities={priorities}
-                  isDragDisabled={false}
-                  fields={fields}
-                />
+                <DragFields priorities={priorities} fields={fields} />
               </div>
             </section>
             <section className="bg-gray-50 h-full overflow-auto w-2/3 p-3 border shadow-sm rounded-md">
               <section className="text-center h-full mb-2">
                 <div className="flex justify-between align-center text-purple mb-1">
-                  <div></div>
+                  <div />
                   <H2 className="justify-center">Priorities</H2>
                   <div className="justify-end">
                     <SuccessButton

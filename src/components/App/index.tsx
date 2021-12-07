@@ -1,14 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-import AuthProvider from "src/Providers/AuthProvider";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AuthLayout from "src/layout/AuthLayout";
-import Map from "src/pages/Map";
-import StreetMapPage from "src/pages/StreetMap";
 import PageNotFound from "src/pages/404";
 import Login from "src/pages/Login";
+import StreetMapPage from "src/pages/StreetMap";
+import AuthProvider from "src/Providers/AuthProvider";
+import "react-toastify/dist/ReactToastify.css";
 
 const routes = [
   {
@@ -59,6 +56,12 @@ const routes = [
   },
   {
     exact: true,
+    path: "/points",
+    component: React.lazy(() => import("src/pages/Points")),
+    layout: AuthLayout,
+  },
+  {
+    exact: true,
     path: "/",
     component: React.lazy(() => import("src/pages/Home")),
     layout: AuthLayout,
@@ -74,9 +77,9 @@ const App = () => {
             <Login />
           </Route>
           <Route path="/street-map" exact>
-              <StreetMapPage />
-            </Route>
-          <AuthLayout>            
+            <StreetMapPage />
+          </Route>
+          <AuthLayout>
             {routes.map((route) => (
               <Route exact={route.exact} path={route.path} key={route.path}>
                 <React.Suspense fallback={() => "loading"}>

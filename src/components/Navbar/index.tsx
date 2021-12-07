@@ -1,7 +1,6 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
-
-import { UserContext } from "src/Providers/AuthProvider";
+import UserContext from "src/context/UserContext";
 import useClickOutside from "src/hooks/useOutsideClick";
 import HomeIcon from "src/assets/icons/HomeIcon";
 import EyeIcon from "src/assets/icons/EyeIcon";
@@ -9,12 +8,14 @@ import LogOutIcon from "src/assets/icons/LogOutIcon";
 import LocationIcon from "src/assets/icons/LocationIcon";
 import SettingsIcon from "src/assets/icons/SettingsIcon";
 import UsersIcon from "src/assets/icons/UsersIcon";
-import { BodyText, Subtitle } from "../Typography";
 import activeLinkChecker from "src/utils/activeLinkChecker";
+import GlobeIcon from "src/assets/icons/GlobeIcon";
+import { BodyText, Subtitle } from "../Typography";
 
 interface NavbarProps {}
 const navItems = [
   { name: "Hospitals", href: "/", Icon: HomeIcon },
+  { name: "Points", href: "/points", Icon: GlobeIcon },
   { name: "Maps", href: "/map", Icon: LocationIcon },
   { name: "Users", href: "/users", Icon: UsersIcon },
   { name: "Lookups", href: "/look-ups", Icon: EyeIcon },

@@ -1,3 +1,4 @@
+import * as React from "react";
 interface PrimaryButtonProps {
   children: any;
   className?: string;

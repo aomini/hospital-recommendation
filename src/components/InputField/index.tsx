@@ -1,3 +1,4 @@
+import * as React from "react";
 import ExclamationCircleIcon from "src/assets/icons/ExclamationCircleIcon";
 
 interface InputProps {

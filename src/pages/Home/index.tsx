@@ -1,13 +1,12 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
 import instance from "src/utils/axios";
 import EditIcon from "src/assets/icons/EditIcon";
 import DataTable from "src/components/DataTable";
-import Tabs from "./components/Tabs";
 import { H1 } from "src/components/Typography";
 import { IconButton, StyledButton } from "src/components/Button";
 import { Pagination, PaginationItem, Switch } from "@mui/material";
+import Tabs from "./components/Tabs";
 
 const LIMIT = 10;
 
@@ -100,7 +99,7 @@ const Home = () => {
       .patch(`/hospitals/${row.id}/significance`, {
         significance,
       })
-      .then((res) => {
+      .then(() => {
         setHospitalData((prev) => ({
           ...prev,
           rows: prev.rows.map((x) =>
@@ -108,7 +107,7 @@ const Home = () => {
           ),
         }));
       })
-      .catch((err) => {});
+      .catch(() => {});
   };
 
   const handleClick = (tab) => {

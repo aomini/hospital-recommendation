@@ -6,8 +6,8 @@ import { H3 } from "src/components/Typography";
 
 const DragDropPriorities = ({ priorities, isDragDisabled, handleClick }) => {
   return (
-    <Drop droppableId={`priorities-drop`}>
-      {(provided, snapshot) => (
+    <Drop droppableId="priorities-drop">
+      {() => (
         <div className="h-full ">
           {!priorities.length && (
             <div className="bg-white border border-purple border-dashed h-full flex items-center justify-center">

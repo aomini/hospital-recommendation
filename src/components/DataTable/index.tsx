@@ -1,13 +1,5 @@
+import * as React from "react";
 import ReactDataTable from "react-data-table-component";
-
-const customStyles = {
-  headCells: {
-    style: {
-      background: "#fcc260",
-      fontWeight: 500,
-    },
-  },
-};
 
 interface DataTableProps {
   columns: any;

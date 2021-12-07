@@ -1,4 +1,5 @@
-import {useHistory} from "react-router-dom"
+import * as React from "react";
+import { useHistory } from "react-router-dom";
 import Navbar from "src/components/Navbar";
 
 interface LayoutProps {
@@ -10,8 +11,8 @@ const AuthLayout: React.FC<LayoutProps> = ({
   children,
   childrenClass = "",
 }) => {
-  const history = useHistory()
-  const tok = localStorage.getItem("tok")
+  const history = useHistory();
+  const tok = localStorage.getItem("tok");
   if (!tok) {
     history.replace("/login");
     return null;

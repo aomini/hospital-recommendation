@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
@@ -61,79 +61,77 @@ const CreateUser = ({ edit = false }) => {
   };
 
   return (
-    <>
-      <div className="bg-gray-50 text-purple p-7 mx-auto mt-5 w-1/3 rounded-md shadow-sm">
-        <H1>{edit ? "Update" : "Enter"} User Details</H1>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={createUserSchema}
-          onSubmit={(values) => {
-            handleSubmit(values);
-          }}
-        >
-          {function Test({ errors, touched, setFieldValue }) {
-            React.useEffect(() => {
-              if (edit) {
-                // get user and set form fields
-                axios.get("/user/" + params.id).then((resp) => {
-                  const user = resp.data;
-                  const fields = ["first_name", "username"];
-                  fields.forEach((field) =>
-                    setFieldValue(field, user[field], false)
-                  );
-                });
-              }
-            }, [setFieldValue]);
-            return (
-              <Form className="mt-7 grid gap-6">
-                <Field
-                  component={InputField}
-                  // htmlFor="first_name"
-                  label="First Name"
-                  id="first_name"
-                  name="first_name"
-                  placeholder="Enter First Name"
-                  inputType="text"
-                  error={touched.first_name && errors.first_name}
-                  className="w-full"
-                />
-                <Field
-                  component={InputField}
-                  htmlFor="username"
-                  label="Username"
-                  id="username"
-                  name="username"
-                  placeholder="Enter User Name"
-                  inputType="text"
-                  error={touched.username && errors.username}
-                  className="w-full"
-                />
+    <div className="bg-gray-50 text-purple p-7 mx-auto mt-5 w-1/3 rounded-md shadow-sm">
+      <H1>{edit ? "Update" : "Enter"} User Details</H1>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={createUserSchema}
+        onSubmit={(values) => {
+          handleSubmit(values);
+        }}
+      >
+        {function Test({ errors, touched, setFieldValue }) {
+          React.useEffect(() => {
+            if (edit) {
+              // get user and set form fields
+              axios.get(`/user/${params.id}`).then((resp) => {
+                const user = resp.data;
+                const fields = ["first_name", "username"];
+                fields.forEach((field) =>
+                  setFieldValue(field, user[field], false)
+                );
+              });
+            }
+          }, [setFieldValue]);
+          return (
+            <Form className="mt-7 grid gap-6">
+              <Field
+                component={InputField}
+                // htmlFor="first_name"
+                label="First Name"
+                id="first_name"
+                name="first_name"
+                placeholder="Enter First Name"
+                inputType="text"
+                error={touched.first_name && errors.first_name}
+                className="w-full"
+              />
+              <Field
+                component={InputField}
+                htmlFor="username"
+                label="Username"
+                id="username"
+                name="username"
+                placeholder="Enter User Name"
+                inputType="text"
+                error={touched.username && errors.username}
+                className="w-full"
+              />
 
-                <Field
-                  component={InputField}
-                  htmlFor="password"
-                  label="Password"
-                  id="password"
-                  name="password"
-                  placeholder="Enter password"
-                  inputType="password"
-                  error={errors.password}
-                  className="w-full"
-                />
-                <section className="text-right">
-                  <PrimaryButton
-                    type="submit"
-                    className="uppercase tracking-wider font-medium border border-purple bg-pink-100 hover:bg-pink-200 mx-auto w-1/4 rounded-md"
-                  >
-                    Submit
-                  </PrimaryButton>
-                </section>
-              </Form>
-            );
-          }}
-        </Formik>
-      </div>
-    </>
+              <Field
+                component={InputField}
+                htmlFor="password"
+                label="Password"
+                id="password"
+                name="password"
+                placeholder="Enter password"
+                inputType="password"
+                error={errors.password}
+                className="w-full"
+              />
+              <section className="text-right">
+                <PrimaryButton
+                  type="submit"
+                  className="uppercase tracking-wider font-medium border border-purple bg-pink-100 hover:bg-pink-200 mx-auto w-1/4 rounded-md"
+                >
+                  Submit
+                </PrimaryButton>
+              </section>
+            </Form>
+          );
+        }}
+      </Formik>
+    </div>
   );
 };
 

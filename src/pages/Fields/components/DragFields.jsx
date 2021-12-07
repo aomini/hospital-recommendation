@@ -1,17 +1,15 @@
-import React from "react";
-import Drag from "src/components/DragDrop/Drag";
-import Drop from "src/components/DragDrop/Drop";
+import * as React from "react";
+import Drag from "../../../components/DragDrop/Drag";
+import Drop from "../../../components/DragDrop/Drop";
 
-const Draggable = ({ item, priorities }) => (
-  <li
-    className={`flexitems-center justify-between text-sm font-normal text-gray-700 p-2`}
-  >
+const Draggable = ({ item }) => (
+  <li className="flexitems-center justify-between text-sm font-normal text-gray-700 p-2">
     {item.title}
     {item.subtitle ? `(${item.subtitle})` : ""}
   </li>
 );
 
-const DragFields = ({ fields, priorities, isDragDisabled }) => {
+const DragFields = ({ fields, priorities }) => {
   return (
     <ul className="mt-2">
       {fields?.map((field) => (
@@ -32,7 +30,7 @@ const DragFields = ({ fields, priorities, isDragDisabled }) => {
           //   );
           // }}
         >
-          {(provided, snapshot) => (
+          {() => (
             <li className="my-2">
               <div className="bg-gray-200 text-lg font-medium p-2 rounded-sm">
                 {field.name}
