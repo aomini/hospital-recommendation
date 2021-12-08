@@ -243,7 +243,6 @@ const StreepMap: React.FC<StreetMapProps> = ({ hospitals }) => {
         significantHospitals.length ? significantHospitals.includes(x.id) : true
       )
       .filter((y) => (hospital.length ? hospital.includes(y.id) : true));
-    console.log(filteredHospitals);
 
     const markerFeatures = filteredHospitals.map((x) => {
       const { latitude: lat, longitude: lng, ...rest } = x;

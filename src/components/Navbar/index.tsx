@@ -28,7 +28,6 @@ const Navbar: React.FC<NavbarProps> = () => {
   const location = useLocation();
   const history = useHistory();
 
-  const path = location.pathname.split("/");
   const handleOpen = () => {
     setMenuOpen(!menuOpen);
   };
@@ -41,8 +40,6 @@ const Navbar: React.FC<NavbarProps> = () => {
   useClickOutside(menuRef, () => {
     setMenuOpen(false);
   });
-  console.log(location);
-  console.log(path);
   return (
     <UserContext.Consumer>
       {(value: any) => (

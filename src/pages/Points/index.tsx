@@ -1,8 +1,10 @@
-import React from "react";
+import * as React from "react";
+import { TextField } from "@mui/material";
 import instance from "src/utils/axios";
 import DataTable from "src/components/DataTable";
 import Actions from "./components/Actions";
 import AddNew from "./components/AddNew";
+import { notifyError, notifySuccess } from "src/utils/notify";
 
 type Values = {
   name: string;
@@ -20,6 +22,7 @@ interface IResponse {
 
 type IPoint = {
   values: Values;
+  edit: Values;
   data: {
     count: number;
     rows: IResponse[];
@@ -34,6 +37,7 @@ const values: Values = {
 
 const initialData = {
   values,
+  edit: values,
   data: {
     count: 0,
     rows: [],
@@ -54,18 +58,73 @@ const Points = () => {
         cell(_, index) {
           return index + 1;
         },
+        width: "100px",
       },
-      { name: "Name" },
-      { name: "Latitude" },
-      { name: "Longitude" },
+      {
+        name: "Name",
+        sortable: true,
+        selector: (row) => row.name,
+        cell(row) {
+          return (
+            <TextField
+              id="name"
+              name="name"
+              placeholder="Name"
+              size="small"
+              disabled={!row.edit}
+              value={row.edit ? points.edit.name : row.name}
+              onChange={handleRowChange}
+            />
+          );
+        },
+      },
+      {
+        name: "Latitude",
+        sortable: true,
+        selector: (row) => row.lat,
+        cell(row) {
+          return (
+            <TextField
+              id="lat"
+              name="lat"
+              placeholder="Latitude"
+              type="number"
+              size="small"
+              color="primary"
+              disabled={!row.edit}
+              value={row.edit ? points.edit.lat : row.lat}
+              onChange={handleRowChange}
+            />
+          );
+        },
+      },
+      {
+        name: "Longitude",
+        sortable: true,
+        selector: (row) => row.lng,
+        cell(row) {
+          return (
+            <TextField
+              id="lng"
+              name="lng"
+              placeholder="Longitude"
+              type="number"
+              size="small"
+              disabled={!row.edit}
+              value={row.edit ? points.edit.lng : row.lng}
+              onChange={handleRowChange}
+            />
+          );
+        },
+      },
       {
         name: "Actions",
         cell(row: IResponse) {
           return (
             <Actions
-              edit={row.edit || false}
+              edit={!!row.edit}
               handleEdit={() => handleRowEdit(row)}
-              handleDone={() => handleRowDone()}
+              handleDone={() => handleRowDone(row)}
               handleDelete={() => handleRowDelete(row)}
               handleClose={() => handleRowClose(row)}
             />
@@ -76,17 +135,36 @@ const Points = () => {
   };
 
   const fetchPoints = () => {
-    instance.get("/point").then((res: any) => {
-      setPoints((points) => ({
-        ...points,
-        ...res,
-      }));
+    instance.get("/point").then((res) => {
+      setPoints(
+        (points: IPoint): IPoint => ({
+          ...points,
+          ...res,
+        })
+      );
     });
   };
 
-  const handleRowEdit = (row: IResponse) => {
+  const handleRowChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = e.target;
     setPoints((points: IPoint) => ({
       ...points,
+      edit: {
+        ...points.edit,
+        [name]: value,
+      },
+    }));
+  };
+
+  const handleRowEdit = (row: IResponse) => {
+    const { name, lat, lng } = row;
+    setPoints((points: IPoint) => ({
+      ...points,
+      edit: {
+        name,
+        lng,
+        lat,
+      },
       data: {
         ...points.data,
         rows: points.data.rows.map(
@@ -99,7 +177,36 @@ const Points = () => {
     }));
   };
 
-  const handleRowDone = () => {};
+  const handleRowDone = (row) => {
+    instance
+      .put(`/point/${row.id}`, {
+        ...row,
+        ...points.edit,
+      })
+      .then(() => {
+        setPoints((points: IPoint) => ({
+          ...points,
+          edit: values,
+          data: {
+            ...points.data,
+            rows: points.data.rows.map((x) =>
+              x.id === row.id
+                ? {
+                    ...row,
+                    ...points.edit,
+                    edit: false,
+                  }
+                : x
+            ),
+          },
+        }));
+        notifySuccess("Successfully updated");
+      })
+      .catch((err) => {
+        notifyError("Failed to update");
+        console.log(err);
+      });
+  };
 
   const handleRowDelete = (row: IResponse) => {
     instance
@@ -150,7 +257,7 @@ const Points = () => {
     const payload = points.values;
     instance
       .post("/point", payload)
-      .then(() => {
+      .then((res: { data: IResponse }) => {
         setPoints(
           (point: IPoint): IPoint => ({
             ...point,
@@ -158,12 +265,15 @@ const Points = () => {
             data: {
               ...point.data,
               count: point.data.count + 1,
-              rows: [...point.data.rows],
+              rows: [...point.data.rows, res.data],
             },
           })
         );
+        notifySuccess("Successfully created");
       })
-      .catch(() => {});
+      .catch(() => {
+        notifyError("Failed to create");
+      });
   };
 
   return (

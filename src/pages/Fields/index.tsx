@@ -49,8 +49,6 @@ const Fields = () => {
       return;
     }
 
-    console.log("");
-
     // drag from field=>priorities
     if (
       source.droppableId.includes("field") &&

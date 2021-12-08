@@ -93,7 +93,6 @@ const Home = () => {
 
   const onSignificanceChange = (row) => {
     const significance = !row.significance;
-    console.log({ row, hospitalData });
 
     instance
       .patch(`/hospitals/${row.id}/significance`, {

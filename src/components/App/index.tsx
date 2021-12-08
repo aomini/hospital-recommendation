@@ -82,7 +82,7 @@ const App = () => {
           <AuthLayout>
             {routes.map((route) => (
               <Route exact={route.exact} path={route.path} key={route.path}>
-                <React.Suspense fallback={() => "loading"}>
+                <React.Suspense fallback="loading..">
                   <route.component edit={route.edit} />
                 </React.Suspense>
               </Route>

@@ -4,8 +4,8 @@ import { Button, TextField } from "@mui/material";
 const AddNew = ({ values, handleChange, handleAdd }) => {
   return (
     <div className="p-4 grid gap-2 bg-gray-50 rounded shadow-md">
-      <h2 className="text-gray-600 text-lg">Add new points</h2>
-      <div className="grid grid-cols-4 gap-4 mb-10">
+      <h2 className="text-gray-600 text-lg">Add New Point</h2>
+      <div className="grid grid-cols-4 gap-4 mb-4">
         <TextField
           id="name"
           name="name"
@@ -21,6 +21,7 @@ const AddNew = ({ values, handleChange, handleAdd }) => {
           name="lat"
           label="Latitude"
           size="small"
+          type="number"
           variant="outlined"
           className="bg-gray-100"
           value={values.lat}
@@ -31,6 +32,7 @@ const AddNew = ({ values, handleChange, handleAdd }) => {
           name="lng"
           label="Longitude"
           size="small"
+          type="number"
           variant="outlined"
           className="bg-gray-100"
           value={values.lng}

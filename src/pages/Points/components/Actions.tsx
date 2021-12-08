@@ -15,22 +15,22 @@ const Actions = ({
   return (
     <div className="flex gap-2">
       {!edit && (
-        <IconButton onClick={handleEdit}>
+        <IconButton type="button" onClick={handleEdit}>
           <EditOutlinedIcon />
         </IconButton>
       )}
       {edit && (
-        <IconButton color="success" onClick={handleDone}>
+        <IconButton type="button" color="success" onClick={handleDone}>
           <DoneOutlinedIcon />
         </IconButton>
       )}
       {!edit && (
-        <IconButton color="error">
+        <IconButton type="button" color="error">
           <DeleteOutlineOutlinedIcon onClick={handleDelete} />
         </IconButton>
       )}
       {edit && (
-        <IconButton color="error" onClick={handleClose}>
+        <IconButton type="button" color="error" onClick={handleClose}>
           <CloseOutlinedIcon />
         </IconButton>
       )}
